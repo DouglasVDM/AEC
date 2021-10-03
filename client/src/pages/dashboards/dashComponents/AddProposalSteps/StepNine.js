@@ -1,13 +1,13 @@
 import { TextField, Button } from "@mui/material";
 import { Form, Formik, useFormik } from "formik";
-import * as Yup from 'yup'
+import * as Yup from "yup";
 
 
 // FORM VALIDATION FRONTEND
 const stepNineValidationSchema = Yup.object({
-  who_we_are: Yup.string().required().label('Who We Are'),
-  vision_and_mission: Yup.string().required().label('vision_and_mission'),
-  track_record: Yup.string().required().label('Track Record'),
+  who_we_are: Yup.string().required().label("Who We Are"),
+  vision_and_mission: Yup.string().required().label("vision_and_mission"),
+  track_record: Yup.string().required().label("Track Record"),
 });
 
 const StepNine = ({ data, previousStep, next }) => {
@@ -21,13 +21,13 @@ const StepNine = ({ data, previousStep, next }) => {
     validationSchema: stepNineValidationSchema,
     onSubmit: (values) => {
       console.log(JSON.stringify(values, null, 2));
-      next(values, true)
+      next(values, true);
     },
   });
 
   return (
     <div>
-      <p>{`Page 9 of 9`}</p>
+      <p>{"Page 9 of 9"}</p>
       <Formik
         validationSchema={stepNineValidationSchema}
         initialValues={data}
@@ -99,7 +99,7 @@ const StepNine = ({ data, previousStep, next }) => {
         )}
       </Formik>
     </div>
-  )
+  );
 };
 
 export default StepNine;
