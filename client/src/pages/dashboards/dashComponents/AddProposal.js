@@ -9,7 +9,7 @@ import StepSeven from "./AddProposalSteps/StepSeven";
 import StepEight from "./AddProposalSteps/StepEight";
 import StepNine from "./AddProposalSteps/StepNine";
 import Box from "@mui/material/Box";
-
+import axios from "axios";
 
 const AddProposal = () => {
 	const [data, setData] = useState({
@@ -42,8 +42,15 @@ const AddProposal = () => {
 	const [currentStep, setCurrentstep] = useState(0);
 
 	// API REQUEST
-	const makeApiRequest = (formData) => {
+	const makeApiRequest = async (formData) => {
 		console.log("Form Submitted", formData);
+		try {
+			const response = await axios.post("/api/student/projects/proposal", formData);
+			const parseData = response.data[0];
+			console.log("parseData=>", parseData);
+		} catch (error) {
+			console.error(error.message);
+		}
 	};
 
 	// FORWARD 1 STEP
