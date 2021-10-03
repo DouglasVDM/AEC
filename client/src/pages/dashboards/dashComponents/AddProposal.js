@@ -30,12 +30,12 @@ const AddProposal = () => {
 		startup_costs: "",
 		operational_costs: "",
 		finance_plan: "",
-		sustainability_Business_Plan: "",
+		business_plan: "",
 		implementation_plan: "",
-		key_Milestones: "",
+		key_milestones: "",
 		monitoring_and_evaluation: "",
 		who_we_are: "",
-		vision_mission: "",
+		vision_and_mission: "",
 		track_record: "",
 	});
 
