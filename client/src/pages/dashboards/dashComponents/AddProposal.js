@@ -13,7 +13,7 @@ import Box from "@mui/material/Box";
 
 const AddProposal = () => {
 	const [data, setData] = useState({
-		proposal_name: "",
+		project_name: "",
 		problem_statement: "",
 		proposed_action: "",
 		expected_result: "",
