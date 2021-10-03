@@ -14,6 +14,7 @@ import ProjectTable from "./dashComponents/ProjectTable";
 import PersonIcon from "@mui/icons-material/Person";
 import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
 import SportsKabaddiIcon from "@mui/icons-material/SportsKabaddi";
+import AddProposal from "./dashComponents/AddProposal";
 
 
 
@@ -75,6 +76,8 @@ const StudentDashboard = (props) => {
 					<Projects setPage={setPage} />
 				) : page === "competitions" ? (
 					<Competitions setPage={setPage} />
+				) : page === "proposal" ? (
+					<AddProposal setPage={setPage} />
 				) : (
 					<>
 						<div className="introduction">
@@ -88,6 +91,9 @@ const StudentDashboard = (props) => {
 								</div>
 								<div className="projects" onClick={() => setPage("projects")}>
 									<VolunteerActivismIcon style={{ fontSize: "2rem" }} /> Add Project
+								</div>
+								<div className="projects" onClick={() => setPage("proposal")}>
+									<VolunteerActivismIcon style={{ fontSize: "2rem" }} /> Add Proposal
 								</div>
 								<div
 									className="competitions"
