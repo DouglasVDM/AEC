@@ -5,6 +5,7 @@ import {
 	Grid,
 	Divider,
 	Container,
+	Button,
 } from "@mui/material";
 
 import styled from "styled-components";
@@ -58,6 +59,7 @@ const Content = (props) => {
 										onClick={() => history.push("/student/sign-up")}
 									>
 										<TouchAppIcon fontSize='large' />
+										<Button variant="outlined">Sign up</Button>
 									</WrappedImage>
 								</WrappingText>
 							</Box>
