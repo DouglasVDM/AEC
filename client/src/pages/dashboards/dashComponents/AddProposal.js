@@ -59,9 +59,9 @@ const AddProposal = ({ setPage }) => {
 			});
 			const parseData = await response.json();
 
-			// if (parseData) {
-			// 	setPage("");
-			// }
+			if (parseData) {
+				setPage("");
+			}
 			console.log("parseData=>", parseData);
 		} catch (error) {
 			console.error(error.message);

@@ -106,7 +106,7 @@ router.post("/student/projects/proposal", authorization, async (req, res) => {
 		project_status = "await feedback",
 	} = req.body;
 	try {
-		const results = await pool.query(
+		await pool.query(
 			"INSERT INTO project_proposal (project_name, problem_statement, proposed_action, expected_result, social_returns, key_activities, key_resources, team, client_profile, client_relationships, client_channels, key_partners,	stakeholders, networks, startup_costs, operational_costs, finance_plan, business_plan, implementation_plan, key_milestones,	monitoring_and_evaluation, who_we_are, vision_and_mission, track_record, project_status, student_id) VALUES ($1, $2, $3, $4, $5, $6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25, $26) RETURNING *",
 			[
 				project_name,
@@ -137,11 +137,10 @@ router.post("/student/projects/proposal", authorization, async (req, res) => {
 				req.user,
 			]
 		);
-		// res.json({
-		// 	status: "success",
-		// 	message: "Project proposal all steps added!",
-		// });
-		res.json(results.rows);
+		res.json({
+			status: "success",
+			message: "Project proposal all steps added!",
+		});
 	} catch (error) {
 		console.error(error.message);
 	}
