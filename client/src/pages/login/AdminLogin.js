@@ -79,7 +79,6 @@ const AdminLogin = ({ setAuth, changeHeaders }) => {
 		<>
 			<Container
 				sx={{
-					backgroundImage: "url('/images/background/bg1.png')",
 					maxWidth: "100%",
 					minHeight: "90vh",
 					paddingBottom: "1rem",
