@@ -9,9 +9,9 @@ import StepSeven from "./AddProposalSteps/StepSeven";
 import StepEight from "./AddProposalSteps/StepEight";
 import StepNine from "./AddProposalSteps/StepNine";
 import Box from "@mui/material/Box";
-import axios from "axios";
+// import axios from "axios";
 
-const AddProposal = () => {
+const AddProposal = ({ setPage }) => {
 	const [data, setData] = useState({
 		project_name: "",
 		problem_statement: "",
@@ -44,9 +44,24 @@ const AddProposal = () => {
 	// API REQUEST
 	const makeApiRequest = async (formData) => {
 		console.log("Form Submitted", formData);
+
+		const myHeaders = new Headers();
+		myHeaders.append("Content-Type", "application/json");
+		myHeaders.append("token", localStorage.token);
+
 		try {
-			const response = await axios.post("/api/student/projects/proposal", formData);
-			const parseData = response.data[0];
+			const body = formData;
+
+			const response = await fetch("/api/student/projects/proposal", {
+				method: "POST",
+				headers: myHeaders,
+				body: JSON.stringify(body),
+			});
+			const parseData = await response.json();
+
+			if (parseData) {
+				setPage("");
+			}
 			console.log("parseData=>", parseData);
 		} catch (error) {
 			console.error(error.message);
@@ -73,15 +88,51 @@ const AddProposal = () => {
 
 	const steps = [
 		<StepOne next={handleNextStep} data={data} steps={currentStep + 1} />,
-		<StepTwo next={handleNextStep} previousStep={handlePreviousStep} data={data} />,
-		<StepThree next={handleNextStep} previousStep={handlePreviousStep} data={data} />,
-		<StepFour next={handleNextStep} previousStep={handlePreviousStep} data={data} />,
-		<StepFive next={handleNextStep} previousStep={handlePreviousStep} data={data} />,
-		<StepSix next={handleNextStep} previousStep={handlePreviousStep} data={data} />,
-		<StepSeven next={handleNextStep} previousStep={handlePreviousStep} data={data} />,
-		<StepSeven next={handleNextStep} previousStep={handlePreviousStep} data={data} />,
-		<StepEight next={handleNextStep} previousStep={handlePreviousStep} data={data} />,
-		<StepNine next={handleNextStep} previousStep={handlePreviousStep} data={data} />,
+		<StepTwo
+			next={handleNextStep}
+			previousStep={handlePreviousStep}
+			data={data}
+		/>,
+		<StepThree
+			next={handleNextStep}
+			previousStep={handlePreviousStep}
+			data={data}
+		/>,
+		<StepFour
+			next={handleNextStep}
+			previousStep={handlePreviousStep}
+			data={data}
+		/>,
+		<StepFive
+			next={handleNextStep}
+			previousStep={handlePreviousStep}
+			data={data}
+		/>,
+		<StepSix
+			next={handleNextStep}
+			previousStep={handlePreviousStep}
+			data={data}
+		/>,
+		<StepSeven
+			next={handleNextStep}
+			previousStep={handlePreviousStep}
+			data={data}
+		/>,
+		<StepSeven
+			next={handleNextStep}
+			previousStep={handlePreviousStep}
+			data={data}
+		/>,
+		<StepEight
+			next={handleNextStep}
+			previousStep={handlePreviousStep}
+			data={data}
+		/>,
+		<StepNine
+			next={handleNextStep}
+			previousStep={handlePreviousStep}
+			data={data}
+		/>,
 	];
 
 	console.log("data", data);

@@ -6,7 +6,7 @@ import * as Yup from "yup";
 // FORM VALIDATION FRONTEND
 const stepNineValidationSchema = Yup.object({
   who_we_are: Yup.string().required().label("Who We Are"),
-  vision_and_mission: Yup.string().required().label("vision_and_mission"),
+  vision_and_mission: Yup.string().required().label("Vision And Mission"),
   track_record: Yup.string().required().label("Track Record"),
 });
 
@@ -38,7 +38,7 @@ const StepNine = ({ data, previousStep, next }) => {
               fullWidth
               id="who_we_are"
               name="who_we_are"
-              label="Who we are"
+              label="Who We Are"
               placeholder=''
               multiline
               value={formik.values.who_we_are}
@@ -52,7 +52,7 @@ const StepNine = ({ data, previousStep, next }) => {
               fullWidth
               id="vision_and_mission"
               name="vision_and_mission"
-              label="Vision and Mission"
+              label="Vision And Mission"
               placeholder=''
               multiline
               value={formik.values.vision_and_mission}

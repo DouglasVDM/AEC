@@ -37,7 +37,6 @@ router.get("/project", async (req, res) => {
 	}
 });
 
-
 // CREATE NEW PROJECT PROPOSAL STEP 1
 router.post("/student/projects", authorization, async (req, res) => {
 	const {
@@ -70,81 +69,85 @@ router.get("/student/projects", authorization, async (req, res) => {
 	try {
 		const result = await pool.query(
 			"SELECT project_name, problem_statement, proposed_action, expected_result, project_status FROM projects"
-			);
-			res.json(result.rows);
-		} catch (error) {
-			console.error(error.message);
-		}
-	});
+		);
+		res.json(result.rows);
+	} catch (error) {
+		console.error(error.message);
+	}
+});
 
-	// CREATE NEW PROJECT PROPOSAL ALL STEPS
-	router.post("/student/projects/proposal", async (req, res) => {
-		const {
-			project_name,
-			problem_statement,
-			proposed_action,
-			expected_result,
-			social_returns,
-			key_activities,
-			key_resources,
-			team,
-			client_profile,
-			client_relationships,
-			client_channels,
-			key_partners,
-			stakeholders,
-			networks,
-			startup_costs,
-			operational_costs,
-			finance_plan,
-			business_plan,
-			implementation_plan,
-			key_milestones,
-			monitoring_and_evaluation,
-			who_we_are,
-			vision_and_mission,
-			track_record,
-			project_status = "await feedback",
-		} = req.body;
-		try {
-			await pool.query(
-				"INSERT INTO project_proposal (project_name, problem_statement, proposed_action, expected_result, social_returns, key_activities, key_resources, team, client_profile, client_relationships, client_channels, key_partners,	stakeholders, networks, startup_costs, operational_costs, finance_plan, business_plan, implementation_plan, key_milestones,	monitoring_and_evaluation, who_we_are, vision_and_mission, track_record, project_status) VALUES ($1, $2, $3, $4, $5, $6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25) RETURNING *",
-				[
-					project_name,
-					problem_statement,
-					proposed_action,
-					expected_result,
-					social_returns,
-					key_activities,
-					key_resources,
-					team,
-					client_profile,
-					client_relationships,
-					client_channels,
-					key_partners,
-					stakeholders,
-					networks,
-					startup_costs,
-					operational_costs,
-					finance_plan,
-					business_plan,
-					implementation_plan,
-					key_milestones,
-					monitoring_and_evaluation,
-					who_we_are,
-					vision_and_mission,
-					track_record,
-					project_status,
-				]
-			);
-			res.json({ status: "success", message: "Project proposal all steps added!" });
-		} catch (error) {
-			console.error(error.message);
-		}
-	});
+// CREATE NEW PROJECT PROPOSAL ALL STEPS
+router.post("/student/projects/proposal", authorization, async (req, res) => {
+	const {
+		project_name,
+		problem_statement,
+		proposed_action,
+		expected_result,
+		social_returns,
+		key_activities,
+		key_resources,
+		team,
+		client_profile,
+		client_relationships,
+		client_channels,
+		key_partners,
+		stakeholders,
+		networks,
+		startup_costs,
+		operational_costs,
+		finance_plan,
+		business_plan,
+		implementation_plan,
+		key_milestones,
+		monitoring_and_evaluation,
+		who_we_are,
+		vision_and_mission,
+		track_record,
+		project_status = "await feedback",
+	} = req.body;
+	try {
+		await pool.query(
+			"INSERT INTO project_proposal (project_name, problem_statement, proposed_action, expected_result, social_returns, key_activities, key_resources, team, client_profile, client_relationships, client_channels, key_partners,	stakeholders, networks, startup_costs, operational_costs, finance_plan, business_plan, implementation_plan, key_milestones,	monitoring_and_evaluation, who_we_are, vision_and_mission, track_record, project_status, student_id) VALUES ($1, $2, $3, $4, $5, $6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25, $26) RETURNING *",
+			[
+				project_name,
+				problem_statement,
+				proposed_action,
+				expected_result,
+				social_returns,
+				key_activities,
+				key_resources,
+				team,
+				client_profile,
+				client_relationships,
+				client_channels,
+				key_partners,
+				stakeholders,
+				networks,
+				startup_costs,
+				operational_costs,
+				finance_plan,
+				business_plan,
+				implementation_plan,
+				key_milestones,
+				monitoring_and_evaluation,
+				who_we_are,
+				vision_and_mission,
+				track_record,
+				project_status,
+				req.user,
+			]
+		);
+		res.json({
+			status: "success",
+			message: "Project proposal all steps added!",
+		});
+	} catch (error) {
+		console.error(error.message);
+	}
+});
 
-	// ADD NEW COMPETITION
-	router.post("/competition", async (req, res) => {
+// ADD NEW COMPETITION
+router.post("/competition", async (req, res) => {
 	try {
 		const { comp_title, comp_desc, contact_pers } = req.body;
 		const newCompetition = await pool.query(
@@ -208,20 +211,16 @@ router.get("/students_profile/:student_id", async (req, res) => {
 		if (profile.rowCount > 0) {
 			res.status(200).json(profile.rows[0]);
 		} else {
-			res
-				.status(404)
-				.json({
-					message: "No information found for the student",
-					body: profile,
-				});
+			res.status(404).json({
+				message: "No information found for the student",
+				body: profile,
+			});
 		}
 	} catch (error) {
-		res
-			.status(500)
-			.json({
-				message: "Couldn't fetch the student profile at the moment",
-				error: error,
-			});
+		res.status(500).json({
+			message: "Couldn't fetch the student profile at the moment",
+			error: error,
+		});
 	}
 });
 
