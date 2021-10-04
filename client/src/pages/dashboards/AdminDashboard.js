@@ -7,6 +7,7 @@ import AllProposals from "../proposals/Proposals";
 import Competitions from "../proposals/Competitions";
 import CompTemplate from "../proposals/CompTemplate";
 import MentorSignUp from "../register/MentorSignUp";
+import { Box } from "@mui/system";
 
 const AdminDashboard = ({ setAuth }) => {
 
@@ -41,23 +42,50 @@ const AdminDashboard = ({ setAuth }) => {
 							</div>
 							) : page === "mentor" ? (
 								<MentorSignUp setPage={setPage} />
-							) :
-							(<Container style={{ width: "100%" }}>
+							) : (
+									<Container
+										style={{ width: "100%" }}
+									>
+									<div style={{ width: "100%" }}>
 								{/* HEADING START*/}
-								<Typography variant="h5" component="h2">
-									Welcome back admin@sun.ac.za
-								</Typography>
-								{/* HEADING END */}
-								<br />
-								<br />
-								<Button
-									onClick={() => setAuth(false)}
-									variant='contained'
-								>
-									Log out
-								</Button>
-								<br />
-								<br />
+										<Box
+												sx={{
+													display: "flex",
+													justifyContent: "center",
+													mt:2,
+											}}
+										>
+										<Typography
+											variant="h5"
+											component="h2"
+										>
+											Welcome back admin@sun.ac.za
+											</Typography>
+											{/* HEADING END */}
+											</Box>
+												<Box
+													sx={{
+													display: "flex",
+													justifyContent: "center",
+													flexDirection:"column",
+													// p: 1,
+													ml: 25,
+													mr: 25,
+													}}
+												>
+													<Box
+													sx={{
+													display: "flex",
+													pb: 2,
+													pt: 2,
+													}}>
+														<Button
+														onClick={() => setAuth(false)}
+														variant='contained'
+														>
+														Log out
+														</Button>
+													</Box>
 								<Button
 									onClick={() => setPage("all")}
 									variant='contained'
@@ -95,7 +123,9 @@ const AdminDashboard = ({ setAuth }) => {
 								variant='contained'
 								>
 								Add mentor
-								</Button>
+											</Button>
+										</Box>
+									</div>
 				</Container>
 			)}
 			</div>
