@@ -15,8 +15,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
 import SportsKabaddiIcon from "@mui/icons-material/SportsKabaddi";
 import AddProposal from "./dashComponents/AddProposal";
-
-
+import ShowProposalInfo from "./dashComponents/ShowProposalInfo";
 
 const StudentDashboard = (props) => {
 	const [name, setName] = useState("");
@@ -59,17 +58,9 @@ const StudentDashboard = (props) => {
 		<>
 			<div className="container container-fluid no-padding">
 				{page === "profile" ? (
-					<Profile
-						setPage={setPage}
-						id={id}
-						setInfo={setInfo}
-					/>
+					<Profile setPage={setPage} id={id} setInfo={setInfo} />
 				) : page === "edit_profile" ? (
-					<EditProfile
-						setPage={setPage}
-						id={id}
-						info={info}
-					/>
+					<EditProfile setPage={setPage} id={id} info={info} />
 				) : page === "account_settings" ? (
 					<AccountSettings setPage={setPage} />
 				) : page === "projects" ? (
@@ -78,6 +69,8 @@ const StudentDashboard = (props) => {
 					<Competitions setPage={setPage} />
 				) : page === "proposal" ? (
 					<AddProposal setPage={setPage} />
+				) : page === "show_proposal" ? (
+					<ShowProposalInfo setPage={setPage} />
 				) : (
 					<>
 						<div className="introduction">
@@ -87,24 +80,28 @@ const StudentDashboard = (props) => {
 						<div className="links-wrapper">
 							<div className="links">
 								<div className="profile" onClick={() => setPage("profile")}>
-									<PersonIcon style={{ fontSize: "2rem" }} />Profile
+									<PersonIcon style={{ fontSize: "2rem" }} />
+									Profile
 								</div>
 								<div className="projects" onClick={() => setPage("projects")}>
-									<VolunteerActivismIcon style={{ fontSize: "2rem" }} /> Add Project
+									<VolunteerActivismIcon style={{ fontSize: "2rem" }} /> Add
+									Project
 								</div>
 								<div className="projects" onClick={() => setPage("proposal")}>
-									<VolunteerActivismIcon style={{ fontSize: "2rem" }} /> Add Proposal
+									<VolunteerActivismIcon style={{ fontSize: "2rem" }} /> Add
+									Proposal
 								</div>
 								<div
 									className="competitions"
 									onClick={() => setPage("competitions")}
 								>
-									<SportsKabaddiIcon style={{ fontSize: "2rem" }} />Competitions
+									<SportsKabaddiIcon style={{ fontSize: "2rem" }} />
+									Competitions
 								</div>
 							</div>
 						</div>
 						<hr />
-						<ProjectTable />
+						<ProjectTable setPage={setPage} />
 					</>
 				)}
 			</div>

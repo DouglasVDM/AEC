@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
 
-const ProjectTable = () => {
+const ProjectTable = ({ setPage }) => {
 	const [table, setTable] = useState(false);
 	const [projects, setProjects] = useState([]);
 
 	const getProjects = async () => {
 		try {
-			const response = await fetch("/api/student/projects", {
+			const response = await fetch("/api/student/projects/proposal", {
 				method: "GET",
 				headers: { token: localStorage.token },
 			});
 
 			const parseResponse = await response.json();
-			console.log(parseResponse);
+
 			setProjects(parseResponse);
 			setTable(true);
 		} catch (error) {
@@ -24,7 +24,17 @@ const ProjectTable = () => {
 		getProjects();
 	}, []);
 
-	console.log(projects);
+	const handleShow = (e) => {
+		let projectName = e.target.innerText;
+		let getName;
+		projects.forEach((el) => {
+			if (projectName === el.project_name) {
+				getName = el.project_name;
+
+			}
+		});
+		return getName, setPage("show_proposal");
+	};
 
 	return (
 		<>
@@ -45,9 +55,6 @@ const ProjectTable = () => {
 							<th scope="col" style={{ width: "20%" }}>
 								Proposed Action
 							</th>
-							<th scope="col" style={{ width: "20%" }}>
-								Expect Result
-							</th>
 							<th scope="col" style={{ width: "15%" }}>
 								Project Status
 							</th>
@@ -65,10 +72,9 @@ const ProjectTable = () => {
 								return (
 									<tr key={idx}>
 										<th scope="row">{idx + 1}</th>
-										<td>{proj.project_name}</td>
+										<td onClick={(e) => handleShow(e)}>{proj.project_name}</td>
 										<td>{proj.problem_statement}</td>
 										<td>{proj.proposed_action}</td>
-										<td>{proj.expected_result}</td>
 										<td>{proj.project_status}</td>
 									</tr>
 								);

@@ -65,10 +65,11 @@ router.post("/student/projects", authorization, async (req, res) => {
 });
 
 // GET PROJECT PROPOSAL
-router.get("/student/projects", authorization, async (req, res) => {
+router.get("/student/projects/proposal", authorization, async (req, res) => {
 	try {
 		const result = await pool.query(
-			"SELECT project_name, problem_statement, proposed_action, expected_result, project_status FROM projects"
+			"SELECT * FROM project_proposal WHERE student_id = $1 LIMIT 5",
+			[req.user]
 		);
 		res.json(result.rows);
 	} catch (error) {
