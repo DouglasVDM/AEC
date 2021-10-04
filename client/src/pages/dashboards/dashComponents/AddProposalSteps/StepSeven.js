@@ -1,11 +1,11 @@
 import { TextField, Button } from "@mui/material";
 import { Form, Formik, useFormik } from "formik";
-import * as Yup from 'yup'
+import * as Yup from "yup";
 
 // FORM VALIDATION FRONTEND
 const stepSevenValidationSchema = Yup.object({
-  finance_plan: Yup.string().required().label('Finance Plan'),
-  business_plan: Yup.string().required().label('Business Plan')
+  finance_plan: Yup.string().required().label("Finance Plan"),
+  business_plan: Yup.string().required().label("Business Plan"),
 });
 
 const StepSeven = ({ data, previousStep, next }) => {
@@ -18,14 +18,14 @@ const StepSeven = ({ data, previousStep, next }) => {
     validationSchema: stepSevenValidationSchema,
     onSubmit: (values) => {
       console.log(JSON.stringify(values, null, 2));
-      next(values)
+      next(values);
     },
   });
 
 
   return (
     <div>
-      <p>{`Page 7 of 9`}</p>
+      <p>{"Page 7 of 9"}</p>
     <Formik
       validationSchema={stepSevenValidationSchema}
       initialValues={data}
@@ -83,7 +83,7 @@ const StepSeven = ({ data, previousStep, next }) => {
       )}
     </Formik>
     </div>
-  )
+  );
 };
 
-export default StepSeven
+export default StepSeven;
