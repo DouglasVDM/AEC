@@ -21,6 +21,6 @@ export default Home;
 
 const MainContainer = styled.div`
 	min-height: 90vh;
-	margintop: 1rem;
+	margin-top: 1rem;
 	overflow-x: hidden;
 `;

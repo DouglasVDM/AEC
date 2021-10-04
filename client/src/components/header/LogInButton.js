@@ -8,6 +8,8 @@ import { withRouter } from "react-router-dom";
 import { Box } from "@mui/material";
 import { withSnackbar } from "notistack";
 import HEADERS_DATA from "../../assets/data/headers_data";
+import LoginIcon from "@mui/icons-material/Login";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 function LogInButton(props) {
 	const [anchorEl, setAnchorEl] = useState(null);
@@ -43,20 +45,7 @@ function LogInButton(props) {
 					alignItems: "center",
 					color: "text.secondary",
 				}}
-			>
-				<Box
-					component="img"
-					sx={{
-						height: "1.2rem",
-						marginLeft: "0.3rem",
-					}}
-					src={
-						props.isAuthenticated
-							? "/images/navbar/log_out.png"
-							: "/images/navbar/log_in.png"
-					}
-					alt="auth"
-				></Box>
+			>			
 				<Button
 					id="fade-button"
 					aria-controls="fade-menu"
@@ -67,6 +56,7 @@ function LogInButton(props) {
 						textTransform: "none",
 					}}
 				>
+					{props.isAuthenticated ? <LogoutIcon /> : <LoginIcon />}
 					{props.isAuthenticated ? "Log out" : "Log In"}
 				</Button>
 			</Box>
@@ -118,13 +108,13 @@ function LogInButton(props) {
 						handleClose();
 					}}
 					sx={{ color: "primary.main" }}
-				>
-					<Box
-						component="img"
-						src="/images/navbar/admin.png"
-						sx={{ height: "1.5rem", marginRight: "1rem", marginLeft: "0.8rem" }}
-						alt="projects"
-					></Box>
+				><Avatar
+						sx={{
+							color: "primary.main",
+							bgcolor: "primary.light",
+							marginRight: "0.3rem",
+						}}
+					/>
 					<Typography>Admin</Typography>
 				</MenuItem>
 			</Menu>
