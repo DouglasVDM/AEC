@@ -14,6 +14,7 @@ import FeaturedProjects from "./FeaturedProjects";
 import Testimonials from "./Testimonials";
 import Team from "./Team";
 //import theme from '../../themes/theme';
+import TouchAppIcon from "@mui/icons-material/TouchApp";
 
 const Content = (props) => {
 	let history = useHistory();
@@ -21,7 +22,6 @@ const Content = (props) => {
 	return (
 		<Container
 			sx={{
-				backgroundImage: "url('/images/background/bg1.png')",
 				maxWidth: "100%",
 				minHeight: "90vh",
 				paddingBottom: "1rem",
@@ -48,25 +48,22 @@ const Content = (props) => {
 								}}
 							>
 								<WrappingText>
-									<WrappedImage
-										onClick={() => history.push("/student/sign-up")}
-									>
-										<img src="/images/home/join2.png" alt="join now" />
-									</WrappedImage>
 									A platform where students can journey with a team of mentors
 									to assist with the innovation of project ideas, during the
 									conceptualization and implementation phase. It allows students
 									to complete a standard template with prompts to answer key
 									questions. It also allows university staff to provide feedback
 									and mentorship via the platform.
+									<WrappedImage
+										onClick={() => history.push("/student/sign-up")}
+									>
+										<TouchAppIcon fontSize='large' />
+									</WrappedImage>
 								</WrappingText>
 							</Box>
 						</Grid>
 					</Grid>
-				</Box>
-				<FeaturedProjects />
-				<Team />
-				<Testimonials />
+				</Box>		
 			</Stack>
 		</Container>
 	);

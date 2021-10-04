@@ -34,7 +34,7 @@
 	justify-content: center;
 	align-items: center;
 	font-size: 1.5rem;
-	background: lightgray;
+	background-color: #d4dbdd;
 	margin-top: 5rem;
 	text-align: center;
 	border: 1px solid;
@@ -62,7 +62,7 @@
 .profile,
 .projects,
 .competitions {
-	background-color: lightgray;
+	background-color: #d4dbdd;
 	box-shadow: 1px 1px 1px 0px;
 	color: #551b33;
 	border-radius: 2rem;
@@ -130,7 +130,7 @@
 	width: 70%;
 	margin-top: 3rem;
 	margin-left: 1rem;
-	background-color: #e8e8e8;
+	background-color: #d4dbdd;
 	color: #551b33;
 	border-radius: 1rem;
 	padding: 2rem;

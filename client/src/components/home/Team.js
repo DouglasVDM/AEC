@@ -93,7 +93,7 @@ const GridContainer = styled.div`
 `;
 
 const Thumbnail = styled.div`
-	background: transparent;
+	backgroundColor: "d4dbdd",
 	border: 0;
 	img {
 		width: 240px;

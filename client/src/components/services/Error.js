@@ -6,7 +6,7 @@ const Error = ({ message }) => {
   return (
     <Container
       sx={{
-        backgroundImage: "url('/images/background/bg1.png')",
+				backgroundColor: "d4dbdd",
         maxWidth: "100%",
         minHeight: "60vh",
         paddingBottom: "1rem",

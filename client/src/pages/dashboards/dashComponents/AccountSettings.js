@@ -139,7 +139,6 @@ const MainContainer = styled.div`
 	justify-content: center;
 	margin-left: 1rem;
 	margin-right: 1rem;
-	background-image: url("/images/background/bg1.png");
 	width: 100%;
 	min-height: 90vh;
 	padding-bottom: 1rem;
