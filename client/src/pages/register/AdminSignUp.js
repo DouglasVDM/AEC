@@ -13,42 +13,41 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import HEADERS_DATA from "../../assets/data/headers_data";
+import "../dashboards/Dashboard.css";
+// import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-const MentorLogin = ({ setAuth, changeHeaders }) => {
+const AdminSignUp = ({ setPage }) => {
 	const [inputs, setInputs] = useState({
-		mentor_email: "",
-		mentor_password: "",
+		admin_name: "",
+		admin_email: "",
+		admin_password: "",
 	});
 
-	const { mentor_email, mentor_password } = inputs;
+	const { admin_name, admin_email, admin_password } = inputs;
 
-	const handleChange = (e) => {
-		setInputs((input) => {
-			return { ...input, [e.target.name]: e.target.value };
-		});
+	const onChange = (e) => {
+		setInputs({ ...inputs, [e.target.name]: e.target.value });
 	};
 
-	const handleSubmit = async (event) => {
-		event.preventDefault();
+	const onSubmitForm = async (e) => {
+		e.preventDefault();
 
 		try {
-			const body = { mentor_email, mentor_password };
+			const body = { admin_name, admin_email, admin_password };
 
-			const response = await fetch("/auth/mentor/login", {
+			const response = await fetch("/auth/admin/sign-up", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(body),
 			});
-
 			const parseRes = await response.json();
+
+			localStorage.setItem("token", parseRes.token);
+
 			if (parseRes.token) {
-				localStorage.setItem("token", parseRes.token);
-				setAuth(true);
-				changeHeaders(HEADERS_DATA.mentor);
-				toast.success("Logged in successfully!");
+				setPage("");
+				toast.success("Signed Up Successfully");
 			} else {
-				setAuth(false);
 				toast.error(parseRes);
 			}
 		} catch (error) {
@@ -65,18 +64,20 @@ const MentorLogin = ({ setAuth, changeHeaders }) => {
 				{...props}
 			>
 				{"Copyright © "}
-				<Link to="/">
-					The A Team
-				</Link>{" "}
+				<Link to="/">The A Team</Link>
+				{""}
 				{new Date().getFullYear()}
 				{"."}
 			</Typography>
 		);
 	};
 
+	// const theme = createTheme();
+
 	return (
 		<>
-		<Link to="/"><button className="home-btn">Home</button></Link>
+			<button className="home-btn" onClick={() => setPage("")}>Back</button>
+
 			<Container
 				sx={{
 					maxWidth: "100%",
@@ -84,6 +85,7 @@ const MentorLogin = ({ setAuth, changeHeaders }) => {
 					paddingBottom: "1rem",
 				}}
 			>
+				{/* <ThemeProvider theme={theme}> */}
 				<Container component="main" maxWidth="xs">
 					<CssBaseline />
 					<Box
@@ -98,36 +100,50 @@ const MentorLogin = ({ setAuth, changeHeaders }) => {
 							<LockOutlinedIcon />
 						</Avatar>
 						<Typography component="h1" variant="h5">
-							Mentor log in
+							Admin Sign Up
 						</Typography>
 						<Box
 							component="form"
-							onSubmit={handleSubmit}
+							onSubmit={onSubmitForm}
 							noValidate
 							sx={{ mt: 1 }}
 						>
+							{/* ADMIN NAME */}
+							<TextField
+								margin="normal"
+								required
+								fullWidth
+								id="name"
+								label="Name"
+								name="admin_name"
+								autoComplete="name"
+								value={admin_name}
+								onChange={(e) => onChange(e)}
+							/>
+							{/* ADMIN EMAIL */}
 							<TextField
 								margin="normal"
 								required
 								fullWidth
 								id="email"
 								label="Email Address"
-								name="mentor_email"
+								name="admin_email"
 								autoComplete="email"
-								value={mentor_email}
-								onChange={(e) => handleChange(e)}
+								value={admin_email}
+								onChange={(e) => onChange(e)}
 							/>
+							{/* ADMIN PASSWORD */}
 							<TextField
 								margin="normal"
 								required
 								fullWidth
-								name="mentor_password"
+								name="admin_password"
 								label="Password"
 								type="password"
 								id="password"
 								autoComplete="current-password"
-								value={mentor_password}
-								onChange={(e) => handleChange(e)}
+								value={admin_password}
+								onChange={(e) => onChange(e)}
 							/>
 							<FormControlLabel
 								control={<Checkbox value="remember" color="primary" />}
@@ -138,9 +154,9 @@ const MentorLogin = ({ setAuth, changeHeaders }) => {
 								fullWidth
 								variant="contained"
 								sx={{ mt: 3, mb: 2 }}
-								onClick={handleSubmit}
+								onClick={onSubmitForm}
 							>
-								Log In
+								Sign up
 							</Button>
 							<Grid container>
 								<Grid item xs>
@@ -153,9 +169,10 @@ const MentorLogin = ({ setAuth, changeHeaders }) => {
 					</Box>
 					<Copyright sx={{ mt: 8, mb: 4 }} />
 				</Container>
+				{/* </ThemeProvider> */}
 			</Container>
 		</>
 	);
 };
 
-export default MentorLogin;
+export default AdminSignUp;

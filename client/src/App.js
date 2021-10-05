@@ -23,7 +23,7 @@ import HEADERS_DATA from "./assets/data/headers_data";
 
 toast.configure();
 
-const App = (props) => {
+const App = () => {
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 
 	const setAuth = (boolean) => {
@@ -36,7 +36,7 @@ const App = (props) => {
 	};
 
 	return (
-		<>
+		<div className="main-app p-5">
 			<Router>
 				<Header
 					headers={headers}
@@ -141,7 +141,7 @@ const App = (props) => {
 					<Route path="/*" render={(props) => <Home {...props} />} />
 				</Switch>
 			</Router>
-		</>
+		</div>
 	);
 };
 
