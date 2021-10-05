@@ -23,6 +23,7 @@ import { useState, useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import LogInButton from "./header/LogInButton";
+import NavLogo from "./logo.png";
 //import theme from '../themes/theme';
 import HEADERS_DATA from "../assets/data/headers_data";
 
@@ -330,7 +331,7 @@ function Header(props) {
 				onClick={() => history.push("/")}
 			>
 				<img
-					src="/images/navbar/logo.png"
+					src={NavLogo}
 					alt="Website Logo"
 					height="30rem"
 					width="auto"

@@ -45,7 +45,6 @@ const Competitions = ({ setPage }) => {
 				competitions.map((comp, idx) => {
 					return (
 						<div className="card mb-3" key={idx}>
-							<img className="card-img-top" src="..." alt="card" />
 							<div className="card-body">
 								<h5 className="card-title">{comp.comp_title}</h5>
 								<p className="card-text">{comp.comp_desc}</p>

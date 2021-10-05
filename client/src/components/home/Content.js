@@ -1,28 +1,23 @@
-import {
-	Box,
-	Stack,
-	Typography,
-	Grid,
-	Divider,
-	Container,
-	Button,
-} from "@mui/material";
+import { Box, Stack, Typography, Grid, Container, Button } from "@mui/material";
 
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 
-import FeaturedProjects from "./FeaturedProjects";
-import Testimonials from "./Testimonials";
-import Team from "./Team";
+// import FeaturedProjects from "./FeaturedProjects";
+// import Testimonials from "./Testimonials";
+// import Team from "./Team";
 //import theme from '../../themes/theme';
 import TouchAppIcon from "@mui/icons-material/TouchApp";
+import BcgImage from "./bg1.png";
+import joinPic from "./join2.png";
 
-const Content = (props) => {
+const Content = () => {
 	let history = useHistory();
 
 	return (
 		<Container
 			sx={{
+				backgroundImage: `url(${BcgImage})`,
 				maxWidth: "100%",
 				minHeight: "90vh",
 				paddingBottom: "1rem",
@@ -48,6 +43,7 @@ const Content = (props) => {
 									padding: "1rem",
 								}}
 							>
+								<img src={joinPic} alt="join now" />
 								<WrappingText>
 									A platform where students can journey with a team of mentors
 									to assist with the innovation of project ideas, during the
@@ -58,14 +54,14 @@ const Content = (props) => {
 									<WrappedImage
 										onClick={() => history.push("/student/sign-up")}
 									>
-										<TouchAppIcon fontSize='large' />
+										<TouchAppIcon fontSize="large" />
 										<Button variant="outlined">Sign up</Button>
 									</WrappedImage>
 								</WrappingText>
 							</Box>
 						</Grid>
 					</Grid>
-				</Box>		
+				</Box>
 			</Stack>
 		</Container>
 	);
