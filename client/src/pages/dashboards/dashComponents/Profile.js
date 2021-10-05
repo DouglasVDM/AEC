@@ -1,3 +1,6 @@
+/* eslint-disable linebreak-style */
+/* eslint-disable no-unused-vars */
+/* eslint-disable linebreak-style */
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Box, Button, Divider, Typography } from "@mui/material";

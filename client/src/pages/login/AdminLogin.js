@@ -66,7 +66,7 @@ const AdminLogin = ({ setAuth, changeHeaders }) => {
 				{...props}
 			>
 				{"Copyright © "}
-				<Link color="inherit" href="">
+				<Link to="/">
 					The A Team
 				</Link>{" "}
 				{new Date().getFullYear()}

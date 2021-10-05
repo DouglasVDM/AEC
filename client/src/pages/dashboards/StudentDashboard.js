@@ -1,3 +1,6 @@
+/* eslint-disable linebreak-style */
+/* eslint-disable no-unused-vars */
+/* eslint-disable linebreak-style */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState, useEffect } from "react";
@@ -11,8 +14,11 @@ import EditProfile from "./dashComponents/EditProfile";
 import Projects from "./dashComponents/Projects";
 import Competitions from "./dashComponents/Compititions";
 import ProjectTable from "./dashComponents/ProjectTable";
+import Feedback from "./dashComponents/Feedback";
+
 import PersonIcon from "@mui/icons-material/Person";
 import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
+import FeedbackIcon from "@mui/icons-material/Feedback";
 import SportsKabaddiIcon from "@mui/icons-material/SportsKabaddi";
 import AddProposal from "./dashComponents/AddProposal";
 import ShowProposalInfo from "./dashComponents/ShowProposalInfo";
@@ -63,8 +69,8 @@ const StudentDashboard = (props) => {
 					<EditProfile setPage={setPage} id={id} info={info} />
 				) : page === "account_settings" ? (
 					<AccountSettings setPage={setPage} />
-				) : page === "projects" ? (
-					<Projects setPage={setPage} />
+				) : page === "feedback" ? (
+					<Feedback setPage={setPage} />
 				) : page === "competitions" ? (
 					<Competitions setPage={setPage} />
 				) : page === "proposal" ? (
@@ -83,13 +89,13 @@ const StudentDashboard = (props) => {
 									<PersonIcon style={{ fontSize: "2rem" }} />
 									Profile
 								</div>
-								<div className="projects" onClick={() => setPage("projects")}>
-									<VolunteerActivismIcon style={{ fontSize: "2rem" }} /> Add
-									Project
-								</div>
-								<div className="projects" onClick={() => setPage("proposal")}>
+								<div className="proposals" onClick={() => setPage("proposal")}>
 									<VolunteerActivismIcon style={{ fontSize: "2rem" }} /> Add
 									Proposal
+								</div>
+								<div className="feedback" onClick={() => setPage("feedback")}>
+									<FeedbackIcon style={{ fontSize: "2rem" }} />
+									Feedback
 								</div>
 								<div
 									className="competitions"

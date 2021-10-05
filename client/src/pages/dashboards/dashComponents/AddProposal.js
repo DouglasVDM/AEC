@@ -1,3 +1,12 @@
+/* eslint-disable linebreak-style */
+/* eslint-disable react/jsx-no-undef */
+/* eslint-disable linebreak-style */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable linebreak-style */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable linebreak-style */
+/* eslint-disable react/jsx-key */
+/* eslint-disable linebreak-style */
 import { useState } from "react";
 import StepOne from "./AddProposalSteps/StepOne";
 import StepTwo from "./AddProposalSteps/StepTwo";
@@ -9,6 +18,7 @@ import StepSeven from "./AddProposalSteps/StepSeven";
 import StepEight from "./AddProposalSteps/StepEight";
 import StepNine from "./AddProposalSteps/StepNine";
 import Box from "@mui/material/Box";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 // import axios from "axios";
 
 const AddProposal = ({ setPage }) => {
@@ -118,11 +128,6 @@ const AddProposal = ({ setPage }) => {
 			previousStep={handlePreviousStep}
 			data={data}
 		/>,
-		<StepSeven
-			next={handleNextStep}
-			previousStep={handlePreviousStep}
-			data={data}
-		/>,
 		<StepEight
 			next={handleNextStep}
 			previousStep={handlePreviousStep}
@@ -139,6 +144,14 @@ const AddProposal = ({ setPage }) => {
 
 	return (
 		<div className="App">
+			<div
+				className="back mb-5"
+				onClick={() => setPage("")}
+				style={{ fontWeight: "600", cursor: "pointer" }}
+			>
+				<ArrowBackIcon />
+				Go Back
+			</div>
 			<Box
 				sx={{
 					mx: "auto",

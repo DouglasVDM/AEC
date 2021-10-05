@@ -1,6 +1,11 @@
+/* eslint-disable linebreak-style */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable linebreak-style */
 import React, { useState, useEffect } from "react";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
-const ShowProposalInfo = () => {
+const ShowProposalInfo = ({ setPage }) => {
 	const [proposalInfo, setProposalInfo] = useState([]);
 
 	const getProposalInfo = async () => {
@@ -23,6 +28,15 @@ const ShowProposalInfo = () => {
 	}, []);
 
 	return (
+		<>
+		<div
+				className="back mb-5"
+				onClick={() => setPage("")}
+				style={{ fontWeight: "600", cursor: "pointer" }}
+			>
+				<ArrowBackIcon />
+				Go Back
+			</div>
 		<div className="show-proposal-container">
 			{proposalInfo.map((info, idx) => {
 				return (
@@ -127,6 +141,7 @@ const ShowProposalInfo = () => {
 				);
 			})}
 		</div>
+		</>
 	);
 };
 

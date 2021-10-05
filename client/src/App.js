@@ -9,9 +9,11 @@ import "react-toastify/dist/ReactToastify.css";
 
 import Home from "./pages/home/Home";
 import StudentSignUp from "./pages/register/StudentSignUp";
+import MentorSignUp from "./pages/register/MentorSignUp";
 import StudentLogin from "./pages/login/StudentLogin";
 import MentorLogin from "./pages/login/MentorLogin";
 import AdminLogin from "./pages/login/AdminLogin";
+
 
 import StudentDashboard from "./pages/dashboards/StudentDashboard";
 import MentorDashboard from "./pages/dashboards/MentorDashboard";
@@ -23,7 +25,7 @@ import HEADERS_DATA from "./assets/data/headers_data";
 
 toast.configure();
 
-const App = (props) => {
+const App = () => {
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 
 	const setAuth = (boolean) => {
@@ -96,6 +98,17 @@ const App = (props) => {
 									setAuth={setAuth}
 									changeHeaders={changeHeaders}
 								/>
+							) : (
+								<Redirect to="/admin/dashboard" />
+							)
+						}
+					/>
+					<Route
+						exact
+						path="/mentor/sign-up"
+						render={(props) =>
+							!isAuthenticated ? (
+								<MentorSignUp {...props} setAuth={setAuth} />
 							) : (
 								<Redirect to="/admin/dashboard" />
 							)

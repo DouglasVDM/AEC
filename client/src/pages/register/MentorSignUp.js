@@ -15,7 +15,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 // import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-const MentorSignUp = ({ setAuth, setPage }) => {
+const MentorSignUp = ({ setPage }) => {
   const [inputs, setInputs] = useState({
     mentor_name: "",
     mentor_email: "",
@@ -44,12 +44,10 @@ const MentorSignUp = ({ setAuth, setPage }) => {
       localStorage.setItem("token", parseRes.token);
 
       if (parseRes.token) {
-        setAuth(true);
+        setPage("");
 
         toast.success("Signed Up Successfully");
       } else {
-        setAuth(false);
-
         toast.error(parseRes);
       }
     } catch (error) {
@@ -66,7 +64,7 @@ const MentorSignUp = ({ setAuth, setPage }) => {
         {...props}
       >
         {"Copyright © "}
-        <Link color="inherit" href="https://github.com/DouglasVDM/aec">
+        <Link to="/">
           The A Team
         </Link>
         {""}
