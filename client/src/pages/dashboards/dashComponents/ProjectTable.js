@@ -12,7 +12,7 @@ const ProjectTable = () => {
 			});
 
 			const parseResponse = await response.json();
-			console.log(parseResponse);
+
 			setProjects(parseResponse);
 			setTable(true);
 		} catch (error) {
@@ -24,8 +24,6 @@ const ProjectTable = () => {
 		getProjects();
 	}, []);
 
-	console.log(projects);
-
 	return (
 		<>
 			<div className="project-table">
@@ -36,7 +34,7 @@ const ProjectTable = () => {
 							<th scope="col" style={{ width: "10%" }}>
 								#
 							</th>
-							<th scope="col" style={{ width: "15%" }}>
+							<th scope="col" style={{ width: "20%" }}>
 								Project Name
 							</th>
 							<th scope="col" style={{ width: "20%" }}>
@@ -46,9 +44,6 @@ const ProjectTable = () => {
 								Proposed Action
 							</th>
 							<th scope="col" style={{ width: "20%" }}>
-								Expect Result
-							</th>
-							<th scope="col" style={{ width: "15%" }}>
 								Project Status
 							</th>
 						</tr>
@@ -68,7 +63,6 @@ const ProjectTable = () => {
 										<td>{proj.project_name}</td>
 										<td>{proj.problem_statement}</td>
 										<td>{proj.proposed_action}</td>
-										<td>{proj.expected_result}</td>
 										<td>{proj.project_status}</td>
 									</tr>
 								);
