@@ -1,6 +1,7 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import { Typography, Container } from "@mui/material";
+import ErrorPic from "./error.png";
 
 const Error = ({ message }) => {
   return (
@@ -26,7 +27,7 @@ const Error = ({ message }) => {
       >
         <Box
           component='img'
-          src='/images/various/error.png'
+          src={ErrorPic}
           alt='error'
           sx={{ height: "10rem" }}
         ></Box>

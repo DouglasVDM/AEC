@@ -9,6 +9,7 @@ import CompTemplate from "../proposals/CompTemplate";
 import MentorSignUp from "../register/MentorSignUp";
 import AdminSignUp from "../register/AdminSignUp";
 import { Box } from "@mui/system";
+import BcgImage from "./bg1.png";
 
 const AdminDashboard = ({ setAuth }) => {
 	const [proposals, setProposals] = useState([]);
@@ -29,7 +30,7 @@ const AdminDashboard = ({ setAuth }) => {
 	}, [page]);
 
 	return (
-		<div className="p-5">
+		<div style={{ backgroundImage: `url(${BcgImage})` }}>
 			{page === "proposal" ? (
 				<ProposalTempl setPage={setPage} />
 			) : page === "compTemplate" ? (

@@ -45,7 +45,7 @@ function LogInButton(props) {
 					alignItems: "center",
 					color: "text.secondary",
 				}}
-			>			
+			>
 				<Button
 					id="fade-button"
 					aria-controls="fade-menu"
@@ -108,7 +108,8 @@ function LogInButton(props) {
 						handleClose();
 					}}
 					sx={{ color: "primary.main" }}
-				><Avatar
+				>
+					<Avatar
 						sx={{
 							color: "primary.main",
 							bgcolor: "primary.light",

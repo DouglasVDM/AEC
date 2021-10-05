@@ -15,6 +15,8 @@ import { useHistory } from "react-router-dom";
 // import Team from "./Team";
 //import theme from '../../themes/theme';
 import TouchAppIcon from "@mui/icons-material/TouchApp";
+import BcgImage from "./bg1.png";
+import joinPic from "./join2.png";
 
 const Content = () => {
 	let history = useHistory();
@@ -22,6 +24,7 @@ const Content = () => {
 	return (
 		<Container
 			sx={{
+				backgroundImage: `url(${BcgImage})`,
 				maxWidth: "100%",
 				minHeight: "60vh",
 				paddingBottom: "1rem",
@@ -48,6 +51,7 @@ const Content = () => {
 									padding: "1rem",
 								}}
 							>
+								<img src={joinPic} alt="join now" />
 								<WrappingText>
 									A platform where students can journey with a team of mentors
 									to assist with the innovation of project ideas, during the
@@ -58,7 +62,7 @@ const Content = () => {
 									<WrappedImage
 										onClick={() => history.push("/student/sign-up")}
 									>
-										<TouchAppIcon fontSize='large' />
+										<TouchAppIcon fontSize="large" />
 										<Button variant="outlined">Sign up</Button>
 									</WrappedImage>
 								</WrappingText>
