@@ -3,7 +3,6 @@ import {
 	Stack,
 	Typography,
 	Grid,
-	Divider,
 	Container,
 	Button,
 } from "@mui/material";
@@ -11,21 +10,22 @@ import {
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 
-import FeaturedProjects from "./FeaturedProjects";
-import Testimonials from "./Testimonials";
-import Team from "./Team";
+// import FeaturedProjects from "./FeaturedProjects";
+// import Testimonials from "./Testimonials";
+// import Team from "./Team";
 //import theme from '../../themes/theme';
 import TouchAppIcon from "@mui/icons-material/TouchApp";
 
-const Content = (props) => {
+const Content = () => {
 	let history = useHistory();
 
 	return (
 		<Container
 			sx={{
 				maxWidth: "100%",
-				minHeight: "90vh",
+				minHeight: "60vh",
 				paddingBottom: "1rem",
+
 			}}
 		>
 			<Stack direction="column" sx={{ margin: "4rem 1rem 2rem 1rem" }}>
@@ -65,7 +65,7 @@ const Content = (props) => {
 							</Box>
 						</Grid>
 					</Grid>
-				</Box>		
+				</Box>
 			</Stack>
 		</Container>
 	);
