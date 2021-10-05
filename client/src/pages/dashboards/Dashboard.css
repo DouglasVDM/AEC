@@ -145,6 +145,14 @@
     padding-right: 0;
 }
 
+.home-btn {
+	width: 75px;
+	padding: 5px;
+	border-radius: 5px;
+	background-color: #551b33;
+	color:#fff;
+}
+
 /* Media queries */
 
 @media (max-width: 576px) {

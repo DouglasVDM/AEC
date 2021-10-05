@@ -13,7 +13,7 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+// import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const StudentSignUp = ({ setAuth }) => {
 	const [inputs, setInputs] = useState({
@@ -66,7 +66,7 @@ const StudentSignUp = ({ setAuth }) => {
 				{...props}
 			>
 				{"Copyright © "}
-				<Link color="inherit" href="https://github.com/DouglasVDM/aec">
+				<Link to="/">
 					The A Team
 				</Link>{" "}
 				{new Date().getFullYear()}
@@ -78,6 +78,7 @@ const StudentSignUp = ({ setAuth }) => {
 
 	return (
 		<>
+		<Link to="/"><button className="home-btn">Home</button></Link>
 			<Container
 				sx={{
 					maxWidth: "100%",

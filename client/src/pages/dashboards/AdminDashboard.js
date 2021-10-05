@@ -7,6 +7,7 @@ import AllProposals from "../proposals/Proposals";
 import Competitions from "../proposals/Competitions";
 import CompTemplate from "../proposals/CompTemplate";
 import MentorSignUp from "../register/MentorSignUp";
+import AdminSignUp from "../register/AdminSignUp";
 import { Box } from "@mui/system";
 import BcgImage from "./bg1.png";
 
@@ -42,6 +43,8 @@ const AdminDashboard = ({ setAuth }) => {
 				</div>
 			) : page === "mentor" ? (
 				<MentorSignUp setPage={setPage} />
+			) : page === "admin" ? (
+				<AdminSignUp setPage={setPage} />
 			) : (
 				<Container style={{ width: "100%" }}>
 					<div style={{ width: "100%" }}>
@@ -106,7 +109,10 @@ const AdminDashboard = ({ setAuth }) => {
 							<br />
 							<br />
 							<Button onClick={() => setPage("mentor")} variant="contained">
-								Add mentor
+								Add Mentor
+							</Button>
+							<Button onClick={() => setPage("admin")} variant="contained">
+								Add Admin
 							</Button>
 						</Box>
 					</div>

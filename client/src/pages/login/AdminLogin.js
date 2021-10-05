@@ -66,7 +66,7 @@ const AdminLogin = ({ setAuth, changeHeaders }) => {
 				{...props}
 			>
 				{"Copyright © "}
-				<Link color="inherit" href="">
+				<Link to="/">
 					The A Team
 				</Link>{" "}
 				{new Date().getFullYear()}
@@ -77,6 +77,7 @@ const AdminLogin = ({ setAuth, changeHeaders }) => {
 
 	return (
 		<>
+		<Link to="/"><button className="home-btn">Home</button></Link>
 			<Container
 				sx={{
 					maxWidth: "100%",

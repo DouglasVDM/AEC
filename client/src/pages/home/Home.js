@@ -6,7 +6,7 @@ import Footer from "../../components/home/Footer";
 //import Loading from "../../components/services/Loading";
 //import theme from '../../themes/theme';
 
-const Home = (props) => {
+const Home = () => {
 
 	return (
 		<MainContainer>
@@ -23,4 +23,5 @@ const MainContainer = styled.div`
 	min-height: 90vh;
 	margin-top: 1rem;
 	overflow-x: hidden;
+
 `;

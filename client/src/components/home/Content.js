@@ -1,4 +1,11 @@
-import { Box, Stack, Typography, Grid, Container, Button } from "@mui/material";
+import {
+	Box,
+	Stack,
+	Typography,
+	Grid,
+	Container,
+	Button,
+} from "@mui/material";
 
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
@@ -19,8 +26,9 @@ const Content = () => {
 			sx={{
 				backgroundImage: `url(${BcgImage})`,
 				maxWidth: "100%",
-				minHeight: "90vh",
+				minHeight: "60vh",
 				paddingBottom: "1rem",
+
 			}}
 		>
 			<Stack direction="column" sx={{ margin: "4rem 1rem 2rem 1rem" }}>

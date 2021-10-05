@@ -65,7 +65,7 @@ const StudentLogin = ({ setAuth, changeHeaders }) => {
 				{...props}
 			>
 				{"Copyright © "}
-				<Link color="inherit" href="" to="https://github.com/DouglasVDM/aec">
+				<Link to="/">
 					The A Team
 				</Link>{" "}
 				{new Date().getFullYear()}
@@ -76,6 +76,7 @@ const StudentLogin = ({ setAuth, changeHeaders }) => {
 
 	return (
 		<>
+		<Link to="/"><button className="home-btn">Home</button></Link>
 			<Container
 				sx={{
 					maxWidth: "100%",
