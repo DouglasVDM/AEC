@@ -1,28 +1,8 @@
-import React, { useState, useEffect } from "react";
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+import React from "react";
 
-const ProjectTable = () => {
-	const [table, setTable] = useState(false);
-	const [projects, setProjects] = useState([]);
-
-	const getProjects = async () => {
-		try {
-			const response = await fetch("/api/student/projects", {
-				method: "GET",
-				headers: { token: localStorage.token },
-			});
-
-			const parseResponse = await response.json();
-
-			setProjects(parseResponse);
-			setTable(true);
-		} catch (error) {
-			console.error(error.message);
-		}
-	};
-
-	useEffect(() => {
-		getProjects();
-	}, []);
+const ProjectTable = ({ getProjectById, projects, table }) => {
 
 	return (
 		<>
@@ -34,7 +14,7 @@ const ProjectTable = () => {
 							<th scope="col" style={{ width: "10%" }}>
 								#
 							</th>
-							<th scope="col" style={{ width: "20%" }}>
+							<th scope="col" style={{ width: "15%" }}>
 								Project Name
 							</th>
 							<th scope="col" style={{ width: "20%" }}>
@@ -43,13 +23,13 @@ const ProjectTable = () => {
 							<th scope="col" style={{ width: "20%" }}>
 								Proposed Action
 							</th>
-							<th scope="col" style={{ width: "20%" }}>
+							<th scope="col" style={{ width: "15%" }}>
 								Project Status
 							</th>
 						</tr>
 					</thead>
 					<tbody>
-						{!table ? (
+						{projects.length === 0 ? (
 							<tr>
 								<td colSpan="5">
 									<h3 className="text-center">--No projects to display--</h3>
@@ -58,7 +38,7 @@ const ProjectTable = () => {
 						) : (
 							projects.map((proj, idx) => {
 								return (
-									<tr key={idx}>
+									<tr key={idx} onClick={() => getProjectById(proj.project_id)}>
 										<th scope="row">{idx + 1}</th>
 										<td>{proj.project_name}</td>
 										<td>{proj.problem_statement}</td>

@@ -1,3 +1,6 @@
+/* eslint-disable linebreak-style */
+/* eslint-disable no-unused-vars */
+/* eslint-disable linebreak-style */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState, useEffect } from "react";
@@ -11,17 +14,23 @@ import EditProfile from "./dashComponents/EditProfile";
 import Projects from "./dashComponents/Projects";
 import Competitions from "./dashComponents/Compititions";
 import ProjectTable from "./dashComponents/ProjectTable";
+import Feedback from "./dashComponents/Feedback";
+
 import PersonIcon from "@mui/icons-material/Person";
 import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
+import FeedbackIcon from "@mui/icons-material/Feedback";
 import SportsKabaddiIcon from "@mui/icons-material/SportsKabaddi";
 import AddProposal from "./dashComponents/AddProposal";
-import BcgImage from "./bg1.png";
+import ShowProposalInfo from "./dashComponents/ShowProposalInfo";
 
-const StudentDashboard = () => {
+const StudentDashboard = (props) => {
 	const [name, setName] = useState("");
 	const [id, setId] = useState("");
 	const [info, setInfo] = useState("");
 	const [page, setPage] = useState("");
+	const [table, setTable] = useState(false);
+	const [projects, setProjects] = useState([]);
+	const [proposal, setProposal] = useState([]);
 
 	const getName = async () => {
 		try {
@@ -37,8 +46,44 @@ const StudentDashboard = () => {
 		}
 	};
 
+	const getProjects = async () => {
+		try {
+			const response = await fetch("/api/student/projects/proposal", {
+				method: "GET",
+				headers: { token: localStorage.token },
+			});
+
+			const parseResponse = await response.json();
+
+			setProjects(parseResponse);
+			setTable(true);
+		} catch (error) {
+			console.error(error.message);
+		}
+	};
+
 	useEffect(() => {
 		getName();
+		getProjects();
+	}, []);
+
+	const getProjectById = async (id) => {
+		try {
+			const response = await fetch(`/api/student/projects/proposal/${id}`, {
+				method: "GET",
+				headers: { token: localStorage.token },
+			});
+
+			const parseResponse = await response.json();
+
+			setProposal(parseResponse);
+			setPage("show_proposal");
+		} catch (error) {
+			console.error(error.message);
+		}
+	};
+
+	useEffect(() => {
 		let localUserData = localStorage.getItem("profile");
 		if (localUserData) {
 			let userProfile = JSON.parse(localUserData);
@@ -53,22 +98,21 @@ const StudentDashboard = () => {
 
 	return (
 		<>
-			<div
-				className="container container-fluid no-padding"
-				style={{ backgroundImage: `url(${BcgImage})` }}
-			>
+			<div className="container container-fluid no-padding">
 				{page === "profile" ? (
 					<Profile setPage={setPage} id={id} setInfo={setInfo} />
 				) : page === "edit_profile" ? (
 					<EditProfile setPage={setPage} id={id} info={info} />
 				) : page === "account_settings" ? (
 					<AccountSettings setPage={setPage} />
-				) : page === "projects" ? (
-					<Projects setPage={setPage} />
+				) : page === "feedback" ? (
+					<Feedback setPage={setPage} />
 				) : page === "competitions" ? (
 					<Competitions setPage={setPage} />
 				) : page === "proposal" ? (
 					<AddProposal setPage={setPage} />
+				) : page === "show_proposal" ? (
+					<ShowProposalInfo setPage={setPage} proposal={proposal} />
 				) : (
 					<>
 						<div className="introduction">
@@ -81,13 +125,13 @@ const StudentDashboard = () => {
 									<PersonIcon style={{ fontSize: "2rem" }} />
 									Profile
 								</div>
-								<div className="projects" onClick={() => setPage("projects")}>
-									<VolunteerActivismIcon style={{ fontSize: "2rem" }} /> Add
-									Project
-								</div>
-								<div className="projects" onClick={() => setPage("proposal")}>
+								<div className="proposals" onClick={() => setPage("proposal")}>
 									<VolunteerActivismIcon style={{ fontSize: "2rem" }} /> Add
 									Proposal
+								</div>
+								<div className="feedback" onClick={() => setPage("feedback")}>
+									<FeedbackIcon style={{ fontSize: "2rem" }} />
+									Feedback
 								</div>
 								<div
 									className="competitions"
@@ -99,7 +143,12 @@ const StudentDashboard = () => {
 							</div>
 						</div>
 						<hr />
-						<ProjectTable />
+						<ProjectTable
+							setPage={setPage}
+							getProjectById={getProjectById}
+							projects={projects}
+							table={table}
+						/>
 					</>
 				)}
 			</div>

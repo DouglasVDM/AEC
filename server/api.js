@@ -8,22 +8,53 @@ router.get("/", (_, res) => {
 	res.json({ message: "Welcome to Stellenbosch University" });
 });
 
+// ADD NEW PROJECT
+router.post("/project", async (req, res) => {
+	try {
+		const {
+			project_name,
+			problem_statement,
+			proposed_action,
+			expected_result,
+		} = req.body;
+		const newProject = await pool.query(
+			"INSERT INTO projects (project_name, problem_statement, proposed_action, expected_result) VALUES ($1,$2,$3,$4) RETURNING *",
+			[project_name, problem_statement, proposed_action, expected_result]
+		);
+		res.json({ projects: newProject });
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+});
+
+// GET ALL PROJECT
+router.get("/project", async (req, res) => {
+	try {
+		const projects = await pool.query("SELECT * FROM project_proposal");
+		res.json(projects.rows);
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+});
+
 // CREATE NEW PROJECT PROPOSAL STEP 1
 router.post("/student/projects", authorization, async (req, res) => {
 	const {
 		project_name,
 		problem_statement,
 		proposed_action,
+		expected_result,
 		project_status = "await feedback",
 	} = req.body;
 	try {
 		await pool.query(
-			"INSERT INTO projects (student_id, project_name, problem_statement, proposed_action, project_status) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+			"INSERT INTO projects (student_id, project_name, problem_statement, proposed_action, expected_result, project_status) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
 			[
 				req.user,
 				project_name,
 				problem_statement,
 				proposed_action,
+				expected_result,
 				project_status,
 			]
 		);
@@ -34,10 +65,10 @@ router.post("/student/projects", authorization, async (req, res) => {
 });
 
 // GET PROJECT PROPOSAL
-router.get("/student/projects", authorization, async (req, res) => {
+router.get("/student/projects/proposal", authorization, async (req, res) => {
 	try {
 		const result = await pool.query(
-			"SELECT project_name, problem_statement, proposed_action, project_status FROM projects WHERE student_id = $1",
+			"SELECT * FROM project_proposal WHERE student_id = $1 LIMIT 5",
 			[req.user]
 		);
 		res.json(result.rows);
@@ -45,6 +76,26 @@ router.get("/student/projects", authorization, async (req, res) => {
 		console.error(error.message);
 	}
 });
+
+//GET PROJECT BY PROJECT ID
+router.get(
+	"/student/projects/proposal/:projectId",
+	authorization,
+	async (req, res) => {
+		try {
+			const { projectId } = req.params;
+
+			const result = await pool.query(
+				"SELECT * FROM project_proposal WHERE project_id = $1",
+				[projectId]
+			);
+
+			res.json(result.rows);
+		} catch (error) {
+			console.error(error.message);
+		}
+	}
+);
 
 // CREATE NEW PROJECT PROPOSAL ALL STEPS
 router.post("/student/projects/proposal", authorization, async (req, res) => {
@@ -116,21 +167,8 @@ router.post("/student/projects/proposal", authorization, async (req, res) => {
 	}
 });
 
-router.get("/student/projects/proposal", authorization, async (req, res) => {
-	try {
-		const result = await pool.query(
-			"SELECT project_name, problem_statement, proposed_action, project_status FROM project_proposal WHERE student_id = $1",
-			[req.user]
-		);
-		res.json(result.rows);
-	} catch (error) {
-		console.error(error.message);
-	}
-});
-
-
 // ADD NEW COMPETITION
-router.post("/competition", async (req, res) => {
+router.post("/competition", authorization, async (req, res) => {
 	try {
 		const { comp_title, comp_desc, contact_pers } = req.body;
 		const newCompetition = await pool.query(
@@ -150,37 +188,6 @@ router.get("/competition", async (req, res) => {
 		res.json(competitions.rows);
 	} catch (error) {
 		res.status(500).json({ error: error.message });
-	}
-});
-
-router.get("/featured_projects", async (req, res) => {
-	try {
-		const allProjects = await pool.query(
-			"SELECT * FROM featured_projects LIMIT 12"
-		);
-		res.status(200).json(allProjects.rows);
-	} catch (error) {
-		res.status(500).json({ message: "Couldn't fetch projects at the moment" });
-	}
-});
-
-router.get("/meet_the_team", async (req, res) => {
-	try {
-		const theTeam = await pool.query("SELECT * FROM team");
-		res.status(200).json(theTeam.rows);
-	} catch (error) {
-		res.status(500).json({ message: "Couldn't fetch the team at the moment" });
-	}
-});
-
-router.get("/testimonials", async (req, res) => {
-	try {
-		const testimonials = await pool.query("SELECT * FROM testimonials");
-		res.status(200).json(testimonials.rows);
-	} catch (error) {
-		res
-			.status(500)
-			.json({ message: "Couldn't fetch the testimonials at the moment" });
 	}
 });
 
@@ -288,6 +295,46 @@ router.put("/students_profile", async (req, res) => {
 			message: "Couldn't update the student profile at the moment",
 			error: error,
 		});
+	}
+});
+
+// FEEDBACK ROUTES
+
+// GIVE FEEDBACK
+router.post("/mentor/feedback/:projectId", authorization, async (req, res) => {
+	console.log(req.user);
+	try {
+		const { projectId } = req.params;
+		const { feedback } = req.body;
+
+		const foundProposal = await pool.query(
+			"SELECT * FROM project_proposal WHERE project_id = $1",
+			[projectId]
+		);
+
+		if (foundProposal) {
+			await pool.query(
+				"INSERT INTO feedback (project_id, mentor_id, feedback) VALUES ($1, $2, $3) RETURNING *",
+				[projectId, req.user, feedback]
+			);
+			res.json("Feedback added successfully!");
+		}
+	} catch (error) {
+		console.error(error.message);
+	}
+});
+
+// GET FEEDBACK
+router.get("/student/feedback", authorization, async (req, res) => {
+	try {
+		const results = await pool.query(
+			"SELECT mentors.mentor_name, project_proposal.project_name, feedback.feedback FROM students LEFT JOIN project_proposal ON project_proposal.student_id = students.student_id INNER JOIN feedback ON project_proposal.project_id = feedback.project_id INNER JOIN mentors ON mentors.mentor_id = feedback.mentor_id WHERE students.student_id = $1",
+			[req.user]
+		);
+
+		res.json(results.rows);
+	} catch (error) {
+		console.error(error.message);
 	}
 });
 

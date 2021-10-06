@@ -60,7 +60,8 @@
 }
 
 .profile,
-.projects,
+.proposals,
+.feedback,
 .competitions {
 	background-color: #d4dbdd;
 	box-shadow: 1px 1px 1px 0px;
