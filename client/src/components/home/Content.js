@@ -10,13 +10,8 @@ import {
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 
-// import FeaturedProjects from "./FeaturedProjects";
-// import Testimonials from "./Testimonials";
-// import Team from "./Team";
-//import theme from '../../themes/theme';
 import TouchAppIcon from "@mui/icons-material/TouchApp";
 import BcgImage from "./bg1.png";
-import joinPic from "./join2.png";
 
 const Content = () => {
 	let history = useHistory();
@@ -51,7 +46,6 @@ const Content = () => {
 									padding: "1rem",
 								}}
 							>
-								<img src={joinPic} alt="join now" />
 								<WrappingText>
 									A platform where students can journey with a team of mentors
 									to assist with the innovation of project ideas, during the
