@@ -66,9 +66,6 @@ const AdminDashboard = ({ setAuth }) => {
 								display: "flex",
 								justifyContent: "center",
 								flexDirection: "column",
-								// p: 1,
-								ml: 25,
-								mr: 25,
 							}}
 						>
 							<Box
@@ -111,6 +108,8 @@ const AdminDashboard = ({ setAuth }) => {
 							<Button onClick={() => setPage("mentor")} variant="contained">
 								Add Mentor
 							</Button>
+							<br />
+							<br />
 							<Button onClick={() => setPage("admin")} variant="contained">
 								Add Admin
 							</Button>
