@@ -30,7 +30,7 @@ router.post("/project", async (req, res) => {
 // GET ALL PROJECT
 router.get("/project", async (req, res) => {
 	try {
-		const projects = await pool.query("SELECT * FROM projects");
+		const projects = await pool.query("SELECT * FROM project_proposal");
 		res.json(projects.rows);
 	} catch (error) {
 		res.status(500).json({ error: error.message });
@@ -76,6 +76,26 @@ router.get("/student/projects/proposal", authorization, async (req, res) => {
 		console.error(error.message);
 	}
 });
+
+//GET PROJECT BY PROJECT ID
+router.get(
+	"/student/projects/proposal/:projectId",
+	authorization,
+	async (req, res) => {
+		try {
+			const { projectId } = req.params;
+
+			const result = await pool.query(
+				"SELECT * FROM project_proposal WHERE project_id = $1",
+				[projectId]
+			);
+
+			res.json(result.rows);
+		} catch (error) {
+			console.error(error.message);
+		}
+	}
+);
 
 // CREATE NEW PROJECT PROPOSAL ALL STEPS
 router.post("/student/projects/proposal", authorization, async (req, res) => {
@@ -306,6 +326,46 @@ router.put("/students_profile", async (req, res) => {
 			message: "Couldn't update the student profile at the moment",
 			error: error,
 		});
+	}
+});
+
+// FEEDBACK ROUTES
+
+// GIVE FEEDBACK
+router.post("/mentor/feedback/:projectId", authorization, async (req, res) => {
+	try {
+		const { projectId } = req.params;
+		const { feedback } = req.body;
+
+		const foundProject = await pool.query(
+			"SELECT * FROM project_proposal WHERE project_id = $1",
+			[projectId]
+		);
+
+		if (foundProject) {
+			await pool.query(
+				"INSERT INTO feedback (mentor_id, feedback) VALUES ($1, $2) RETURNING *",
+				[req.user, feedback]
+			);
+			res.json("Feedback added successfully!");
+		}
+	} catch (error) {
+		console.error(error.message);
+	}
+});
+
+// GET FEEDBACK
+router.get("/mentor/feedback/:projectId", authorization, async (req, res) => {
+	try {
+		const { projectId } = req.params;
+		const results = await pool.query(
+			"SELECT projects.project_name, projects.problem_statement, projects.proposed_action, feedback.feedback from projects INNER JOIN feedback ON projects.project_id = feedback.project_id WHERE projects.project_id = $1",
+			[projectId]
+		);
+
+		res.json(results.rows);
+	} catch (error) {
+		console.error(error.message);
 	}
 });
 

@@ -27,8 +27,10 @@ const StudentDashboard = (props) => {
 	const [name, setName] = useState("");
 	const [id, setId] = useState("");
 	const [info, setInfo] = useState("");
-	// const [message, setMessage] = useState("--No Feedback to Display--");
 	const [page, setPage] = useState("");
+	const [table, setTable] = useState(false);
+	const [projects, setProjects] = useState([]);
+	const [proposal, setProposal] = useState([]);
 
 	const getName = async () => {
 		try {
@@ -44,8 +46,45 @@ const StudentDashboard = (props) => {
 		}
 	};
 
+	const getProjects = async () => {
+		try {
+			const response = await fetch("/api/student/projects/proposal", {
+				method: "GET",
+				headers: { token: localStorage.token },
+			});
+
+			const parseResponse = await response.json();
+
+			setProjects(parseResponse);
+			setTable(true);
+		} catch (error) {
+			console.error(error.message);
+		}
+	};
+
 	useEffect(() => {
 		getName();
+		getProjects();
+		getProjectById(projects.project_id);
+	}, [projects]);
+
+	const getProjectById = async (id) => {
+		try {
+			const response = await fetch(`/api/student/projects/proposal/${id}`, {
+				method: "GET",
+				headers: { token: localStorage.token },
+			});
+
+			const parseResponse = await response.json();
+
+			setProposal(parseResponse);
+			setPage("show_proposal");
+		} catch (error) {
+			console.error(error.message);
+		}
+	};
+
+	useEffect(() => {
 		//props.changeNotifications(7);
 		let localUserData = localStorage.getItem("profile");
 		if (localUserData) {
@@ -76,7 +115,7 @@ const StudentDashboard = (props) => {
 				) : page === "proposal" ? (
 					<AddProposal setPage={setPage} />
 				) : page === "show_proposal" ? (
-					<ShowProposalInfo setPage={setPage} />
+					<ShowProposalInfo setPage={setPage} proposal={proposal} />
 				) : (
 					<>
 						<div className="introduction">
@@ -107,7 +146,12 @@ const StudentDashboard = (props) => {
 							</div>
 						</div>
 						<hr />
-						<ProjectTable setPage={setPage} />
+						<ProjectTable
+							setPage={setPage}
+							getProjectById={getProjectById}
+							projects={projects}
+							table={table}
+						/>
 					</>
 				)}
 			</div>

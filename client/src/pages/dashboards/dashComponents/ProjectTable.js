@@ -1,43 +1,8 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useState, useEffect } from "react";
+import React from "react";
 
-const ProjectTable = ({ setPage }) => {
-	const [table, setTable] = useState(false);
-	const [projects, setProjects] = useState([]);
-
-	const getProjects = async () => {
-		try {
-			const response = await fetch("/api/student/projects/proposal", {
-				method: "GET",
-				headers: { token: localStorage.token },
-			});
-
-			const parseResponse = await response.json();
-
-			setProjects(parseResponse);
-			setTable(true);
-		} catch (error) {
-			console.error(error.message);
-		}
-	};
-
-	useEffect(() => {
-		getProjects();
-	}, []);
-
-	const handleShow = (e) => {
-		let projectName = e.target.innerText;
-		let getName;
-		projects.forEach((el) => {
-			if (projectName === el.project_name) {
-				getName = el.project_name;
-
-			}
-		});
-		return getName, setPage("show_proposal");
-	};
-
+const ProjectTable = ({ getProjectById, projects, table }) => {
 	return (
 		<>
 			<div className="project-table">
@@ -72,9 +37,9 @@ const ProjectTable = ({ setPage }) => {
 						) : (
 							projects.map((proj, idx) => {
 								return (
-									<tr key={idx}>
+									<tr key={idx} onClick={() => getProjectById(proj.project_id)}>
 										<th scope="row">{idx + 1}</th>
-										<td onClick={(e) => handleShow(e)}>{proj.project_name}</td>
+										<td>{proj.project_name}</td>
 										<td>{proj.problem_statement}</td>
 										<td>{proj.proposed_action}</td>
 										<td>{proj.project_status}</td>
