@@ -3,6 +3,7 @@
 import React from "react";
 
 const ProjectTable = ({ getProjectById, projects, table }) => {
+	console.log(table);
 	return (
 		<>
 			<div className="project-table">
@@ -28,7 +29,7 @@ const ProjectTable = ({ getProjectById, projects, table }) => {
 						</tr>
 					</thead>
 					<tbody>
-						{!table ? (
+						{projects.length === 0 ? (
 							<tr>
 								<td colSpan="5">
 									<h3 className="text-center">--No projects to display--</h3>

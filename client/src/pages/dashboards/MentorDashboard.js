@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import MentorShowProposal from "./dashComponents/MentorShowProposal";
 import Container from "@mui/material/Container";
 import { Button } from "@mui/material";
-import axios from "axios";
+// import axios from "axios";
 
 const MentorDashboard = ({ setAuth }) => {
 	const [proposals, setProposals] = useState([]);
@@ -11,14 +11,13 @@ const MentorDashboard = ({ setAuth }) => {
 
 	useEffect(() => {
 		getAllProposals();
-		getProposalById();
-	}, [proposals]);
+	}, []);
 
 
 	const getAllProposals = async () => {
 		try {
-			const response = await axios.get("/api/project");
-			const data = response.data;
+			const response = await fetch("/api/project");
+			const data = await response.json();
 			setProposals(data);
 		} catch (error) {
 			console.error(error.message);

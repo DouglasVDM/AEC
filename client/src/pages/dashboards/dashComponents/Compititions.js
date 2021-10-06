@@ -13,7 +13,6 @@ const Competitions = ({ setPage }) => {
 		try {
 			const response = await fetch("/api/competition", {
 				method: "GET",
-				headers: { token: localStorage.token },
 			});
 
 			const parseResponse = await response.json();
@@ -62,12 +61,3 @@ const Competitions = ({ setPage }) => {
 
 export default Competitions;
 
-// {comp === true ? <AddProposal /> : (comp ? (<h3>--No competitions to display--</h3>) : (competitions.map((comp, idx) => {
-// 	return (
-// 		<ul key={idx}>
-// 			<li style={{ listStyle: "none" }}>
-// 				<h2>{comp.comp_title}</h2>
-// 			</li>
-// 			<li style={{ listStyle: "none" }}>{comp.comp_desc}</li>
-// 			<li style={{ listStyle: "none" }}>Contact: {comp.contact}</li>
-// 		</ul>

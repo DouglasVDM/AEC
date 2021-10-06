@@ -1,0 +1,1142 @@
+// ALL THE FILES I HAVE CHANGED AND ADDED FOR FEEDBACK
+
+// COMPETITIONS
+
+/* eslint-disable linebreak-style */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+import React, { useState, useEffect } from "react";
+// import AddProposal from "./AddProposal";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+
+const Competitions = ({ setPage }) => {
+	const [comp, setComp] = useState(false);
+	const [competitions, setCompetitions] = useState([]);
+
+	const getCompetitions = async () => {
+		try {
+			const response = await fetch("/api/competition", {
+				method: "GET",
+			});
+
+			const parseResponse = await response.json();
+
+			setCompetitions(parseResponse);
+			setComp(true);
+		} catch (error) {
+			console.error(error.message);
+		}
+	};
+
+	useEffect(() => {
+		getCompetitions();
+	}, []);
+
+	return (
+		<>
+			<div
+				className="back"
+				onClick={() => setPage("")}
+				style={{ fontWeight: "600", cursor: "pointer" }}
+			>
+				<ArrowBackIcon />
+				Go Back
+			</div>
+			<h2 className="text-center mt-4 mb-4">Competitions</h2>
+			{!comp ? (
+				<h3>--No competitions to display--</h3>
+			) : (
+				competitions.map((comp, idx) => {
+					return (
+						<div className="card mb-3" key={idx}>
+							<img className="card-img-top" src="..." alt="card" />
+							<div className="card-body">
+								<h5 className="card-title">{comp.comp_title}</h5>
+								<p className="card-text">{comp.comp_desc}</p>
+								<p className="card-text">Contact: {comp.contact}</p>
+							</div>
+						</div>
+					);
+				})
+			)}
+		</>
+	);
+};
+
+export default Competitions;
+
+
+
+// FEEDBACK
+
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+import React, { useState, useEffect } from "react";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+
+const Feedback = ({ setPage }) => {
+	const [getFeedback, setGetFeedback] = useState([]);
+
+	useEffect(() => {
+		getMentorFeedback();
+	}, []);
+
+	const getMentorFeedback = async () => {
+		try {
+			const response = await fetch("/api/student/feedback", {
+				method: "GET",
+				headers: { token: localStorage.token },
+			});
+
+			const parseResponse = await response.json();
+
+			setGetFeedback(parseResponse);
+		} catch (error) {
+			console.error(error.message);
+		}
+	};
+	return (
+		<>
+			<div
+				className="back mb-5"
+				onClick={() => setPage("")}
+				style={{ fontWeight: "600", cursor: "pointer" }}
+			>
+				<ArrowBackIcon />
+				Go Back
+			</div>
+			<div className="feedback-table">
+				<h3 className="text-center">Feedback</h3>
+				<table className="table table-hover mt-5">
+					<thead>
+						<tr>
+							<th scope="col" style={{ width: "10%" }}>
+								#
+							</th>
+							<th scope="col" style={{ width: "15%" }}>
+								Mentor Name
+							</th>
+							<th scope="col" style={{ width: "35%" }}>
+								The Project
+							</th>
+							<th scope="col" style={{ width: "35%" }}>
+								Feedback
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						{getFeedback.length === 0 ? (
+							<tr>
+								<td colSpan="5">
+									<h5 className="text-center">--No feedback to display--</h5>
+								</td>
+							</tr>
+						) : (
+							getFeedback.map((item, idx) => {
+								return (
+									<tr key={idx}>
+										<th scope="row">{idx + 1}</th>
+										<td>{item.mentor_name}</td>
+										<td>{item.project_name}</td>
+										<td>{item.feedback}</td>
+									</tr>
+								);
+							})
+						)}
+					</tbody>
+				</table>
+			</div>
+		</>
+	);
+};
+
+export default Feedback;
+
+// PROJECT TABLE
+
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+import React from "react";
+
+const ProjectTable = ({ getProjectById, projects, table }) => {
+	console.log(table);
+	return (
+		<>
+			<div className="project-table">
+				<h3>Project Proposals</h3>
+				<table className="table table-hover mt-5">
+					<thead>
+						<tr>
+							<th scope="col" style={{ width: "10%" }}>
+								#
+							</th>
+							<th scope="col" style={{ width: "15%" }}>
+								Project Name
+							</th>
+							<th scope="col" style={{ width: "20%" }}>
+								Problem Statement
+							</th>
+							<th scope="col" style={{ width: "20%" }}>
+								Proposed Action
+							</th>
+							<th scope="col" style={{ width: "15%" }}>
+								Project Status
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						{projects.length === 0 ? (
+							<tr>
+								<td colSpan="5">
+									<h3 className="text-center">--No projects to display--</h3>
+								</td>
+							</tr>
+						) : (
+							projects.map((proj, idx) => {
+								return (
+									<tr key={idx} onClick={() => getProjectById(proj.project_id)}>
+										<th scope="row">{idx + 1}</th>
+										<td>{proj.project_name}</td>
+										<td>{proj.problem_statement}</td>
+										<td>{proj.proposed_action}</td>
+										<td>{proj.project_status}</td>
+									</tr>
+								);
+							})
+						)}
+					</tbody>
+				</table>
+			</div>
+		</>
+	);
+};
+
+export default ProjectTable;
+
+// STUDENT DASHBOARD
+
+/* eslint-disable linebreak-style */
+/* eslint-disable no-unused-vars */
+/* eslint-disable linebreak-style */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+import React, { useState, useEffect } from "react";
+//import HeaderDash from "./dashComponents/HeaderDash";
+// import { toast } from "react-toastify";
+import "./Dashboard.css";
+
+import Profile from "./dashComponents/Profile";
+import AccountSettings from "./dashComponents/AccountSettings";
+import EditProfile from "./dashComponents/EditProfile";
+import Projects from "./dashComponents/Projects";
+import Competitions from "./dashComponents/Compititions";
+import ProjectTable from "./dashComponents/ProjectTable";
+import Feedback from "./dashComponents/Feedback";
+
+import PersonIcon from "@mui/icons-material/Person";
+import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
+import FeedbackIcon from "@mui/icons-material/Feedback";
+import SportsKabaddiIcon from "@mui/icons-material/SportsKabaddi";
+import AddProposal from "./dashComponents/AddProposal";
+import ShowProposalInfo from "./dashComponents/ShowProposalInfo";
+
+const StudentDashboard = (props) => {
+	const [name, setName] = useState("");
+	const [id, setId] = useState("");
+	const [info, setInfo] = useState("");
+	const [page, setPage] = useState("");
+	const [table, setTable] = useState(false);
+	const [projects, setProjects] = useState([]);
+	const [proposal, setProposal] = useState([]);
+
+	const getName = async () => {
+		try {
+			const response = await fetch("/auth/student/dashboard", {
+				method: "GET",
+				headers: { token: localStorage.token },
+			});
+			const parseRes = await response.json();
+			setName(parseRes[0].student_name);
+			setId(parseRes[0].student_id);
+		} catch (error) {
+			console.error(error.message);
+		}
+	};
+
+	const getProjects = async () => {
+		try {
+			const response = await fetch("/api/student/projects/proposal", {
+				method: "GET",
+				headers: { token: localStorage.token },
+			});
+
+			const parseResponse = await response.json();
+
+			setProjects(parseResponse);
+			setTable(true);
+		} catch (error) {
+			console.error(error.message);
+		}
+	};
+
+	useEffect(() => {
+		getName();
+		getProjects();
+	}, []);
+
+	const getProjectById = async (id) => {
+		try {
+			const response = await fetch(`/api/student/projects/proposal/${id}`, {
+				method: "GET",
+				headers: { token: localStorage.token },
+			});
+
+			const parseResponse = await response.json();
+
+			setProposal(parseResponse);
+			setPage("show_proposal");
+		} catch (error) {
+			console.error(error.message);
+		}
+	};
+
+	useEffect(() => {
+		//props.changeNotifications(7);
+		let localUserData = localStorage.getItem("profile");
+		if (localUserData) {
+			let userProfile = JSON.parse(localUserData);
+			for (let name in userProfile) {
+				//console.log(`${name}: ${userProfile[name]}, `);
+				setInfo({
+					...info,
+					[name]: userProfile[name],
+				});
+			}
+		}
+	}, []);
+
+	return (
+		<>
+			<div className="container container-fluid no-padding">
+				{page === "profile" ? (
+					<Profile setPage={setPage} id={id} setInfo={setInfo} />
+				) : page === "edit_profile" ? (
+					<EditProfile setPage={setPage} id={id} info={info} />
+				) : page === "account_settings" ? (
+					<AccountSettings setPage={setPage} />
+				) : page === "feedback" ? (
+					<Feedback setPage={setPage} />
+				) : page === "competitions" ? (
+					<Competitions setPage={setPage} />
+				) : page === "proposal" ? (
+					<AddProposal setPage={setPage} />
+				) : page === "show_proposal" ? (
+					<ShowProposalInfo setPage={setPage} proposal={proposal} />
+				) : (
+					<>
+						<div className="introduction">
+							<h1>Student Dashboard</h1>
+							<h2>Welcome Back {name}</h2>
+						</div>
+						<div className="links-wrapper">
+							<div className="links">
+								<div className="profile" onClick={() => setPage("profile")}>
+									<PersonIcon style={{ fontSize: "2rem" }} />
+									Profile
+								</div>
+								<div className="proposals" onClick={() => setPage("proposal")}>
+									<VolunteerActivismIcon style={{ fontSize: "2rem" }} /> Add
+									Proposal
+								</div>
+								<div className="feedback" onClick={() => setPage("feedback")}>
+									<FeedbackIcon style={{ fontSize: "2rem" }} />
+									Feedback
+								</div>
+								<div
+									className="competitions"
+									onClick={() => setPage("competitions")}
+								>
+									<SportsKabaddiIcon style={{ fontSize: "2rem" }} />
+									Competitions
+								</div>
+							</div>
+						</div>
+						<hr />
+						<ProjectTable
+							setPage={setPage}
+							getProjectById={getProjectById}
+							projects={projects}
+							table={table}
+						/>
+					</>
+				)}
+			</div>
+		</>
+	);
+};
+
+export default StudentDashboard;
+
+
+// SHOW PROPOSAL INFO
+
+/* eslint-disable linebreak-style */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable linebreak-style */
+import React from "react";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+
+const ShowProposalInfo = ({ setPage, proposal }) => {
+	return (
+		<>
+			<div
+				className="back mb-5"
+				onClick={() => setPage("")}
+				style={{ fontWeight: "600", cursor: "pointer" }}
+			>
+				<ArrowBackIcon />
+				Go Back
+			</div>
+			<div className="show-proposal-container">
+				{proposal.map((info, idx) => {
+					return (
+						<div key={idx}>
+							<h5>The Project</h5>
+							<div className="proposal-info">
+								<p>{info.project_name}</p>
+							</div>
+							<h5>Problem Statement</h5>
+							<div className="proposal-info">
+								<p>{info.problem_statement}</p>
+							</div>
+							<h5>Proposed Action</h5>
+							<div className="proposal-info">
+								<p>{info.proposed_action}</p>
+							</div>
+							<h5>Expected Result</h5>
+							<div className="proposal-info">
+								<p>{info.expected_result}</p>
+							</div>
+							<h5>Social Returns</h5>
+							<div className="proposal-info">
+								<p>{info.social_returns}</p>
+							</div>
+							<h5>Key Activities</h5>
+							<div className="proposal-info">
+								<p>{info.key_activities}</p>
+							</div>
+							<h5>Key Resources</h5>
+							<div className="proposal-info">
+								<p>{info.key_resources}</p>
+							</div>
+							<h5>The Team</h5>
+							<div className="proposal-info">
+								<p>{info.team}</p>
+							</div>
+							<h5>Client Profile</h5>
+							<div className="proposal-info">
+								<p>{info.client_profile}</p>
+							</div>
+							<h5>Client Relationships</h5>
+							<div className="proposal-info">
+								<p>{info.client_relationships}</p>
+							</div>
+							<h5>Client_Channels</h5>
+							<div className="proposal-info">
+								<p>{info.client_channels}</p>
+							</div>
+							<h5>Key partners</h5>
+							<div className="proposal-info">
+								<p>{info.key_partners}</p>
+							</div>
+							<h5>Stakeholders</h5>
+							<div className="proposal-info">
+								<p>{info.stakeholders}</p>
+							</div>
+							<h5>Networks</h5>
+							<div className="proposal-info">
+								<p>{info.networks}</p>
+							</div>
+							<h5>Start Up Cost</h5>
+							<div className="proposal-info">
+								<p>{info.startup_cost}</p>
+							</div>
+							<h5>Operational Cost</h5>
+							<div className="proposal-info">
+								<p>{info.operational_cost}</p>
+							</div>
+							<h5>Finance Plan</h5>
+							<div className="proposal-info">
+								<p>{info.finance_plan}</p>
+							</div>
+							<h5>Business Plan</h5>
+							<div className="proposal-info">
+								<p>{info.business_plan}</p>
+							</div>
+							<h5>Implementation Plan</h5>
+							<div className="proposal-info">
+								<p>{info.implementation_plan}</p>
+							</div>
+							<h5>Key Milestones</h5>
+							<div className="proposal-info">
+								<p>{info.key_milestones}</p>
+							</div>
+							<h5>Monitoring And Evaluation</h5>
+							<div className="proposal-info">
+								<p>{info.monitoring_and_evaluation}</p>
+							</div>
+							<h5>Who We Are</h5>
+							<div className="proposal-info">
+								<p>{info.who_we_are}</p>
+							</div>
+							<h5>Vision And Mission</h5>
+							<div className="proposal-info">
+								<p>{info.vision_and_mission}</p>
+							</div>
+							<h5>Track_Record</h5>
+							<div className="proposal-info">
+								<p>{info.track_record}</p>
+							</div>
+						</div>
+					);
+				})}
+			</div>
+		</>
+	);
+};
+
+export default ShowProposalInfo;
+
+// MENTOR DASHBOARD
+
+import React, { useEffect, useState } from "react";
+import MentorShowProposal from "./dashComponents/MentorShowProposal";
+import Container from "@mui/material/Container";
+import { Button } from "@mui/material";
+// import axios from "axios";
+
+const MentorDashboard = ({ setAuth }) => {
+	const [proposals, setProposals] = useState([]);
+	const [singleProject, setSingleProject] = useState([]);
+	const [page, setPage] = useState("");
+
+	useEffect(() => {
+		getAllProposals();
+	}, []);
+
+
+	const getAllProposals = async () => {
+		try {
+			const response = await fetch("/api/project");
+			const data = await response.json();
+			setProposals(data);
+		} catch (error) {
+			console.error(error.message);
+		}
+	};
+
+	const getProposalById = async (id) => {
+		try {
+			const response = await fetch(`/api/student/projects/proposal/${id}`, {
+				method: "GET",
+				headers: { token: localStorage.token },
+			});
+
+			const parseResponse = await response.json();
+
+			setSingleProject(parseResponse);
+			setPage("mentor_show");
+		} catch (error) {
+			console.error(error.message);
+		}
+	};
+
+	return (
+		<div className="p-5">
+			{page === "mentor_show" ? (
+				<MentorShowProposal singleProject={singleProject} setPage={setPage} projectId={proposals.project_id} />
+			) : (
+				<Container style={{ width: "100%" }}>
+					<Button onClick={() => setAuth(false)} variant="contained">
+						Log out
+					</Button>
+					<br />
+					<br />
+					<div>
+						<h3 className="text-center mb-3">Student Project Proposals</h3>
+						<table className="table table-hover">
+							<caption>List of Projects</caption>
+							<thead>
+								<tr>
+									<th scope="col">#</th>
+									<th scope="col">Project name</th>
+									<th scope="col">Problem statement</th>
+									<th scope="col">Proposed action</th>
+									<th scope="col">Project status</th>
+								</tr>
+							</thead>
+							{proposals.map(
+								(
+									{
+										project_id,
+										project_name,
+										problem_statement,
+										proposed_action,
+										project_status,
+									},
+									index
+								) => {
+									return (
+										<tbody key={project_id}>
+											<tr onClick={() => getProposalById(project_id)}>
+												<th scope="row">{index + 1}</th>
+												<td>{project_name}</td>
+												<td>{problem_statement}</td>
+												<td>{proposed_action}</td>
+												<td>{project_status}</td>
+											</tr>
+										</tbody>
+									);
+								}
+							)}
+						</table>
+					</div>
+				</Container>
+			)}
+		</div>
+	);
+};
+
+export default MentorDashboard;
+
+// MENTOR SHOW PROPOSAL
+
+/* eslint-disable linebreak-style */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable linebreak-style */
+import React, { useState } from "react";
+import { toast } from "react-toastify";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+
+const MentorShowProposal = ({ setPage, singleProject }) => {
+	const [feedback, setFeedback] = useState("");
+	let id = singleProject.map((item) => item.project_id);
+
+	const giveFeedback = async (e) => {
+		e.preventDefault();
+
+		try {
+			const myHeaders = new Headers();
+			myHeaders.append("Content-Type", "application/json");
+			myHeaders.append("token", localStorage.token);
+
+			const body = { feedback };
+			const response = await fetch(`/api/mentor/feedback/${id[0]}`, {
+				method: "POST",
+				headers: myHeaders,
+				body: JSON.stringify(body),
+			});
+
+			const parseResponse = await response.json();
+			if (parseResponse) {
+				setPage("");
+
+				toast.success("Feedback Added Successfully");
+			} else {
+				toast.error(parseResponse);
+			}
+		} catch (error) {
+			console.error(error.message);
+		}
+	};
+
+	return (
+		<>
+			<div
+				className="back mb-5"
+				onClick={() => setPage("")}
+				style={{ fontWeight: "600", cursor: "pointer" }}
+			>
+				<ArrowBackIcon />
+				Go Back
+			</div>
+			<div className="show-proposal-container">
+				{singleProject.map((info, idx) => {
+					return (
+						<>
+							<div key={idx}>
+								<h5>The Project</h5>
+								<div className="proposal-info">
+									<p>{info.project_name}</p>
+								</div>
+								<h5>Problem Statement</h5>
+								<div className="proposal-info">
+									<p>{info.problem_statement}</p>
+								</div>
+								<h5>Proposed Action</h5>
+								<div className="proposal-info">
+									<p>{info.proposed_action}</p>
+								</div>
+								<h5>Expected Result</h5>
+								<div className="proposal-info">
+									<p>{info.expected_result}</p>
+								</div>
+								<h5>Social Returns</h5>
+								<div className="proposal-info">
+									<p>{info.social_returns}</p>
+								</div>
+								<h5>Key Activities</h5>
+								<div className="proposal-info">
+									<p>{info.key_activities}</p>
+								</div>
+								<h5>Key Resources</h5>
+								<div className="proposal-info">
+									<p>{info.key_resources}</p>
+								</div>
+								<h5>The Team</h5>
+								<div className="proposal-info">
+									<p>{info.team}</p>
+								</div>
+								<h5>Client Profile</h5>
+								<div className="proposal-info">
+									<p>{info.client_profile}</p>
+								</div>
+								<h5>Client Relationships</h5>
+								<div className="proposal-info">
+									<p>{info.client_relationships}</p>
+								</div>
+								<h5>Client_Channels</h5>
+								<div className="proposal-info">
+									<p>{info.client_channels}</p>
+								</div>
+								<h5>Key partners</h5>
+								<div className="proposal-info">
+									<p>{info.key_partners}</p>
+								</div>
+								<h5>Stakeholders</h5>
+								<div className="proposal-info">
+									<p>{info.stakeholders}</p>
+								</div>
+								<h5>Networks</h5>
+								<div className="proposal-info">
+									<p>{info.networks}</p>
+								</div>
+								<h5>Start Up Cost</h5>
+								<div className="proposal-info">
+									<p>{info.startup_cost}</p>
+								</div>
+								<h5>Operational Cost</h5>
+								<div className="proposal-info">
+									<p>{info.operational_cost}</p>
+								</div>
+								<h5>Finance Plan</h5>
+								<div className="proposal-info">
+									<p>{info.finance_plan}</p>
+								</div>
+								<h5>Business Plan</h5>
+								<div className="proposal-info">
+									<p>{info.business_plan}</p>
+								</div>
+								<h5>Implementation Plan</h5>
+								<div className="proposal-info">
+									<p>{info.implementation_plan}</p>
+								</div>
+								<h5>Key Milestones</h5>
+								<div className="proposal-info">
+									<p>{info.key_milestones}</p>
+								</div>
+								<h5>Monitoring And Evaluation</h5>
+								<div className="proposal-info">
+									<p>{info.monitoring_and_evaluation}</p>
+								</div>
+								<h5>Who We Are</h5>
+								<div className="proposal-info">
+									<p>{info.who_we_are}</p>
+								</div>
+								<h5>Vision And Mission</h5>
+								<div className="proposal-info">
+									<p>{info.vision_and_mission}</p>
+								</div>
+								<h5>Track_Record</h5>
+								<div className="proposal-info">
+									<p>{info.track_record}</p>
+								</div>
+							</div>
+							<div className="feedback-container">
+								<form onSubmit={(e) => giveFeedback(e)}>
+									<h4>Feedback</h4>
+									<textarea
+										className="form-control mb-4"
+										type="text"
+										name="feedback"
+										value={feedback}
+										onChange={(e) => setFeedback(e.target.value)}
+									/>
+									<button type="submit">Send Feedback</button>
+								</form>
+							</div>
+						</>
+					);
+				})}
+			</div>
+		</>
+	);
+};
+
+export default MentorShowProposal;
+
+
+// SERVER API
+
+import { Router } from "express";
+import pool from "./db.js";
+import authorization from "./jwtMiddleware/authorization";
+
+const router = new Router();
+
+router.get("/", (_, res) => {
+	res.json({ message: "Welcome to Stellenbosch University" });
+});
+
+// ADD NEW PROJECT
+router.post("/project", async (req, res) => {
+	try {
+		const {
+			project_name,
+			problem_statement,
+			proposed_action,
+			expected_result,
+		} = req.body;
+		const newProject = await pool.query(
+			"INSERT INTO projects (project_name, problem_statement, proposed_action, expected_result) VALUES ($1,$2,$3,$4) RETURNING *",
+			[project_name, problem_statement, proposed_action, expected_result]
+		);
+		res.json({ projects: newProject });
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+});
+
+// GET ALL PROJECT
+router.get("/project", async (req, res) => {
+	try {
+		const projects = await pool.query("SELECT * FROM project_proposal");
+		res.json(projects.rows);
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+});
+
+// CREATE NEW PROJECT PROPOSAL STEP 1
+router.post("/student/projects", authorization, async (req, res) => {
+	const {
+		project_name,
+		problem_statement,
+		proposed_action,
+		expected_result,
+		project_status = "await feedback",
+	} = req.body;
+	try {
+		await pool.query(
+			"INSERT INTO projects (student_id, project_name, problem_statement, proposed_action, expected_result, project_status) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
+			[
+				req.user,
+				project_name,
+				problem_statement,
+				proposed_action,
+				expected_result,
+				project_status,
+			]
+		);
+		res.json({ status: "success", message: "Project proposal added!" });
+	} catch (error) {
+		console.error(error.message);
+	}
+});
+
+// GET PROJECT PROPOSAL
+router.get("/student/projects/proposal", authorization, async (req, res) => {
+	try {
+		const result = await pool.query(
+			"SELECT * FROM project_proposal WHERE student_id = $1 LIMIT 5",
+			[req.user]
+		);
+		res.json(result.rows);
+	} catch (error) {
+		console.error(error.message);
+	}
+});
+
+//GET PROJECT BY PROJECT ID
+router.get(
+	"/student/projects/proposal/:projectId",
+	authorization,
+	async (req, res) => {
+		try {
+			const { projectId } = req.params;
+
+			const result = await pool.query(
+				"SELECT * FROM project_proposal WHERE project_id = $1",
+				[projectId]
+			);
+
+			res.json(result.rows);
+		} catch (error) {
+			console.error(error.message);
+		}
+	}
+);
+
+// CREATE NEW PROJECT PROPOSAL ALL STEPS
+router.post("/student/projects/proposal", authorization, async (req, res) => {
+	const {
+		project_name,
+		problem_statement,
+		proposed_action,
+		expected_result,
+		social_returns,
+		key_activities,
+		key_resources,
+		team,
+		client_profile,
+		client_relationships,
+		client_channels,
+		key_partners,
+		stakeholders,
+		networks,
+		startup_costs,
+		operational_costs,
+		finance_plan,
+		business_plan,
+		implementation_plan,
+		key_milestones,
+		monitoring_and_evaluation,
+		who_we_are,
+		vision_and_mission,
+		track_record,
+		project_status = "await feedback",
+	} = req.body;
+	try {
+		await pool.query(
+			"INSERT INTO project_proposal (project_name, problem_statement, proposed_action, expected_result, social_returns, key_activities, key_resources, team, client_profile, client_relationships, client_channels, key_partners,	stakeholders, networks, startup_costs, operational_costs, finance_plan, business_plan, implementation_plan, key_milestones,	monitoring_and_evaluation, who_we_are, vision_and_mission, track_record, project_status, student_id) VALUES ($1, $2, $3, $4, $5, $6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25, $26) RETURNING *",
+			[
+				project_name,
+				problem_statement,
+				proposed_action,
+				expected_result,
+				social_returns,
+				key_activities,
+				key_resources,
+				team,
+				client_profile,
+				client_relationships,
+				client_channels,
+				key_partners,
+				stakeholders,
+				networks,
+				startup_costs,
+				operational_costs,
+				finance_plan,
+				business_plan,
+				implementation_plan,
+				key_milestones,
+				monitoring_and_evaluation,
+				who_we_are,
+				vision_and_mission,
+				track_record,
+				project_status,
+				req.user,
+			]
+		);
+		res.json({
+			status: "success",
+			message: "Project proposal all steps added!",
+		});
+	} catch (error) {
+		console.error(error.message);
+	}
+});
+
+// ADD NEW COMPETITION
+router.post("/competition", authorization, async (req, res) => {
+	try {
+		const { comp_title, comp_desc, contact_pers } = req.body;
+		const newCompetition = await pool.query(
+			"INSERT INTO competitions (comp_title, comp_desc, contact_pers) VALUES ($1,$2,$3) RETURNING *",
+			[comp_title, comp_desc, contact_pers]
+		);
+		res.json({ competitions: newCompetition });
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+});
+
+// GET ALL COMPETITIONS
+router.get("/competition", async (req, res) => {
+	try {
+		const competitions = await pool.query("SELECT * FROM competitions");
+		res.json(competitions.rows);
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+});
+
+router.get("/students_profile/:student_id", async (req, res) => {
+	const { student_id } = req.params;
+	try {
+		const profile = await pool.query(
+			"SELECT * FROM students_profile WHERE student_id = $1",
+			[student_id]
+		);
+		if (profile.rowCount > 0) {
+			res.status(200).json(profile.rows[0]);
+		} else {
+			res.status(404).json({
+				message: "No information found for the student",
+				body: profile,
+			});
+		}
+	} catch (error) {
+		res.status(500).json({
+			message: "Couldn't fetch the student profile at the moment",
+			error: error,
+		});
+	}
+});
+
+router.post("/students_profile", async (req, res) => {
+	const {
+		student_id,
+		student_number,
+		student_phone,
+		student_bio,
+		student_img,
+		student_active,
+	} = req.body;
+
+	try {
+		const profile = await pool.query(
+			"SELECT * FROM students_profile WHERE student_id = $1",
+			[student_id]
+		);
+		if (profile.rowCount > 0) {
+			await pool.query(
+				"UPDATE students_profile SET student_number = $1, student_phone = $2, student_bio = $3, student_img = $4, student_active = $5 WHERE student_id = $6",
+				[
+					student_number,
+					student_phone,
+					student_bio,
+					student_img,
+					student_active,
+					student_id,
+				]
+			);
+
+			res.status(200).json({ message: "Ok" });
+		} else {
+			await pool.query(
+				"INSERT INTO students_profile (student_id, student_number, student_phone, student_bio, student_img, student_active) VALUES ($1, $2, $3, $4, $5, $6)",
+				[
+					student_id,
+					student_number,
+					student_phone,
+					student_bio,
+					student_img,
+					student_active,
+				]
+			);
+
+			res.status(200).json({ message: "Ok" });
+		}
+	} catch (error) {
+		res.status(500).json({
+			message: "Couldn't fetch the student profile at the moment",
+			error: error,
+		});
+	}
+});
+
+router.put("/students_profile", async (req, res) => {
+	const {
+		student_id,
+		student_number,
+		student_phone,
+		student_bio,
+		student_img,
+		student_active,
+	} = req.body;
+	console.log(req.body);
+	try {
+		await pool.query(
+			"UPDATE students_profile SET student_number = $1, student_phone = $2, student_bio = $3, student_img = $4, student_active = $5 WHERE student_id = $6",
+			[
+				student_number,
+				student_phone,
+				student_bio,
+				student_img,
+				student_active,
+				student_id,
+			]
+		);
+
+		res.status(200).json({ message: "Ok" });
+	} catch (error) {
+		res.status(500).json({
+			message: "Couldn't update the student profile at the moment",
+			error: error,
+		});
+	}
+});
+
+// FEEDBACK ROUTES
+
+// GIVE FEEDBACK
+router.post("/mentor/feedback/:projectId", authorization, async (req, res) => {
+	console.log(req.user);
+	try {
+		const { projectId } = req.params;
+		const { feedback } = req.body;
+
+		const foundProposal = await pool.query(
+			"SELECT * FROM project_proposal WHERE project_id = $1",
+			[projectId]
+		);
+
+		if (foundProposal) {
+			await pool.query(
+				"INSERT INTO feedback (project_id, mentor_id, feedback) VALUES ($1, $2, $3) RETURNING *",
+				[projectId, req.user, feedback]
+			);
+			res.json("Feedback added successfully!");
+		}
+	} catch (error) {
+		console.error(error.message);
+	}
+});
+
+// GET FEEDBACK
+router.get("/student/feedback", authorization, async (req, res) => {
+	try {
+		const results = await pool.query(
+			"SELECT mentors.mentor_name, project_proposal.project_name, feedback.feedback FROM students LEFT JOIN project_proposal ON project_proposal.student_id = students.student_id INNER JOIN feedback ON project_proposal.project_id = feedback.project_id INNER JOIN mentors ON mentors.mentor_id = feedback.mentor_id WHERE students.student_id = $1",
+			[req.user]
+		);
+
+		// const results = await pool.query(
+		// 	"SELECT project_proposal.project_name, project_proposal.problem_statement, project_proposal.proposed_action, feedback.feedback FROM students LEFT JOIN project_proposal ON project_proposal.student_id = students.student_id INNER JOIN feedback ON project_proposal.project_id = feedback.project_id WHERE students.student_id = $1",
+		// 	[req.user]);
+
+		// const results = await pool.query(
+		// 	"SELECT project_proposal.project_name, project_proposal.problem_statement, project_proposal.proposed_action, feedback.feedback from project_proposal INNER JOIN feedback ON project_proposal.project_id = feedback.project_id LEFT JOIN students ON project_proposal.student_id = students.student_id WHERE students.student_id = $1",
+		// 	[req.user]
+		// );
+
+		res.json(results.rows);
+	} catch (error) {
+		console.error(error.message);
+	}
+});
+
+export default router;

@@ -1,11 +1,4 @@
-import {
-	Box,
-	Stack,
-	Typography,
-	Grid,
-	Divider,
-	Container,
-} from "@mui/material";
+import { Box, Stack, Typography, Grid, Container } from "@mui/material";
 
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
@@ -15,19 +8,23 @@ import Testimonials from "./Testimonials";
 import Team from "./Team";
 //import theme from '../../themes/theme';
 
-const Content = (props) => {
+const Content = () => {
 	let history = useHistory();
 
 	return (
 		<Container
 			sx={{
 				backgroundImage: "url('/images/background/bg1.png')",
+				backgroundPosition: "center",
+				backgroundSize: "cover",
+				backgroundRepeat: "no-repeat",
 				maxWidth: "100%",
-				minHeight: "90vh",
+				minHeight: "70vh",
 				paddingBottom: "1rem",
+				margin: "0",
 			}}
 		>
-			<Stack direction="column" sx={{ margin: "4rem 1rem 2rem 1rem" }}>
+			<Stack direction="column" sx={{ padding: "2rem" }}>
 				<Box sx={{ flexGrow: 1 }}>
 					<Grid container spacing={2}>
 						<Grid item xs={12} md={4}>

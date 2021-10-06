@@ -65,8 +65,7 @@ const StudentDashboard = (props) => {
 	useEffect(() => {
 		getName();
 		getProjects();
-		getProjectById(projects.project_id);
-	}, [projects]);
+	}, []);
 
 	const getProjectById = async (id) => {
 		try {

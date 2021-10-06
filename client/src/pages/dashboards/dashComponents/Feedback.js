@@ -1,9 +1,29 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const Feedback = ({ setPage }) => {
+	const [getFeedback, setGetFeedback] = useState([]);
+
+	useEffect(() => {
+		getMentorFeedback();
+	}, []);
+
+	const getMentorFeedback = async () => {
+		try {
+			const response = await fetch("/api/student/feedback", {
+				method: "GET",
+				headers: { token: localStorage.token },
+			});
+
+			const parseResponse = await response.json();
+
+			setGetFeedback(parseResponse);
+		} catch (error) {
+			console.error(error.message);
+		}
+	};
 	return (
 		<>
 			<div
@@ -23,25 +43,35 @@ const Feedback = ({ setPage }) => {
 								#
 							</th>
 							<th scope="col" style={{ width: "15%" }}>
-								Project Name
+								Mentor Name
 							</th>
-							<th scope="col" style={{ width: "20%" }}>
-								Problem Statement
+							<th scope="col" style={{ width: "35%" }}>
+								The Project
 							</th>
-							<th scope="col" style={{ width: "20%" }}>
-								Proposed Action
-							</th>
-							<th scope="col" style={{ width: "15%" }}>
+							<th scope="col" style={{ width: "35%" }}>
 								Feedback
 							</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td colSpan="5">
-								<h5 className="text-center">Coming soon......</h5>
-							</td>
-						</tr>
+						{getFeedback.length === 0 ? (
+							<tr>
+								<td colSpan="5">
+									<h5 className="text-center">--No feedback to display--</h5>
+								</td>
+							</tr>
+						) : (
+							getFeedback.map((item, idx) => {
+								return (
+									<tr key={idx}>
+										<th scope="row">{idx + 1}</th>
+										<td>{item.mentor_name}</td>
+										<td>{item.project_name}</td>
+										<td>{item.feedback}</td>
+									</tr>
+								);
+							})
+						)}
 					</tbody>
 				</table>
 			</div>

@@ -3,10 +3,12 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable linebreak-style */
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const MentorShowProposal = ({ setPage, singleProject }) => {
 	const [feedback, setFeedback] = useState("");
+	let id = singleProject.map((item) => item.project_id);
 
 	const giveFeedback = async (e) => {
 		e.preventDefault();
@@ -17,19 +19,24 @@ const MentorShowProposal = ({ setPage, singleProject }) => {
 			myHeaders.append("token", localStorage.token);
 
 			const body = { feedback };
-			const response = await fetch("/api/mentor/feedback", {
+			const response = await fetch(`/api/mentor/feedback/${id[0]}`, {
 				method: "POST",
 				headers: myHeaders,
 				body: JSON.stringify(body),
 			});
 
 			const parseResponse = await response.json();
-			console.log(parseResponse);
+			if (parseResponse) {
+				setPage("");
+
+				toast.success("Feedback Added Successfully");
+			} else {
+				toast.error(parseResponse);
+			}
 		} catch (error) {
 			console.error(error.message);
 		}
 	};
-
 
 	return (
 		<>
@@ -144,7 +151,7 @@ const MentorShowProposal = ({ setPage, singleProject }) => {
 								</div>
 							</div>
 							<div className="feedback-container">
-								<form onSubmit={() => giveFeedback(info.project_id)}>
+								<form onSubmit={(e) => giveFeedback(e)}>
 									<h4>Feedback</h4>
 									<textarea
 										className="form-control mb-4"
