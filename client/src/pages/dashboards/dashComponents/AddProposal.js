@@ -77,7 +77,7 @@ const AddProposal = ({ setPage }) => {
 		setData((previousState) => ({ ...previousState, ...newData }));
 
 		if (finalStep) {
-			makeApiRequest(newData);
+			makeApiRequest(data);
 			return;
 		}
 

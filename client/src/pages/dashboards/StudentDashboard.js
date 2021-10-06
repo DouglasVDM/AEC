@@ -22,6 +22,7 @@ import FeedbackIcon from "@mui/icons-material/Feedback";
 import SportsKabaddiIcon from "@mui/icons-material/SportsKabaddi";
 import AddProposal from "./dashComponents/AddProposal";
 import ShowProposalInfo from "./dashComponents/ShowProposalInfo";
+import BcgImage from "../../../../images/background/bg1.png";
 
 const StudentDashboard = (props) => {
 	const [name, setName] = useState("");
@@ -98,7 +99,15 @@ const StudentDashboard = (props) => {
 
 	return (
 		<>
-			<div className="container container-fluid no-padding">
+			<div
+				className="container container-fluid no-padding"
+				style={{
+					backgroundImage: `url(${BcgImage})`,
+					backgroundPosition: "center",
+					backgroundSize: "cover",
+					backgroundRepeat: "no-repeat",
+				}}
+			>
 				{page === "profile" ? (
 					<Profile setPage={setPage} id={id} setInfo={setInfo} />
 				) : page === "edit_profile" ? (

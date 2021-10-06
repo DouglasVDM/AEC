@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import MentorShowProposal from "./dashComponents/MentorShowProposal";
 import Container from "@mui/material/Container";
 import { Button } from "@mui/material";
-
+import BcgImage from "../../../../images/background/bg1.png";
 
 const MentorDashboard = ({ setAuth }) => {
 	const [proposals, setProposals] = useState([]);
@@ -12,7 +12,6 @@ const MentorDashboard = ({ setAuth }) => {
 	useEffect(() => {
 		getAllProposals();
 	}, []);
-
 
 	const getAllProposals = async () => {
 		try {
@@ -41,9 +40,21 @@ const MentorDashboard = ({ setAuth }) => {
 	};
 
 	return (
-		<div className="p-5">
+		<div
+			className="p-5"
+			style={{
+				backgroundImage: `url(${BcgImage})`,
+				backgroundPosition: "center",
+				backgroundSize: "cover",
+				backgroundRepeat: "no-repeat",
+			}}
+		>
 			{page === "mentor_show" ? (
-				<MentorShowProposal singleProject={singleProject} setPage={setPage} projectId={proposals.project_id} />
+				<MentorShowProposal
+					singleProject={singleProject}
+					setPage={setPage}
+					projectId={proposals.project_id}
+				/>
 			) : (
 				<Container style={{ width: "100%" }}>
 					<Button onClick={() => setAuth(false)} variant="contained">

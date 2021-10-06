@@ -1,6 +1,5 @@
 .container {
-    min-width: 100%;
-	padding: 2rem;
+	min-width: 100%;
 }
 
 .header-dashboard {
@@ -18,7 +17,7 @@
 
 .introduction {
 	text-align: center;
-	margin-top: 3rem;
+	margin-bottom: 4rem;
 }
 
 .introduction h1 {
@@ -34,7 +33,7 @@
 	justify-content: center;
 	align-items: center;
 	font-size: 1.5rem;
-	background-color: #d4dbdd;
+	background: lightgray;
 	margin-top: 5rem;
 	text-align: center;
 	border: 1px solid;
@@ -47,7 +46,6 @@
 	margin-bottom: 3rem;
 	display: flex;
 	justify-content: space-around;
-
 }
 
 .logout-btn {
@@ -56,27 +54,27 @@
 	border-radius: 0.5rem;
 	font-weight: 600;
 	width: 80px;
-    height: 35px;
+	height: 35px;
 }
 
 .profile,
 .proposals,
 .feedback,
 .competitions {
-	background-color: #d4dbdd;
+	background-color: lightgray;
 	box-shadow: 1px 1px 1px 0px;
 	color: #551b33;
 	border-radius: 2rem;
 	width: 15rem;
 	font-size: 1.2rem;
 	font-weight: 600;
-    width: 200px;
-    height: 200px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    opacity: 0.9;
+	width: 200px;
+	height: 200px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	opacity: 0.9;
 }
 
 .project-table {
@@ -92,9 +90,11 @@
 	cursor: pointer;
 }
 
-.fa-user, .fa-project-diagram, .fa-trophy {
-    margin-right: 1rem;
-    font-size: 2rem;
+.fa-user,
+.fa-project-diagram,
+.fa-trophy {
+	margin-right: 1rem;
+	font-size: 2rem;
 }
 
 .btn:hover {
@@ -131,7 +131,7 @@
 	width: 70%;
 	margin-top: 3rem;
 	margin-left: 1rem;
-	background-color: #d4dbdd;
+	background-color: #e8e8e8;
 	color: #551b33;
 	border-radius: 1rem;
 	padding: 2rem;
@@ -142,8 +142,8 @@
 }
 
 .on-padding {
-    padding-left: 0;
-    padding-right: 0;
+	padding-left: 0;
+	padding-right: 0;
 }
 
 .home-btn {
@@ -152,6 +152,18 @@
 	border-radius: 5px;
 	background-color: #551b33;
 	color:#fff;
+}
+
+.show-proposal-container {
+	max-width: 800px;
+	margin: 1rem auto;
+}
+
+.proposal-info {
+	padding: 1rem;
+	border: 1px solid;
+	border-radius: 5px;
+	margin-bottom: 2rem;
 }
 
 /* Media queries */
@@ -203,14 +215,13 @@
 }
 
 @media (max-width: 768px) {
-	.links{
+	.links {
 		display: flex;
 		flex-direction: column;
 		align-content: center;
 		justify-content: center;
-
 	}
-	.projects{
+	.projects {
 		margin-top: 1.5rem;
 		margin-bottom: 1.5rem;
 	}
