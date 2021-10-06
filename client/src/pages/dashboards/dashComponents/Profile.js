@@ -119,7 +119,6 @@ const StudentProfile = ({ setPage, id, setInfo }) => {
 						<BioContainer>
 							<Box sx={{ boxShadow: 3, padding: "1rem" }}>
 								<Bio bio={profileInfo?.student_bio} />
-								<Summary count={projects.length} />
 							</Box>
 						</BioContainer>
 					</SubContainer>
@@ -331,77 +330,6 @@ const Info = ({ profileInfo, setPage }) => {
 				>
 					Account Settings
 				</Button>
-			</Box>
-		</Box>
-	);
-};
-
-const Summary = ({ count }) => {
-	return (
-		<Box
-			sx={{
-				display: "flex",
-				flexDirection: "column",
-				justifyContent: "center",
-				alignItems: "center",
-				marginTop: "1.5rem",
-			}}
-		>
-			<Typography variant="h4">Activity</Typography>
-			<Divider
-				orientation="horizontal"
-				flexItem
-				width="100%"
-				border-color="primary.grey"
-				sx={{ marginTop: "0.5rem" }}
-			/>
-			<Box
-				sx={{
-					display: "flex",
-					flexDirection: "row",
-					justifyContent: "center",
-					alignItems: "center",
-					marginTop: "1.5rem",
-				}}
-			>
-				<Box
-					sx={{
-						bgcolor: "primary.frosting_cream",
-						color: "primary.main",
-						height: "6.5rem",
-						width: "6.5rem",
-						display: "flex",
-						flexDirection: "column",
-						justifyContent: "center",
-						alignItems: "center",
-						marginRight: "2rem",
-						boxShadow: 3,
-					}}
-				>
-					<Typography variant="h4">{count}</Typography>
-					<Typography variant="body2" sx={{ textAlign: "center" }}>
-						Projects Created
-					</Typography>
-				</Box>
-
-				<Box
-					sx={{
-						bgcolor: "primary.frosting_cream",
-						color: "primary.main",
-						height: "6.5rem",
-						width: "6.5rem",
-						display: "flex",
-						flexDirection: "column",
-						justifyContent: "center",
-						alignItems: "center",
-						boxShadow: 3,
-					}}
-				>
-					<Typography variant="h4">0</Typography>
-					<Typography variant="body2" sx={{ textAlign: "center" }}>
-						Projects Approved
-					</Typography>
-				</Box>
 			</Box>
 		</Box>
 	);
