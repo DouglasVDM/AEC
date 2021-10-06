@@ -119,17 +119,9 @@ const StudentProfile = ({ setPage, id, setInfo }) => {
 						<BioContainer>
 							<Box sx={{ boxShadow: 3, padding: "1rem" }}>
 								<Bio bio={profileInfo?.student_bio} />
-								<Summary count={projects.length} />
 							</Box>
 						</BioContainer>
 					</SubContainer>
-					<ProjectsContainer>
-						<Projects
-							projects={projects}
-							handleProjectView={handleProjectView}
-							projectsId={projectsId}
-						/>
-					</ProjectsContainer>
 				</MainContainer>
 			)}
 		</>
@@ -224,48 +216,6 @@ const BioContainer = styled.div`
 		margin-top: 0px;
 	}
 `;
-const ProjectsContainer = styled.div`
-	width: 90%;
-	margin-top: 2rem;
-	@media (min-width: 768px) {
-		width: 22%;
-	}
-`;
-
-const Projects = ({ projects, handleProjectView, projectsId }) => {
-	return (
-		<Box sx={{ width: "100%", boxShadow: 3, padding: "1rem" }}>
-			<Typography variant="h5" sx={{ textAlign: "center" }}>
-				Projects
-			</Typography>
-			<Divider
-				orientation="horizontal"
-				flexItem
-				width="100%"
-				border-color="primary.grey"
-				sx={{ marginBottom: "1rem" }}
-			/>
-			{projects?.length > 0 ? (
-				projects?.map((title, index) => (
-					<ProjectTile
-						title={title}
-						key={index}
-						handleProjectView={handleProjectView}
-						projects={projects}
-						projectsId={projectsId}
-					/>
-				))
-			) : (
-				<Typography
-					variant="body2"
-					sx={{ textAlign: "center", fontStyle: "italic" }}
-				>
-					--- Nothing to show yet!
-				</Typography>
-			)}
-		</Box>
-	);
-};
 
 const Info = ({ profileInfo, setPage }) => {
 	return (
@@ -331,77 +281,6 @@ const Info = ({ profileInfo, setPage }) => {
 				>
 					Account Settings
 				</Button>
-			</Box>
-		</Box>
-	);
-};
-
-const Summary = ({ count }) => {
-	return (
-		<Box
-			sx={{
-				display: "flex",
-				flexDirection: "column",
-				justifyContent: "center",
-				alignItems: "center",
-				marginTop: "1.5rem",
-			}}
-		>
-			<Typography variant="h4">Activity</Typography>
-			<Divider
-				orientation="horizontal"
-				flexItem
-				width="100%"
-				border-color="primary.grey"
-				sx={{ marginTop: "0.5rem" }}
-			/>
-			<Box
-				sx={{
-					display: "flex",
-					flexDirection: "row",
-					justifyContent: "center",
-					alignItems: "center",
-					marginTop: "1.5rem",
-				}}
-			>
-				<Box
-					sx={{
-						bgcolor: "primary.frosting_cream",
-						color: "primary.main",
-						height: "6.5rem",
-						width: "6.5rem",
-						display: "flex",
-						flexDirection: "column",
-						justifyContent: "center",
-						alignItems: "center",
-						marginRight: "2rem",
-						boxShadow: 3,
-					}}
-				>
-					<Typography variant="h4">{count}</Typography>
-					<Typography variant="body2" sx={{ textAlign: "center" }}>
-						Projects Created
-					</Typography>
-				</Box>
-
-				<Box
-					sx={{
-						bgcolor: "primary.frosting_cream",
-						color: "primary.main",
-						height: "6.5rem",
-						width: "6.5rem",
-						display: "flex",
-						flexDirection: "column",
-						justifyContent: "center",
-						alignItems: "center",
-						boxShadow: 3,
-					}}
-				>
-					<Typography variant="h4">0</Typography>
-					<Typography variant="body2" sx={{ textAlign: "center" }}>
-						Projects Approved
-					</Typography>
-				</Box>
 			</Box>
 		</Box>
 	);
