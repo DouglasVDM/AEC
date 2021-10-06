@@ -122,13 +122,6 @@ const StudentProfile = ({ setPage, id, setInfo }) => {
 							</Box>
 						</BioContainer>
 					</SubContainer>
-					<ProjectsContainer>
-						<Projects
-							projects={projects}
-							handleProjectView={handleProjectView}
-							projectsId={projectsId}
-						/>
-					</ProjectsContainer>
 				</MainContainer>
 			)}
 		</>
@@ -223,48 +216,6 @@ const BioContainer = styled.div`
 		margin-top: 0px;
 	}
 `;
-const ProjectsContainer = styled.div`
-	width: 90%;
-	margin-top: 2rem;
-	@media (min-width: 768px) {
-		width: 22%;
-	}
-`;
-
-const Projects = ({ projects, handleProjectView, projectsId }) => {
-	return (
-		<Box sx={{ width: "100%", boxShadow: 3, padding: "1rem" }}>
-			<Typography variant="h5" sx={{ textAlign: "center" }}>
-				Projects
-			</Typography>
-			<Divider
-				orientation="horizontal"
-				flexItem
-				width="100%"
-				border-color="primary.grey"
-				sx={{ marginBottom: "1rem" }}
-			/>
-			{projects?.length > 0 ? (
-				projects?.map((title, index) => (
-					<ProjectTile
-						title={title}
-						key={index}
-						handleProjectView={handleProjectView}
-						projects={projects}
-						projectsId={projectsId}
-					/>
-				))
-			) : (
-				<Typography
-					variant="body2"
-					sx={{ textAlign: "center", fontStyle: "italic" }}
-				>
-					--- Nothing to show yet!
-				</Typography>
-			)}
-		</Box>
-	);
-};
 
 const Info = ({ profileInfo, setPage }) => {
 	return (
