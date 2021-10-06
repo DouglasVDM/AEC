@@ -20,13 +20,16 @@ const Content = () => {
 		<Container
 			sx={{
 				backgroundImage: `url(${BcgImage})`,
+				backgroundPosition: "center",
+				backgroundRepeat: "no-repeat",
+				backgroundSize: "cover",
 				maxWidth: "100%",
 				minHeight: "60vh",
 				paddingBottom: "1rem",
 
 			}}
 		>
-			<Stack direction="column" sx={{ margin: "4rem 1rem 2rem 1rem" }}>
+			<Stack direction="column" sx={{ padding: "2rem" }}>
 				<Box sx={{ flexGrow: 1 }}>
 					<Grid container spacing={2}>
 						<Grid item xs={12} md={4}>
