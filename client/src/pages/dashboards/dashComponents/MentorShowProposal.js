@@ -5,6 +5,7 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import SendIcon from "@mui/icons-material/Send";
 
 const MentorShowProposal = ({ setPage, singleProject }) => {
 	const [feedback, setFeedback] = useState("");
@@ -160,7 +161,10 @@ const MentorShowProposal = ({ setPage, singleProject }) => {
 										value={feedback}
 										onChange={(e) => setFeedback(e.target.value)}
 									/>
-									<button type="submit">Send Feedback</button>
+									<button type="submit" className="proj-submit">
+										Send Feedback
+										<SendIcon className="ml-3" />
+									</button>
 								</form>
 							</div>
 						</>
