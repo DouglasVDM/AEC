@@ -91,7 +91,12 @@ const AddProposal = ({ setPage }) => {
 	};
 
 	const steps = [
-		<StepOne next={handleNextStep} data={data} steps={currentStep + 1} />,
+		<StepOne
+			next={handleNextStep}
+			data={data}
+			steps={currentStep + 1}
+			
+			/>,
 		<StepTwo
 			next={handleNextStep}
 			previousStep={handlePreviousStep}

@@ -13,7 +13,7 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-// import { createTheme, ThemeProvider } from "@mui/material/styles";
+
 
 const StudentSignUp = ({ setAuth }) => {
 	const [inputs, setInputs] = useState({
@@ -130,6 +130,7 @@ const StudentSignUp = ({ setAuth }) => {
 								label="Email Address"
 								name="student_email"
 								autoComplete="email"
+								helperText='Only university email address accepted, i.e. ...@sun.ac.za'
 								value={student_email}
 								onChange={(e) => onChange(e)}
 							/>
