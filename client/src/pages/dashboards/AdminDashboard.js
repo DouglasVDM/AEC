@@ -30,7 +30,14 @@ const AdminDashboard = ({ setAuth }) => {
 	}, [page]);
 
 	return (
-		<div style={{ backgroundImage: `url(${BcgImage})` }}>
+		<div
+			style={{
+				backgroundImage: `url(${BcgImage})`,
+				backgroundPosition: "center",
+				backgroundSize: "cover",
+				backgroundRepeat: "no-repeat",
+			}}
+		>
 			{page === "proposal" ? (
 				<ProposalTempl setPage={setPage} />
 			) : page === "compTemplate" ? (
