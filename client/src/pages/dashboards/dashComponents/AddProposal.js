@@ -15,7 +15,7 @@ import Box from "@mui/material/Box";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 
-const AddProposal = ({ setPage }) => {
+const AddProposal = ({ setPage, setDataChange }) => {
 	const [data, setData] = useState({
 		project_name: "",
 		problem_statement: "",
@@ -65,6 +65,7 @@ const AddProposal = ({ setPage }) => {
 
 			if (parseData) {
 				setPage("");
+				setDataChange(true);
 			}
 			console.log("parseData=>", parseData);
 		} catch (error) {

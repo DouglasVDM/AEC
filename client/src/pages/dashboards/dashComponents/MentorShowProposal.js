@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import SendIcon from "@mui/icons-material/Send";
 
-const MentorShowProposal = ({ setPage, singleProject }) => {
+const MentorShowProposal = ({ setPage, singleProject, setDataChange }) => {
 	const [feedback, setFeedback] = useState("");
 	let id = singleProject.map((item) => item.project_id);
 
@@ -29,7 +29,7 @@ const MentorShowProposal = ({ setPage, singleProject }) => {
 			const parseResponse = await response.json();
 			if (parseResponse) {
 				setPage("");
-
+				setDataChange(true);
 				toast.success("Feedback Added Successfully");
 			} else {
 				toast.error(parseResponse);

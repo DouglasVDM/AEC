@@ -32,6 +32,7 @@ const StudentDashboard = (props) => {
 	const [table, setTable] = useState(false);
 	const [projects, setProjects] = useState([]);
 	const [proposal, setProposal] = useState([]);
+	const [dataChange, setDataChange] = useState(false);
 
 	const getName = async () => {
 		try {
@@ -66,7 +67,8 @@ const StudentDashboard = (props) => {
 	useEffect(() => {
 		getName();
 		getProjects();
-	}, []);
+		setDataChange(false);
+	}, [dataChange]);
 
 	const getProjectById = async (id) => {
 		try {
@@ -109,19 +111,19 @@ const StudentDashboard = (props) => {
 				}}
 			>
 				{page === "profile" ? (
-					<Profile setPage={setPage} id={id} setInfo={setInfo} />
+					<Profile setPage={setPage} id={id} setInfo={setInfo} setDataChange={setDataChange} />
 				) : page === "edit_profile" ? (
-					<EditProfile setPage={setPage} id={id} info={info} />
+					<EditProfile setPage={setPage} id={id} info={info} setDataChange={setDataChange} />
 				) : page === "account_settings" ? (
-					<AccountSettings setPage={setPage} />
+					<AccountSettings setPage={setPage} setDataChange={setDataChange} />
 				) : page === "feedback" ? (
-					<Feedback setPage={setPage} />
+					<Feedback setPage={setPage} setDataChange={setDataChange} />
 				) : page === "competitions" ? (
-					<Competitions setPage={setPage} />
+					<Competitions setPage={setPage} setDataChange={setDataChange} />
 				) : page === "proposal" ? (
-					<AddProposal setPage={setPage} />
+					<AddProposal setPage={setPage}  setDataChange={setDataChange} />
 				) : page === "show_proposal" ? (
-					<ShowProposalInfo setPage={setPage} proposal={proposal} />
+					<ShowProposalInfo setPage={setPage} proposal={proposal} setDataChange={setDataChange} />
 				) : (
 					<>
 						<div className="introduction">
@@ -157,6 +159,7 @@ const StudentDashboard = (props) => {
 							getProjectById={getProjectById}
 							projects={projects}
 							table={table}
+							setDataChange={setDataChange}
 						/>
 					</>
 				)}

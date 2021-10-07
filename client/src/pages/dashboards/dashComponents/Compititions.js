@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 // import AddProposal from "./AddProposal";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
-const Competitions = ({ setPage }) => {
+const Competitions = ({ setPage, setDataChange }) => {
 	const [comp, setComp] = useState(false);
 	const [competitions, setCompetitions] = useState([]);
 
@@ -19,6 +19,7 @@ const Competitions = ({ setPage }) => {
 
 			setCompetitions(parseResponse);
 			setComp(true);
+			setDataChange(true);
 		} catch (error) {
 			console.error(error.message);
 		}
@@ -60,12 +61,4 @@ const Competitions = ({ setPage }) => {
 
 export default Competitions;
 
-// {comp === true ? <AddProposal /> : (comp ? (<h3>--No competitions to display--</h3>) : (competitions.map((comp, idx) => {
-// 	return (
-// 		<ul key={idx}>
-// 			<li style={{ listStyle: "none" }}>
-// 				<h2>{comp.comp_title}</h2>
-// 			</li>
-// 			<li style={{ listStyle: "none" }}>{comp.comp_desc}</li>
-// 			<li style={{ listStyle: "none" }}>Contact: {comp.contact}</li>
-// 		</ul>
+
