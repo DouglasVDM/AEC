@@ -4,14 +4,11 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState, useEffect } from "react";
-//import HeaderDash from "./dashComponents/HeaderDash";
-// import { toast } from "react-toastify";
 import "./Dashboard.css";
 
 import Profile from "./dashComponents/Profile";
 import AccountSettings from "./dashComponents/AccountSettings";
 import EditProfile from "./dashComponents/EditProfile";
-import Projects from "./dashComponents/Projects";
 import Competitions from "./dashComponents/Compititions";
 import ProjectTable from "./dashComponents/ProjectTable";
 import Feedback from "./dashComponents/Feedback";
@@ -24,7 +21,7 @@ import AddProposal from "./dashComponents/AddProposal";
 import ShowProposalInfo from "./dashComponents/ShowProposalInfo";
 import BcgImage from "../../../../images/background/bg1.png";
 
-const StudentDashboard = (props) => {
+const StudentDashboard = () => {
 	const [name, setName] = useState("");
 	const [id, setId] = useState("");
 	const [info, setInfo] = useState("");
@@ -32,6 +29,7 @@ const StudentDashboard = (props) => {
 	const [table, setTable] = useState(false);
 	const [projects, setProjects] = useState([]);
 	const [proposal, setProposal] = useState([]);
+	const [dataChange, setDataChange] = useState(false);
 
 	const getName = async () => {
 		try {
@@ -66,7 +64,8 @@ const StudentDashboard = (props) => {
 	useEffect(() => {
 		getName();
 		getProjects();
-	}, []);
+		setDataChange(false);
+	}, [dataChange]);
 
 	const getProjectById = async (id) => {
 		try {
@@ -89,9 +88,11 @@ const StudentDashboard = (props) => {
 		if (localUserData) {
 			let userProfile = JSON.parse(localUserData);
 			for (let name in userProfile) {
-				setInfo({
-					...info,
-					[name]: userProfile[name],
+				setInfo((info) => {
+					return {
+						...info,
+						[name]: userProfile[name],
+					};
 				});
 			}
 		}
@@ -109,19 +110,33 @@ const StudentDashboard = (props) => {
 				}}
 			>
 				{page === "profile" ? (
-					<Profile setPage={setPage} id={id} setInfo={setInfo} />
+					<Profile
+						setPage={setPage}
+						id={id}
+						setInfo={setInfo}
+						setDataChange={setDataChange}
+					/>
 				) : page === "edit_profile" ? (
-					<EditProfile setPage={setPage} id={id} info={info} />
+					<EditProfile
+						setPage={setPage}
+						id={id}
+						info={info}
+						setDataChange={setDataChange}
+					/>
 				) : page === "account_settings" ? (
-					<AccountSettings setPage={setPage} />
+					<AccountSettings setPage={setPage} setDataChange={setDataChange} />
 				) : page === "feedback" ? (
-					<Feedback setPage={setPage} />
+					<Feedback setPage={setPage} setDataChange={setDataChange} />
 				) : page === "competitions" ? (
-					<Competitions setPage={setPage} />
+					<Competitions setPage={setPage} setDataChange={setDataChange} />
 				) : page === "proposal" ? (
-					<AddProposal setPage={setPage} />
+					<AddProposal setPage={setPage} setDataChange={setDataChange} />
 				) : page === "show_proposal" ? (
-					<ShowProposalInfo setPage={setPage} proposal={proposal} />
+					<ShowProposalInfo
+						setPage={setPage}
+						proposal={proposal}
+						setDataChange={setDataChange}
+					/>
 				) : (
 					<>
 						<div className="introduction">
