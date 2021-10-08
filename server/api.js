@@ -302,10 +302,9 @@ router.put("/students_profile", async (req, res) => {
 
 // GIVE FEEDBACK
 router.post("/mentor/feedback/:projectId", authorization, async (req, res) => {
-	console.log(req.user);
 	try {
 		const { projectId } = req.params;
-		const { feedback } = req.body;
+		const { feedback, project_status = "feedback given" } = req.body;
 
 		const foundProposal = await pool.query(
 			"SELECT * FROM project_proposal WHERE project_id = $1",
@@ -318,6 +317,18 @@ router.post("/mentor/feedback/:projectId", authorization, async (req, res) => {
 				[projectId, req.user, feedback]
 			);
 			res.json("Feedback added successfully!");
+		}
+
+		const foundFeedback = await pool.query(
+			"SELECT feedback FROM feedback WHERE project_id = $1",
+			[projectId]
+		);
+
+		if (foundProposal && foundFeedback) {
+			await pool.query(
+				"UPDATE project_proposal SET project_status = $1",
+				[project_status]
+			);
 		}
 	} catch (error) {
 		console.error(error.message);

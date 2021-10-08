@@ -8,10 +8,12 @@ const MentorDashboard = ({ setAuth }) => {
 	const [proposals, setProposals] = useState([]);
 	const [singleProject, setSingleProject] = useState([]);
 	const [page, setPage] = useState("");
+	const [dataChange, setDataChange] = useState(false);
 
 	useEffect(() => {
 		getAllProposals();
-	}, []);
+		setDataChange(false);
+	}, [dataChange]);
 
 	const getAllProposals = async () => {
 		try {
@@ -54,6 +56,7 @@ const MentorDashboard = ({ setAuth }) => {
 					singleProject={singleProject}
 					setPage={setPage}
 					projectId={proposals.project_id}
+					setDataChange={setDataChange}
 				/>
 			) : (
 				<Container style={{ width: "100%" }}>
