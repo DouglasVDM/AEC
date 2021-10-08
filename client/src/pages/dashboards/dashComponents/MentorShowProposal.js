@@ -146,7 +146,7 @@ const MentorShowProposal = ({ setPage, singleProject, setDataChange }) => {
 								<div className="proposal-info">
 									<p>{info.vision_and_mission}</p>
 								</div>
-								<h5>Track_Record</h5>
+								<h5>Track Record</h5>
 								<div className="proposal-info">
 									<p>{info.track_record}</p>
 								</div>
