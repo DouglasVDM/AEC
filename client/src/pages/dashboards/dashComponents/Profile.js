@@ -10,7 +10,7 @@ import Loading from "../../../components/services/Loading";
 import Error from "../../../components/services/Error";
 import { pascalCase } from "../../../components/services/utils";
 
-const StudentProfile = ({ setPage, id, setInfo }) => {
+const StudentProfile = ({ setPage, id, setInfo, setDataChange }) => {
 	const [profileInfo, setProfileInfo] = useState({});
 	const [projects, setProjects] = useState([]);
 	const [projectsId, setProjectsId] = useState([]);
@@ -42,6 +42,7 @@ const StudentProfile = ({ setPage, id, setInfo }) => {
 					studentInfo.student_name = student.student_name;
 					studentInfo.student_email = student.student_email;
 				}
+				setDataChange(true);
 			} catch (error) {
 				console.error(error.message);
 			}
@@ -61,6 +62,7 @@ const StudentProfile = ({ setPage, id, setInfo }) => {
 					studentInfo.student_img = body.student_img;
 					studentInfo.student_active = body.student_active;
 				}
+				setDataChange(true);
 			} catch (error) {
 				console.error(error.message);
 			}

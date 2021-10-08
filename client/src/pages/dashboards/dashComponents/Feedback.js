@@ -3,12 +3,8 @@
 import React, { useState, useEffect } from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
-const Feedback = ({ setPage }) => {
+const Feedback = ({ setPage, setDataChange }) => {
 	const [getFeedback, setGetFeedback] = useState([]);
-
-	useEffect(() => {
-		getMentorFeedback();
-	}, []);
 
 	const getMentorFeedback = async () => {
 		try {
@@ -20,10 +16,16 @@ const Feedback = ({ setPage }) => {
 			const parseResponse = await response.json();
 
 			setGetFeedback(parseResponse);
+			setDataChange(true);
 		} catch (error) {
 			console.error(error.message);
 		}
 	};
+
+	useEffect(() => {
+		getMentorFeedback();
+	}, []);
+
 	return (
 		<>
 			<div

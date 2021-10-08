@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from "react";
 
-const ProjectTable = ({ getProjectById, projects, table }) => {
+const ProjectTable = ({ getProjectById, projects }) => {
 
 	return (
 		<>
