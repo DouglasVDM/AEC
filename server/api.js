@@ -172,8 +172,8 @@ router.post("/competition", authorization, async (req, res) => {
 	try {
 		const { comp_title, comp_desc, contact_pers } = req.body;
 		const newCompetition = await pool.query(
-			"INSERT INTO competitions (comp_title, comp_desc, contact_pers) VALUES ($1,$2,$3) RETURNING *",
-			[comp_title, comp_desc, contact_pers]
+			"INSERT INTO competitions (admin_id, comp_title, comp_desc, contact_pers) VALUES ($1, $2, $3, $4) RETURNING *",
+			[req.user, comp_title, comp_desc, contact_pers]
 		);
 		res.json({ competitions: newCompetition });
 	} catch (error) {
