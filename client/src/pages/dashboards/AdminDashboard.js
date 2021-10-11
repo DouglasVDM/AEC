@@ -56,7 +56,7 @@ const AdminDashboard = ({ setAuth }) => {
 				<Container style={{ width: "100%" }}>
 					<div style={{ width: "100%" }}>
 						{/* HEADING START*/}
-						<Box
+						{/* <Box
 							sx={{
 								display: "flex",
 								justifyContent: "center",
@@ -66,8 +66,8 @@ const AdminDashboard = ({ setAuth }) => {
 							<Typography variant="h5" component="h2">
 								Welcome back admin@sun.ac.za
 							</Typography>
+						</Box> */}
 							{/* HEADING END */}
-						</Box>
 						<Box
 							sx={{
 								display: "flex",
