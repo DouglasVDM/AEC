@@ -167,6 +167,92 @@ router.post("/student/projects/proposal", authorization, async (req, res) => {
 	}
 });
 
+// EDIT PROJECT PROPOSAL
+router.put(
+	"/student/projects/proposal/:projectId",
+	authorization,
+	async (req, res) => {
+		const { projectId } = req.params;
+		const {
+			project_name,
+			problem_statement,
+			proposed_action,
+			expected_result,
+			social_returns,
+			key_activities,
+			key_resources,
+			team,
+			client_profile,
+			client_relationships,
+			client_channels,
+			key_partners,
+			stakeholders,
+			networks,
+			startup_costs,
+			operational_costs,
+			finance_plan,
+			business_plan,
+			implementation_plan,
+			key_milestones,
+			monitoring_and_evaluation,
+			who_we_are,
+			vision_and_mission,
+			track_record,
+		} = req.body;
+
+		try {
+			const getProjectProposal = await pool.query(
+				"SELECT * FROM project_proposal WHERE project_id = $1 AND student_id = $2",
+				[projectId, req.user]
+			);
+
+			if (getProjectProposal.rowCount > 0) {
+				await pool.query(
+					"UPDATE project_proposal SET project_name = $1, problem_statement = $2, proposed_action = $3, expected_result = $4, social_returns = $5, key_activities = $6, key_resources = $7,team = $8, client_profile = $9, client_relationships = $10 OR client_channels = $11 OR key_partners = $12 OR stakeholders = $13, networks = $14, startup_costs = $15, operational_costs = $16, finance_plan = $17, business_plan = $18, implementation_plan = $19, key_milestones = $20, monitoring_and_evaluation = $21, who_we_are = $22, vision_and_mission = $23, track_record = $24 WHERE project_id = $25 AND student_id = $26",
+
+					// "UPDATE project_proposal SET project_name = $1 OR problem_statement = $2 OR proposed_action = $3 OR expected_result = $4 OR social_returns = $5 OR key_activities = $6 OR key_resources = $7 OR team = $8 OR client_profile = $9 OR client_relationships = $10 OR client_channels = $11 OR key_partners = $12 OR stakeholders = $13 OR networks = $14 OR startup_costs = $15 OR operational_costs = $16 OR finance_plan = $17 OR business_plan = $18 OR implementation_plan = $19 OR key_milestones = $20 OR monitoring_and_evaluation = $21 OR who_we_are = $22 OR vision_and_mission = $23 OR track_record = $24 WHERE project_id = $25 AND student_id = $26",
+					[
+						project_name,
+						problem_statement,
+						proposed_action,
+						expected_result,
+						social_returns,
+						key_activities,
+						key_resources,
+						team,
+						client_profile,
+						client_relationships,
+						client_channels,
+						key_partners,
+						stakeholders,
+						networks,
+						startup_costs,
+						operational_costs,
+						finance_plan,
+						business_plan,
+						implementation_plan,
+						key_milestones,
+						monitoring_and_evaluation,
+						who_we_are,
+						vision_and_mission,
+						track_record,
+						projectId,
+						req.user,
+					]
+				);
+			}
+
+			console.log(expected_result, req.user, projectId);
+			res.json({
+				status: "success",
+				message: "Project proposal Updated!",
+			});
+		} catch (error) {
+			console.error(error.message);
+		}
+	}
+);
+
 // ADD NEW COMPETITION
 router.post("/competition", authorization, async (req, res) => {
 	try {
@@ -325,10 +411,9 @@ router.post("/mentor/feedback/:projectId", authorization, async (req, res) => {
 		);
 
 		if (foundProposal && foundFeedback) {
-			await pool.query(
-				"UPDATE project_proposal SET project_status = $1",
-				[project_status]
-			);
+			await pool.query("UPDATE project_proposal SET project_status = $1", [
+				project_status,
+			]);
 		}
 	} catch (error) {
 		console.error(error.message);

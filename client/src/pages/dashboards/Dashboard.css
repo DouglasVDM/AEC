@@ -166,6 +166,10 @@
 	margin-bottom: 2rem;
 }
 
+.modal-body input {
+	margin-bottom: 1rem;
+}
+
 /* Media queries */
 
 @media (max-width: 576px) {

@@ -2,72 +2,11 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable linebreak-style */
-import React, { useState } from "react";
+import React from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import EditProposal from "./EditProposal";
 
 const ShowProposalInfo = ({ setPage, proposal }) => {
-	console.log(proposal);
-	const [data, setData] = useState({
-		project_name: "",
-		problem_statement: "",
-		proposed_action: "",
-		expected_result: "",
-		social_returns: "",
-		key_activities: "",
-		key_resources: "",
-		team: "",
-		client_profile: "",
-		client_relationships: "",
-		client_channels: "",
-		key_partners: "",
-		stakeholders: "",
-		networks: "",
-		startup_costs: "",
-		operational_costs: "",
-		finance_plan: "",
-		business_plan: "",
-		implementation_plan: "",
-		key_milestones: "",
-		monitoring_and_evaluation: "",
-		who_we_are: "",
-		vision_and_mission: "",
-		track_record: "",
-	});
-
-	const {
-		project_name,
-		problem_statement,
-		proposed_action,
-		expected_result,
-		social_returns,
-		key_activities,
-		key_resources,
-		team,
-		client_profile,
-		client_relationships,
-		client_channels,
-		key_partners,
-		stakeholders,
-		networks,
-		startup_costs,
-		operational_costs,
-		finance_plan,
-		business_plan,
-		implementation_plan,
-		key_milestones,
-		monitoring_and_evaluation,
-		who_we_are,
-		vision_and_mission,
-		track_record,
-	} = data;
-
-	const onChangeHandler = (e) => {
-		return setData((info) => ({
-			...info,
-			[e.target.name]: e.target.value,
-		}));
-	};
-
 	return (
 		<>
 			<div
@@ -78,226 +17,10 @@ const ShowProposalInfo = ({ setPage, proposal }) => {
 				<ArrowBackIcon />
 				Go Back
 			</div>
-
-			<button
-				type="button"
-				className="btn btn-primary"
-				data-toggle="modal"
-				data-target="#myModal"
-			>
-				Open Project
-			</button>
-
-			<div className="modal" id="myModal">
-				<div className="modal-dialog">
-					<div className="modal-content">
-						<div className="modal-header">
-							<h4 className="modal-title">Edit Project Proposal</h4>
-							<button type="button" className="close" data-dismiss="modal">
-								&times;
-							</button>
-						</div>
-
-						<div className="modal-body">
-							<input
-								type="text"
-								className="form-control"
-								name="project_name"
-								value={project_name}
-								onChange={(e) => onChangeHandler(e)}
-							/>
-							<input
-								type="text"
-								className="form-control"
-								name="problem_statement"
-								value={problem_statement}
-								onChange={(e) => onChangeHandler(e)}
-							/>
-							<input
-								type="text"
-								className="form-control"
-								name="proposed_action"
-								value={proposed_action}
-								onChange={(e) => onChangeHandler(e)}
-							/>
-							<input
-								type="text"
-								className="form-control"
-								name="expected_result"
-								value={expected_result}
-								onChange={(e) => onChangeHandler(e)}
-							/>
-							<input
-								type="text"
-								className="form-control"
-								name="social_returns"
-								value={social_returns}
-								onChange={(e) => onChangeHandler(e)}
-							/>
-							<input
-								type="text"
-								className="form-control"
-								name="key_activities"
-								value={key_activities}
-								onChange={(e) => onChangeHandler(e)}
-							/>
-							<input
-								type="text"
-								className="form-control"
-								name="key_resources"
-								value={key_resources}
-								onChange={(e) => onChangeHandler(e)}
-							/>
-							<input
-								type="text"
-								className="form-control"
-								name="team"
-								value={team}
-								onChange={(e) => onChangeHandler(e)}
-							/>
-							<input
-								type="text"
-								className="form-control"
-								name="client_profile"
-								value={client_profile}
-								onChange={(e) => onChangeHandler(e)}
-							/>
-							<input
-								type="text"
-								className="form-control"
-								name="client_relationships"
-								value={client_relationships}
-								onChange={(e) => onChangeHandler(e)}
-							/>
-							<input
-								type="text"
-								className="form-control"
-								name="client_channels"
-								value={client_channels}
-								onChange={(e) => onChangeHandler(e)}
-							/>
-							<input
-								type="text"
-								className="form-control"
-								name="key_partners"
-								value={key_partners}
-								onChange={(e) => onChangeHandler(e)}
-							/>
-							<input
-								type="text"
-								className="form-control"
-								name="stakeholders"
-								value={stakeholders}
-								onChange={(e) => onChangeHandler(e)}
-							/>
-							<input
-								type="text"
-								className="form-control"
-								name="networks"
-								value={networks}
-								onChange={(e) => onChangeHandler(e)}
-							/>
-							<input
-								type="text"
-								className="form-control"
-								name="startup_costs"
-								value={startup_costs}
-								onChange={(e) => onChangeHandler(e)}
-							/>
-							<input
-								type="text"
-								className="form-control"
-								name="operational_costs"
-								value={operational_costs}
-								onChange={(e) => onChangeHandler(e)}
-							/>
-							<input
-								type="text"
-								className="form-control"
-								name="finance_plan"
-								value={finance_plan}
-								onChange={(e) => onChangeHandler(e)}
-							/>
-							<input
-								type="text"
-								className="form-control"
-								name="business_plan"
-								value={business_plan}
-								onChange={(e) => onChangeHandler(e)}
-							/>
-							<input
-								type="text"
-								className="form-control"
-								name="implementation_plan"
-								value={implementation_plan}
-								onChange={(e) => onChangeHandler(e)}
-							/>
-							<input
-								type="text"
-								className="form-control"
-								name="key_milestones"
-								value={key_milestones}
-								onChange={(e) => onChangeHandler(e)}
-							/>
-							<input
-								type="text"
-								className="form-control"
-								name="monitoring_and_evaluation"
-								value={monitoring_and_evaluation}
-								onChange={(e) => onChangeHandler(e)}
-							/>
-							<input
-								type="text"
-								className="form-control"
-								name="who_we_are"
-								value={who_we_are}
-								onChange={(e) => onChangeHandler(e)}
-							/>
-							<input
-								type="text"
-								className="form-control"
-								name="vision_and_mission"
-								value={vision_and_mission}
-								onChange={(e) => onChangeHandler(e)}
-							/>
-							<input
-								type="text"
-								className="form-control"
-								name="track_record"
-								value={track_record}
-								onChange={(e) => onChangeHandler(e)}
-							/>
-						</div>
-
-						<div className="modal-footer">
-							<button
-								type="button"
-								className="btn btn-warning"
-								data-dismiss="modal"
-							>
-								Edit
-							</button>
-						</div>
-						<div className="modal-footer">
-							<button
-								type="button"
-								className="btn btn-danger"
-								data-dismiss="modal"
-							>
-								Close
-							</button>
-						</div>
-					</div>
-				</div>
+			<div className="edit-proposal">
+				<EditProposal proposal={proposal} />
 			</div>
-		</>
-	);
-};
-
-export default ShowProposalInfo;
-
-{
-	/* <div className="show-proposal-container">
+			<div className="show-proposal-container">
 				{proposal.map((info, idx) => {
 					return (
 						<div key={idx}>
@@ -398,7 +121,11 @@ export default ShowProposalInfo;
 								<p>{info.track_record}</p>
 							</div>
 						</div>
-						</div>
 					);
-				})} */
-}
+				})}
+			</div>
+		</>
+	);
+};
+
+export default ShowProposalInfo;
