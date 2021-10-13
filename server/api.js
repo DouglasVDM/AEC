@@ -171,11 +171,17 @@ router.post("/student/projects/proposal", authorization, async (req, res) => {
 router.post("/competition", authorization, async (req, res) => {
 	try {
 		const { comp_title, comp_desc, contact_pers } = req.body;
-		const newCompetition = await pool.query(
-			"INSERT INTO competitions (admin_id, comp_title, comp_desc, contact_pers) VALUES ($1, $2, $3, $4) RETURNING *",
-			[req.user, comp_title, comp_desc, contact_pers]
-		);
-		res.json({ competitions: newCompetition });
+		const compExist = await pool.query('SELECT * FROM competitions WHERE comp_title=$1', [comp_title]);
+		console.log('compExist;', compExist)
+		if (compExist.rows.length > 0) {
+			res.status(400).json(`Competition ${comp_title} already exists!`)
+		} else {
+			const newCompetition = await pool.query(
+				"INSERT INTO competitions (admin_id, comp_title, comp_desc, contact_pers) VALUES ($1, $2, $3, $4) RETURNING *",
+				[req.user, comp_title, comp_desc, contact_pers]
+			);
+			res.json({ competitions: newCompetition });
+		}
 	} catch (error) {
 		res.status(500).json({ error: error.message });
 	}
