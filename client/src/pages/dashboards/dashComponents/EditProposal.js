@@ -3,15 +3,58 @@
 import React, { useState } from "react";
 
 const EditProposal = ({ proposal }) => {
-	const [data, setData] = useState(proposal);
+	let entry = proposal[0];
+	const {
+		project_name,
+		problem_statement,
+		proposed_action,
+		expected_result,
+		social_returns,
+		key_activities,
+		key_resources,
+		team,
+		client_profile,
+		client_relationships,
+		client_channels,
+		key_partners,
+		stakeholders,
+		networks,
+		startup_costs,
+		operational_costs,
+		finance_plan,
+		business_plan,
+		implementation_plan,
+		key_milestones,
+		monitoring_and_evaluation,
+		who_we_are,
+		vision_and_mission,
+		track_record,
+	} = entry;
 
-	const onChangeHandler = (e) => {
-        setData(e.target.value);
-		// return setData((info) => ({
-		// 	...info,
-		// 	[e.target.name]: e.target.value,
-		// }));
-	};
+	const [projectName, setProjectName] = useState(project_name);
+	const [problem, setProblem] = useState(problem_statement);
+	const [action, setAction] = useState(proposed_action);
+	const [expectResult, setExpectResult] = useState(expected_result);
+	const [socialReturn, setSocialReturn] = useState(social_returns);
+	const [keyActivity, setKeyActivity] = useState(key_activities);
+	const [keyResource, setKeyResource] = useState(key_resources);
+	const [teams, setTeams] = useState(team);
+	const [clientProfile, setClientProfile] = useState(client_profile);
+	const [clientRelation, setClientRelation] = useState(client_relationships);
+	const [clienChannel, setClientChannel] = useState(client_channels);
+	const [keyPartner, setKeyPartner] = useState(key_partners);
+	const [stakeholder, setStakeholder] = useState(stakeholders);
+	const [network, setNetwork] = useState(networks);
+	const [startCost, setStartCost] = useState(startup_costs);
+	const [operationCost, setOperationCost] = useState(operational_costs);
+	const [financePlan, setFinancePlan] = useState(finance_plan);
+	const [businessPlan, setBusinessPlan] = useState(business_plan);
+	const [implementation, setImplementation] = useState(implementation_plan);
+	const [keyMilestone, setKeyMilestone] = useState(key_milestones);
+	const [monitoring, setMonitoring] = useState(monitoring_and_evaluation);
+	const [whoWeAre, setWhoWeAre] = useState(who_we_are);
+	const [vision, setVision] = useState(vision_and_mission);
+	const [trackRecord, setsetTrackRecord] = useState(track_record);
 
 	const EditProposalText = async (id) => {
 		try {
@@ -19,7 +62,7 @@ const EditProposal = ({ proposal }) => {
 			myHeaders.append("Content-Type", "application/json");
 			myHeaders.append("token", localStorage.token);
 
-			const body = data;
+			const body = { projectName };
 
 			const response = await fetch(`/api/student/projects/proposal/${id}`, {
 				method: "PUT",
@@ -27,230 +70,205 @@ const EditProposal = ({ proposal }) => {
 				body: JSON.stringify(body),
 			});
 
-			const parseResponse = await response.json();
-			console.log(parseResponse);
+			// const parseResponse = await response.json();
+			console.log(response);
 		} catch (error) {
 			console.error(error.message);
 		}
 	};
-
+console.log(entry);
+console.log(entry.project_id);
+console.log(projectName);
 	return (
 		<>
 			<button
 				type="button"
 				className="btn btn-primary"
 				data-toggle="modal"
-				data-target={`#id${proposal[0].project_id}`}
+				data-target={`#id${entry.project_id}`}
 			>
 				Open Project
 			</button>
-			{data.map((entry, idx) => {
-				return (
-					<div className="modal" id={`id${entry.project_id}`} key={idx}>
-						<div className="modal-dialog">
-							<div className="modal-content">
-								<div className="modal-header">
-									<h4 className="modal-title">Edit Project Proposal</h4>
-									<button type="button" className="close" data-dismiss="modal">
-										&times;
-									</button>
-								</div>
 
-								<div className="modal-body">
-									<input
-										type="text"
-										className="form-control"
-										name="project_name"
-										value={entry.project_name}
-										onChange={(e) => onChangeHandler(e)}
-									/>
-									<input
-										type="text"
-										className="form-control"
-										name="problem_statement"
-										value={entry.problem_statement}
-										onChange={(e) => onChangeHandler(e)}
-									/>
-									<input
-										type="text"
-										className="form-control"
-										name="proposed_action"
-										value={entry.proposed_action}
-										onChange={(e) => onChangeHandler(e)}
-									/>
-									<input
-										type="text"
-										className="form-control"
-										name="expected_result"
-										value={entry.expected_result}
-										onChange={(e) => onChangeHandler(e)}
-									/>
-									<input
-										type="text"
-										className="form-control"
-										name="social_returns"
-										value={entry.social_returns}
-										onChange={(e) => onChangeHandler(e)}
-									/>
-									<input
-										type="text"
-										className="form-control"
-										name="key_activities"
-										value={entry.key_activities}
-										onChange={(e) => onChangeHandler(e)}
-									/>
-									<input
-										type="text"
-										className="form-control"
-										name="key_resources"
-										value={entry.key_resources}
-										onChange={(e) => onChangeHandler(e)}
-									/>
-									<input
-										type="text"
-										className="form-control"
-										name="team"
-										value={entry.team}
-										onChange={(e) => onChangeHandler(e)}
-									/>
-									<input
-										type="text"
-										className="form-control"
-										name="client_profile"
-										value={entry.client_profile}
-										onChange={(e) => onChangeHandler(e)}
-									/>
-									<input
-										type="text"
-										className="form-control"
-										name="client_relationships"
-										value={entry.client_relationships}
-										onChange={(e) => onChangeHandler(e)}
-									/>
-									<input
-										type="text"
-										className="form-control"
-										name="client_channels"
-										value={entry.client_channels}
-										onChange={(e) => onChangeHandler(e)}
-									/>
-									<input
-										type="text"
-										className="form-control"
-										name="key_partners"
-										value={entry.key_partners}
-										onChange={(e) => onChangeHandler(e)}
-									/>
-									<input
-										type="text"
-										className="form-control"
-										name="stakeholders"
-										value={entry.stakeholders}
-										onChange={(e) => onChangeHandler(e)}
-									/>
-									<input
-										type="text"
-										className="form-control"
-										name="networks"
-										value={entry.networks}
-										onChange={(e) => onChangeHandler(e)}
-									/>
-									<input
-										type="text"
-										className="form-control"
-										name="startup_costs"
-										value={entry.startup_costs}
-										onChange={(e) => onChangeHandler(e)}
-									/>
-									<input
-										type="text"
-										className="form-control"
-										name="operational_costs"
-										value={entry.operational_costs}
-										onChange={(e) => onChangeHandler(e)}
-									/>
-									<input
-										type="text"
-										className="form-control"
-										name="finance_plan"
-										value={entry.finance_plan}
-										onChange={(e) => onChangeHandler(e)}
-									/>
-									<input
-										type="text"
-										className="form-control"
-										name="business_plan"
-										value={entry.business_plan}
-										onChange={(e) => onChangeHandler(e)}
-									/>
-									<input
-										type="text"
-										className="form-control"
-										name="implementation_plan"
-										value={entry.implementation_plan}
-										onChange={(e) => onChangeHandler(e)}
-									/>
-									<input
-										type="text"
-										className="form-control"
-										name="key_milestones"
-										value={entry.key_milestones}
-										onChange={(e) => onChangeHandler(e)}
-									/>
-									<input
-										type="text"
-										className="form-control"
-										name="monitoring_and_evaluation"
-										value={entry.monitoring_and_evaluation}
-										onChange={(e) => onChangeHandler(e)}
-									/>
-									<input
-										type="text"
-										className="form-control"
-										name="who_we_are"
-										value={entry.who_we_are}
-										onChange={(e) => onChangeHandler(e)}
-									/>
-									<input
-										type="text"
-										className="form-control"
-										name="vision_and_mission"
-										value={entry.vision_and_mission}
-										onChange={(e) => onChangeHandler(e)}
-									/>
-									<input
-										type="text"
-										className="form-control"
-										name="track_record"
-										value={entry.track_record}
-										onChange={(e) => onChangeHandler(e)}
-									/>
-								</div>
+			<div className="modal" id={`id${entry.project_id}`}>
+				<div className="modal-dialog">
+					<div className="modal-content">
+						<div className="modal-header">
+							<h4 className="modal-title">Edit Project Proposal</h4>
+							<button type="button" className="close" data-dismiss="modal">
+								&times;
+							</button>
+						</div>
 
-								<div className="modal-footer">
-									<button
-										type="button"
-										className="btn btn-warning"
-										data-dismiss="modal"
-										onClick={() => EditProposalText(entry.project_id)}
-									>
-										Edit
-									</button>
-								</div>
-								<div className="modal-footer">
-									<button
-										type="button"
-										className="btn btn-danger"
-										data-dismiss="modal"
-									>
-										Close
-									</button>
-								</div>
-							</div>
+						<div className="modal-body">
+							<input
+								type="text"
+								className="form-control"
+								value={projectName}
+								onChange={(e) => setProjectName(e.target.value)}
+							/>
+							<input
+								type="text"
+								className="form-control"
+								value={problem}
+								onChange={(e) => setProblem(e.target.value)}
+							/>
+							<input
+								type="text"
+								className="form-control"
+								value={action}
+								onChange={(e) => setAction(e.target.value)}
+							/>
+							<input
+								type="text"
+								className="form-control"
+								value={expectResult}
+								onChange={(e) => setExpectResult(e.target.value)}
+							/>
+							<input
+								type="text"
+								className="form-control"
+								value={socialReturn}
+								onChange={(e) => setSocialReturn(e.target.value)}
+							/>
+							<input
+								type="text"
+								className="form-control"
+								value={keyActivity}
+								onChange={(e) => setKeyActivity(e.target.value)}
+							/>
+							<input
+								type="text"
+								className="form-control"
+								value={keyResource}
+								onChange={(e) => setKeyResource(e.target.value)}
+							/>
+							<input
+								type="text"
+								className="form-control"
+								value={teams}
+								onChange={(e) => setTeams(e.target.value)}
+							/>
+							<input
+								type="text"
+								className="form-control"
+								value={clientProfile}
+								onChange={(e) => setClientProfile(e.target.value)}
+							/>
+							<input
+								type="text"
+								className="form-control"
+								value={clientRelation}
+								onChange={(e) => setClientRelation(e.target.value)}
+							/>
+							<input
+								type="text"
+								className="form-control"
+								value={clienChannel}
+								onChange={(e) => setClientChannel(e.target.value)}
+							/>
+							<input
+								type="text"
+								className="form-control"
+								value={keyPartner}
+								onChange={(e) => setKeyPartner(e.target.value)}
+							/>
+							<input
+								type="text"
+								className="form-control"
+								value={stakeholder}
+								onChange={(e) => setStakeholder(e.target.value)}
+							/>
+							<input
+								type="text"
+								className="form-control"
+								value={network}
+								onChange={(e) => setNetwork(e.target.value)}
+							/>
+							<input
+								type="text"
+								className="form-control"
+								value={startCost}
+								onChange={(e) => setStartCost(e.target.value)}
+							/>
+							<input
+								type="text"
+								className="form-control"
+								value={operationCost}
+								onChange={(e) => setOperationCost(e.target.value)}
+							/>
+							<input
+								type="text"
+								className="form-control"
+								value={financePlan}
+								onChange={(e) => setFinancePlan(e.target.value)}
+							/>
+							<input
+								type="text"
+								className="form-control"
+								value={businessPlan}
+								onChange={(e) => setBusinessPlan(e.target.value)}
+							/>
+							<input
+								type="text"
+								className="form-control"
+								value={implementation}
+								onChange={(e) => setImplementation(e.target.value)}
+							/>
+							<input
+								type="text"
+								className="form-control"
+								value={keyMilestone}
+								onChange={(e) => setKeyMilestone(e.target.value)}
+							/>
+							<input
+								type="text"
+								className="form-control"
+								value={monitoring}
+								onChange={(e) => setMonitoring(e.target.value)}
+							/>
+							<input
+								type="text"
+								className="form-control"
+								value={whoWeAre}
+								onChange={(e) => setWhoWeAre(e.target.value)}
+							/>
+							<input
+								type="text"
+								className="form-control"
+								value={vision}
+								onChange={(e) => setVision(e.target.value)}
+							/>
+							<input
+								type="text"
+								className="form-control"
+								value={trackRecord}
+								onChange={(e) => setsetTrackRecord(e.target.value)}
+							/>
+						</div>
+
+						<div className="modal-footer">
+							<button
+								type="button"
+								className="btn btn-warning"
+								data-dismiss="modal"
+								onClick={() => EditProposalText(proposal[0].project_id)}
+							>
+								Edit
+							</button>
+						</div>
+						<div className="modal-footer">
+							<button
+								type="button"
+								className="btn btn-danger"
+								data-dismiss="modal"
+							>
+								Close
+							</button>
 						</div>
 					</div>
-				);
-			})}
+				</div>
+			</div>
 		</>
 	);
 };

@@ -205,44 +205,128 @@ router.put(
 				"SELECT * FROM project_proposal WHERE project_id = $1 AND student_id = $2",
 				[projectId, req.user]
 			);
+			let proposal = getProjectProposal.rows[0];
 
 			if (getProjectProposal.rowCount > 0) {
-				await pool.query(
-					"UPDATE project_proposal SET project_name = $1, problem_statement = $2, proposed_action = $3, expected_result = $4, social_returns = $5, key_activities = $6, key_resources = $7,team = $8, client_profile = $9, client_relationships = $10 OR client_channels = $11 OR key_partners = $12 OR stakeholders = $13, networks = $14, startup_costs = $15, operational_costs = $16, finance_plan = $17, business_plan = $18, implementation_plan = $19, key_milestones = $20, monitoring_and_evaluation = $21, who_we_are = $22, vision_and_mission = $23, track_record = $24 WHERE project_id = $25 AND student_id = $26",
-
-					// "UPDATE project_proposal SET project_name = $1 OR problem_statement = $2 OR proposed_action = $3 OR expected_result = $4 OR social_returns = $5 OR key_activities = $6 OR key_resources = $7 OR team = $8 OR client_profile = $9 OR client_relationships = $10 OR client_channels = $11 OR key_partners = $12 OR stakeholders = $13 OR networks = $14 OR startup_costs = $15 OR operational_costs = $16 OR finance_plan = $17 OR business_plan = $18 OR implementation_plan = $19 OR key_milestones = $20 OR monitoring_and_evaluation = $21 OR who_we_are = $22 OR vision_and_mission = $23 OR track_record = $24 WHERE project_id = $25 AND student_id = $26",
-					[
-						project_name,
-						problem_statement,
-						proposed_action,
-						expected_result,
-						social_returns,
-						key_activities,
-						key_resources,
-						team,
-						client_profile,
-						client_relationships,
-						client_channels,
-						key_partners,
-						stakeholders,
-						networks,
-						startup_costs,
-						operational_costs,
-						finance_plan,
-						business_plan,
-						implementation_plan,
-						key_milestones,
-						monitoring_and_evaluation,
-						who_we_are,
-						vision_and_mission,
-						track_record,
-						projectId,
-						req.user,
-					]
+				proposal.project_name ||
+					(await pool.query(
+						"UPDATE project_proposal SET project_name = $1 WHERE project_id = $2 AND student_id = $3",
+						[project_name, projectId, req.user]
+					));
+				proposal.problem_statement ||
+					(await pool.query(
+						"UPDATE project_proposal SET problem_statement = $1 WHERE project_id = $2 AND student_id = $3",
+						[problem_statement, projectId, req.user]
+					));
+				proposal.proposed_action ||
+					(await pool.query(
+						"UPDATE project_proposal SET proposed_action = $1 WHERE project_id = $2 AND student_id = $3",
+						[proposed_action, projectId, req.user]
+					));
+				proposal.expected_result ||
+					(await pool.query(
+						"UPDATE project_proposal SET expected_result = $1 WHERE project_id = $2 AND student_id = $3",
+						[expected_result, projectId, req.user]
+					));
+				proposal.social_returns ||
+					(await pool.query(
+						"UPDATE project_proposal SET social_returns = $1 WHERE project_id = $2 AND student_id = $3",
+						[social_returns, projectId, req.user]
+					));
+				proposal.key_activities ||
+					(await pool.query(
+						"UPDATE project_proposal SET key_activities = $1 WHERE project_id = $2 AND student_id = $3",
+						[key_activities, projectId, req.user]
+					));
+				proposal.key_resources ||
+					(await pool.query(
+						"UPDATE project_proposal SET key_resources = $1 WHERE project_id = $2 AND student_id = $3",
+						[key_resources, projectId, req.user]
+					));
+				proposal.team ||
+					(await pool.query(
+						"UPDATE project_proposal SET team = $1 WHERE project_id = $2 AND student_id = $3",
+						[team, projectId, req.user]
+					));
+				proposal.client_profile ||
+					(await pool.query(
+						"UPDATE project_proposal SET client_profile = $1 WHERE project_id = $2 AND student_id = $3",
+						[client_profile, projectId, req.user]
+					));
+				proposal.client_relationships ||
+					(await pool.query(
+						"UPDATE project_proposal SET client_relationships = $1 WHERE project_id = $2 AND student_id = $3",
+						[client_relationships, projectId, req.user]
+					));
+				proposal.client_channels ||
+					(await pool.query(
+						"UPDATE project_proposal SET client_channels = $1 WHERE project_id = $2 AND student_id = $3",
+						[client_channels, projectId, req.user]
+					));
+				proposal.key_partners ||
+					(await pool.query(
+						"UPDATE project_proposal SET key_partners = $1 WHERE project_id = $2 AND student_id = $3",
+						[key_partners, projectId, req.user]
+					));
+				proposal.stakeholders ||
+					(await pool.query(
+						"UPDATE project_proposal SET stakeholders = $1 WHERE project_id = $2 AND student_id = $3",
+						[stakeholders, projectId, req.user]
+					));
+				proposal.networks ||
+					(await pool.query(
+						"UPDATE project_proposal SET networks = $1 WHERE project_id = $2 AND student_id = $3",
+						[networks, projectId, req.user]
+					));
+				proposal.startup_costs ||
+					(await pool.query(
+						"UPDATE project_proposal SET startup_costs = $1 WHERE project_id = $2 AND student_id = $3",
+						[startup_costs, projectId, req.user]
+					));
+				proposal.operational_costs ||
+					(await pool.query(
+						"UPDATE project_proposal SET operational_costs = $1 WHERE project_id = $2 AND student_id = $3",
+						[operational_costs, projectId, req.user]
+					));
+				proposal.finance_plan ||
+					(await pool.query(
+						"UPDATE project_proposal SET finance_plan = $1 WHERE project_id = $2 AND student_id = $3",
+						[finance_plan, projectId, req.user]
+					));
+				proposal.business_plan ||
+					(await pool.query(
+						"UPDATE project_proposal SET business_plan = $1 WHERE project_id = $2 AND student_id = $3",
+						[business_plan, projectId, req.user]
+					));
+				proposal.implementation_plan = await pool.query(
+					"UPDATE project_proposal SET implementation_plan = $1 WHERE project_id = $2 AND student_id = $3",
+					[implementation_plan, projectId, req.user]
 				);
+				proposal.key_milestones ||
+					(await pool.query(
+						"UPDATE project_proposal SET key_milestones = $1 WHERE project_id = $2 AND student_id = $3",
+						[key_milestones, projectId, req.user]
+					));
+				proposal.monitoring_and_evaluation = await pool.query(
+					"UPDATE project_proposal SET monitoring_and_evaluation = $1 WHERE project_id = $2 AND student_id = $3",
+					[monitoring_and_evaluation, projectId, req.user]
+				);
+				proposal.who_we_are ||
+					(await pool.query(
+						"UPDATE project_proposal SET who_we_are = $1 WHERE project_id = $2 AND student_id = $3",
+						[who_we_are, projectId, req.user]
+					));
+				proposal.vision_and_mission ||
+					(await pool.query(
+						"UPDATE project_proposal SET vision_and_mission = $1 WHERE project_id = $2 AND student_id = $3",
+						[vision_and_mission, projectId, req.user]
+					));
+				proposal.track_record ||
+					(await pool.query(
+						"UPDATE project_proposal SET track_record = $1 WHERE project_id = $2 AND student_id = $3",
+						[track_record, projectId, req.user]
+					));
 			}
-
-			console.log(expected_result, req.user, projectId);
 			res.json({
 				status: "success",
 				message: "Project proposal Updated!",
