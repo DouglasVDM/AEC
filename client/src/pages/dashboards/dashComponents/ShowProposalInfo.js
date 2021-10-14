@@ -6,7 +6,7 @@ import React from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import EditProposal from "./EditProposal";
 
-const ShowProposalInfo = ({ setPage, proposal }) => {
+const ShowProposalInfo = ({ setPage, proposal, projects, setDataChange }) => {
 	return (
 		<>
 			<div
@@ -18,7 +18,7 @@ const ShowProposalInfo = ({ setPage, proposal }) => {
 				Go Back
 			</div>
 			<div className="edit-proposal">
-				<EditProposal proposal={proposal} />
+				<EditProposal proposal={proposal} projects={projects} setDataChange={setDataChange} />
 			</div>
 			<div className="show-proposal-container">
 				{proposal.map((info, idx) => {

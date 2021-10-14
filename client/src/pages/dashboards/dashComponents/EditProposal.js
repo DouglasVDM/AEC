@@ -2,7 +2,8 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState } from "react";
 
-const EditProposal = ({ proposal }) => {
+const EditProposal = ({ proposal, setDataChange }) => {
+
 	let entry = proposal[0];
 	const {
 		project_name,
@@ -41,7 +42,7 @@ const EditProposal = ({ proposal }) => {
 	const [teams, setTeams] = useState(team);
 	const [clientProfile, setClientProfile] = useState(client_profile);
 	const [clientRelation, setClientRelation] = useState(client_relationships);
-	const [clienChannel, setClientChannel] = useState(client_channels);
+	const [clientChannel, setClientChannel] = useState(client_channels);
 	const [keyPartner, setKeyPartner] = useState(key_partners);
 	const [stakeholder, setStakeholder] = useState(stakeholders);
 	const [network, setNetwork] = useState(networks);
@@ -62,23 +63,20 @@ const EditProposal = ({ proposal }) => {
 			myHeaders.append("Content-Type", "application/json");
 			myHeaders.append("token", localStorage.token);
 
-			const body = { projectName };
+			const body = { projectName, problem, action, expectResult, socialReturn, keyActivity, keyResource, teams, clientProfile, clientRelation, clientChannel, keyPartner, stakeholder, network, startCost, operationCost, financePlan, businessPlan, implementation, keyMilestone, monitoring, whoWeAre, vision, trackRecord };
 
 			const response = await fetch(`/api/student/projects/proposal/${id}`, {
 				method: "PUT",
 				headers: myHeaders,
 				body: JSON.stringify(body),
 			});
-
-			// const parseResponse = await response.json();
 			console.log(response);
+			setDataChange(true);
 		} catch (error) {
 			console.error(error.message);
 		}
 	};
-console.log(entry);
-console.log(entry.project_id);
-console.log(projectName);
+
 	return (
 		<>
 			<button
@@ -164,7 +162,7 @@ console.log(projectName);
 							<input
 								type="text"
 								className="form-control"
-								value={clienChannel}
+								value={clientChannel}
 								onChange={(e) => setClientChannel(e.target.value)}
 							/>
 							<input
@@ -247,12 +245,13 @@ console.log(projectName);
 							/>
 						</div>
 
+
 						<div className="modal-footer">
 							<button
 								type="button"
 								className="btn btn-warning"
 								data-dismiss="modal"
-								onClick={() => EditProposalText(proposal[0].project_id)}
+								onClick={() => EditProposalText(entry.project_id)}
 							>
 								Edit
 							</button>
