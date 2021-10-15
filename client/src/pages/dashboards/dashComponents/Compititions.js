@@ -48,7 +48,7 @@ const Competitions = ({ setPage, setDataChange }) => {
 							<div className="card-body">
 								<h5 className="card-title">{comp.comp_title}</h5>
 								<p className="card-text">{comp.comp_desc}</p>
-								<p className="card-text">Contact: {comp.contact}</p>
+								<p className="card-text">Contact: {comp.contact_pers}</p>
 							</div>
 						</div>
 					);
