@@ -6,6 +6,7 @@ const EditProposal = ({ proposal, setDataChange }) => {
 
 	let entry = proposal[0];
 	const {
+		project_id,
 		project_name,
 		problem_statement,
 		proposed_action,
@@ -83,7 +84,7 @@ const EditProposal = ({ proposal, setDataChange }) => {
 				type="button"
 				className="btn btn-primary"
 				data-toggle="modal"
-				data-target={`#id${entry.project_id}`}
+				data-target={`#id${project_id}`}
 			>
 				Open Project
 			</button>
@@ -102,145 +103,145 @@ const EditProposal = ({ proposal, setDataChange }) => {
 							<input
 								type="text"
 								className="form-control"
-								value={projectName}
+								value={projectName === null ? "" : projectName}
 								onChange={(e) => setProjectName(e.target.value)}
 							/>
 							<input
 								type="text"
 								className="form-control"
-								value={problem}
+								value={problem === null ? "" : problem}
 								onChange={(e) => setProblem(e.target.value)}
 							/>
 							<input
 								type="text"
 								className="form-control"
-								value={action}
+								value={action === null ? "" : action}
 								onChange={(e) => setAction(e.target.value)}
 							/>
 							<input
 								type="text"
 								className="form-control"
-								value={expectResult}
+								value={expectResult === null ? "" : expectResult}
 								onChange={(e) => setExpectResult(e.target.value)}
 							/>
 							<input
 								type="text"
 								className="form-control"
-								value={socialReturn}
+								value={socialReturn === null ? "" : socialReturn}
 								onChange={(e) => setSocialReturn(e.target.value)}
 							/>
 							<input
 								type="text"
 								className="form-control"
-								value={keyActivity}
+								value={keyActivity === null ? "" : keyActivity}
 								onChange={(e) => setKeyActivity(e.target.value)}
 							/>
 							<input
 								type="text"
 								className="form-control"
-								value={keyResource}
+								value={keyResource === null ? "" : keyResource}
 								onChange={(e) => setKeyResource(e.target.value)}
 							/>
 							<input
 								type="text"
 								className="form-control"
-								value={teams}
+								value={teams === null ? "" : teams}
 								onChange={(e) => setTeams(e.target.value)}
 							/>
 							<input
 								type="text"
 								className="form-control"
-								value={clientProfile}
+								value={clientProfile === null ? "" : clientProfile}
 								onChange={(e) => setClientProfile(e.target.value)}
 							/>
 							<input
 								type="text"
 								className="form-control"
-								value={clientRelation}
+								value={clientRelation === null ? "" : clientRelation}
 								onChange={(e) => setClientRelation(e.target.value)}
 							/>
 							<input
 								type="text"
 								className="form-control"
-								value={clientChannel}
+								value={clientChannel === null ? "" : clientChannel}
 								onChange={(e) => setClientChannel(e.target.value)}
 							/>
 							<input
 								type="text"
 								className="form-control"
-								value={keyPartner}
+								value={keyPartner === null ? "" : keyPartner}
 								onChange={(e) => setKeyPartner(e.target.value)}
 							/>
 							<input
 								type="text"
 								className="form-control"
-								value={stakeholder}
+								value={stakeholder === null ? "" : stakeholder}
 								onChange={(e) => setStakeholder(e.target.value)}
 							/>
 							<input
 								type="text"
 								className="form-control"
-								value={network}
+								value={network === null ? "" : network}
 								onChange={(e) => setNetwork(e.target.value)}
 							/>
 							<input
 								type="text"
 								className="form-control"
-								value={startCost}
+								value={startCost === null ? "" : startCost}
 								onChange={(e) => setStartCost(e.target.value)}
 							/>
 							<input
 								type="text"
 								className="form-control"
-								value={operationCost}
+								value={operationCost === null ? "" : operationCost}
 								onChange={(e) => setOperationCost(e.target.value)}
 							/>
 							<input
 								type="text"
 								className="form-control"
-								value={financePlan}
+								value={financePlan === null ? "" : finance_plan}
 								onChange={(e) => setFinancePlan(e.target.value)}
 							/>
 							<input
 								type="text"
 								className="form-control"
-								value={businessPlan}
+								value={businessPlan === null ? "" : businessPlan}
 								onChange={(e) => setBusinessPlan(e.target.value)}
 							/>
 							<input
 								type="text"
 								className="form-control"
-								value={implementation}
+								value={implementation === null ? "" : implementation}
 								onChange={(e) => setImplementation(e.target.value)}
 							/>
 							<input
 								type="text"
 								className="form-control"
-								value={keyMilestone}
+								value={keyMilestone === null ? "" : keyMilestone}
 								onChange={(e) => setKeyMilestone(e.target.value)}
 							/>
 							<input
 								type="text"
 								className="form-control"
-								value={monitoring}
+								value={monitoring === null ? "" : monitoring}
 								onChange={(e) => setMonitoring(e.target.value)}
 							/>
 							<input
 								type="text"
 								className="form-control"
-								value={whoWeAre}
+								value={whoWeAre === null ? "" : whoWeAre}
 								onChange={(e) => setWhoWeAre(e.target.value)}
 							/>
 							<input
 								type="text"
 								className="form-control"
-								value={vision}
+								value={vision === null ? "" : vision}
 								onChange={(e) => setVision(e.target.value)}
 							/>
 							<input
 								type="text"
 								className="form-control"
-								value={trackRecord}
+								value={trackRecord === null ? "" : trackRecord}
 								onChange={(e) => setsetTrackRecord(e.target.value)}
 							/>
 						</div>
@@ -251,7 +252,7 @@ const EditProposal = ({ proposal, setDataChange }) => {
 								type="button"
 								className="btn btn-warning"
 								data-dismiss="modal"
-								onClick={() => EditProposalText(entry.project_id)}
+								onClick={() => EditProposalText(project_id)}
 							>
 								Edit
 							</button>
