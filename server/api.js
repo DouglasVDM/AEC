@@ -339,6 +339,8 @@ router.put(
 	}
 );
 
+
+
 // ADD NEW COMPETITION
 router.post("/competition", authorization, async (req, res) => {
 	try {

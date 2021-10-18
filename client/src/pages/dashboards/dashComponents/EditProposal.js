@@ -1,12 +1,39 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 
 const EditProposal = ({ proposal, setDataChange }) => {
-
 	let entry = proposal[0];
+
+	const [inputChange, setInputChange] = useState({
+		project_name: entry.project_name,
+		problem_statement: entry.problem_statement,
+		proposed_action: entry.proposed_action,
+		expected_result: entry.expected_result,
+		social_returns: entry.social_returns,
+		key_activities: entry.key_activities,
+		key_resources: entry.key_resources,
+		team: entry.team,
+		client_profile: entry.client_profile,
+		client_relationships: entry.client_relationships,
+		client_channels: entry.client_channels,
+		key_partners: entry.key_partners,
+		stakeholders: entry.stakeholders,
+		networks: entry.networks,
+		startup_costs: entry.startup_costs,
+		operational_costs: entry.operational_costs,
+		finance_plan: entry.finance_plan,
+		business_plan: entry.business_plan,
+		implementation_plan: entry.implementation_plan,
+		key_milestones: entry.key_milestones,
+		monitoring_and_evaluation: entry.monitoring_and_evaluation,
+		who_we_are: entry.who_we_are,
+		vision_and_mission: entry.vision_and_mission,
+		track_record: entry.track_record,
+	});
+
 	const {
-		project_id,
 		project_name,
 		problem_statement,
 		proposed_action,
@@ -31,32 +58,16 @@ const EditProposal = ({ proposal, setDataChange }) => {
 		who_we_are,
 		vision_and_mission,
 		track_record,
-	} = entry;
+	} = inputChange;
 
-	const [projectName, setProjectName] = useState(project_name);
-	const [problem, setProblem] = useState(problem_statement);
-	const [action, setAction] = useState(proposed_action);
-	const [expectResult, setExpectResult] = useState(expected_result);
-	const [socialReturn, setSocialReturn] = useState(social_returns);
-	const [keyActivity, setKeyActivity] = useState(key_activities);
-	const [keyResource, setKeyResource] = useState(key_resources);
-	const [teams, setTeams] = useState(team);
-	const [clientProfile, setClientProfile] = useState(client_profile);
-	const [clientRelation, setClientRelation] = useState(client_relationships);
-	const [clientChannel, setClientChannel] = useState(client_channels);
-	const [keyPartner, setKeyPartner] = useState(key_partners);
-	const [stakeholder, setStakeholder] = useState(stakeholders);
-	const [network, setNetwork] = useState(networks);
-	const [startCost, setStartCost] = useState(startup_costs);
-	const [operationCost, setOperationCost] = useState(operational_costs);
-	const [financePlan, setFinancePlan] = useState(finance_plan);
-	const [businessPlan, setBusinessPlan] = useState(business_plan);
-	const [implementation, setImplementation] = useState(implementation_plan);
-	const [keyMilestone, setKeyMilestone] = useState(key_milestones);
-	const [monitoring, setMonitoring] = useState(monitoring_and_evaluation);
-	const [whoWeAre, setWhoWeAre] = useState(who_we_are);
-	const [vision, setVision] = useState(vision_and_mission);
-	const [trackRecord, setsetTrackRecord] = useState(track_record);
+	const onChange = (e) => {
+		setInputChange((change) => {
+			return {
+				...change,
+				[e.target.name]: e.target.value,
+			};
+		});
+	};
 
 	const EditProposalText = async (id) => {
 		try {
@@ -64,13 +75,42 @@ const EditProposal = ({ proposal, setDataChange }) => {
 			myHeaders.append("Content-Type", "application/json");
 			myHeaders.append("token", localStorage.token);
 
-			const body = { projectName, problem, action, expectResult, socialReturn, keyActivity, keyResource, teams, clientProfile, clientRelation, clientChannel, keyPartner, stakeholder, network, startCost, operationCost, financePlan, businessPlan, implementation, keyMilestone, monitoring, whoWeAre, vision, trackRecord };
-
+			const body = {
+				project_name,
+				problem_statement,
+				proposed_action,
+				expected_result,
+				social_returns,
+				key_activities,
+				key_resources,
+				team,
+				client_profile,
+				client_relationships,
+				client_channels,
+				key_partners,
+				stakeholders,
+				networks,
+				startup_costs,
+				operational_costs,
+				finance_plan,
+				business_plan,
+				implementation_plan,
+				key_milestones,
+				monitoring_and_evaluation,
+				who_we_are,
+				vision_and_mission,
+				track_record,
+			};
+			console.log(body);
 			const response = await fetch(`/api/student/projects/proposal/${id}`, {
 				method: "PUT",
 				headers: myHeaders,
 				body: JSON.stringify(body),
 			});
+
+			if (response.status === 200) {
+				toast.success("Project Updated Successfully!!");
+			}
 			console.log(response);
 			setDataChange(true);
 		} catch (error) {
@@ -84,7 +124,7 @@ const EditProposal = ({ proposal, setDataChange }) => {
 				type="button"
 				className="btn btn-primary"
 				data-toggle="modal"
-				data-target={`#id${project_id}`}
+				data-target={`#id${entry.project_id}`}
 			>
 				Open Project
 			</button>
@@ -103,156 +143,185 @@ const EditProposal = ({ proposal, setDataChange }) => {
 							<input
 								type="text"
 								className="form-control"
-								value={projectName === null ? "" : projectName}
-								onChange={(e) => setProjectName(e.target.value)}
+								name="project_name"
+								value={project_name === null ? "" : project_name}
+								onChange={(e) => onChange(e)}
 							/>
 							<input
 								type="text"
+								name="problem_statement"
 								className="form-control"
-								value={problem === null ? "" : problem}
-								onChange={(e) => setProblem(e.target.value)}
+								value={problem_statement === null ? "" : problem_statement}
+								onChange={(e) => onChange(e)}
 							/>
 							<input
 								type="text"
+								name="proposed_action"
 								className="form-control"
-								value={action === null ? "" : action}
-								onChange={(e) => setAction(e.target.value)}
+								value={proposed_action === null ? "" : proposed_action}
+								onChange={(e) => onChange(e)}
 							/>
 							<input
 								type="text"
+								name="expected_result"
 								className="form-control"
-								value={expectResult === null ? "" : expectResult}
-								onChange={(e) => setExpectResult(e.target.value)}
+								value={expected_result === null ? "" : expected_result}
+								onChange={(e) => onChange(e)}
 							/>
 							<input
 								type="text"
+								name="social_returns"
 								className="form-control"
-								value={socialReturn === null ? "" : socialReturn}
-								onChange={(e) => setSocialReturn(e.target.value)}
+								value={social_returns === null ? "" : social_returns}
+								onChange={(e) => onChange(e)}
 							/>
 							<input
 								type="text"
+								name="key_activities"
 								className="form-control"
-								value={keyActivity === null ? "" : keyActivity}
-								onChange={(e) => setKeyActivity(e.target.value)}
+								value={key_activities === null ? "" : key_activities}
+								onChange={(e) => onChange(e)}
 							/>
 							<input
 								type="text"
+								name="key_resources"
 								className="form-control"
-								value={keyResource === null ? "" : keyResource}
-								onChange={(e) => setKeyResource(e.target.value)}
+								value={key_resources === null ? "" : key_resources}
+								onChange={(e) => onChange(e)}
 							/>
 							<input
 								type="text"
+								name="team"
 								className="form-control"
-								value={teams === null ? "" : teams}
-								onChange={(e) => setTeams(e.target.value)}
+								value={team === null ? "" : team}
+								onChange={(e) => onChange(e)}
 							/>
 							<input
 								type="text"
+								name="client_profile"
 								className="form-control"
-								value={clientProfile === null ? "" : clientProfile}
-								onChange={(e) => setClientProfile(e.target.value)}
+								value={client_profile === null ? "" : client_profile}
+								onChange={(e) => onChange(e)}
 							/>
 							<input
 								type="text"
+								name="client_relationships"
 								className="form-control"
-								value={clientRelation === null ? "" : clientRelation}
-								onChange={(e) => setClientRelation(e.target.value)}
+								value={
+									client_relationships === null ? "" : client_relationships
+								}
+								onChange={(e) => onChange(e)}
 							/>
 							<input
 								type="text"
+								name="client_channels"
 								className="form-control"
-								value={clientChannel === null ? "" : clientChannel}
-								onChange={(e) => setClientChannel(e.target.value)}
+								value={client_channels === null ? "" : client_channels}
+								onChange={(e) => onChange(e)}
 							/>
 							<input
 								type="text"
+								name="key_partners"
 								className="form-control"
-								value={keyPartner === null ? "" : keyPartner}
-								onChange={(e) => setKeyPartner(e.target.value)}
+								value={key_partners === null ? "" : key_partners}
+								onChange={(e) => onChange(e)}
 							/>
 							<input
 								type="text"
+								name="stakeholders"
 								className="form-control"
-								value={stakeholder === null ? "" : stakeholder}
-								onChange={(e) => setStakeholder(e.target.value)}
+								value={stakeholders === null ? "" : stakeholders}
+								onChange={(e) => onChange(e)}
 							/>
 							<input
 								type="text"
+								name="networks"
 								className="form-control"
-								value={network === null ? "" : network}
-								onChange={(e) => setNetwork(e.target.value)}
+								value={networks === null ? "" : networks}
+								onChange={(e) => onChange(e)}
 							/>
 							<input
 								type="text"
+								name="startup_costs"
 								className="form-control"
-								value={startCost === null ? "" : startCost}
-								onChange={(e) => setStartCost(e.target.value)}
+								value={startup_costs === null ? "" : startup_costs}
+								onChange={(e) => onChange(e)}
 							/>
 							<input
 								type="text"
+								name="operational_costs"
 								className="form-control"
-								value={operationCost === null ? "" : operationCost}
-								onChange={(e) => setOperationCost(e.target.value)}
+								value={operational_costs === null ? "" : operational_costs}
+								onChange={(e) => onChange(e)}
 							/>
 							<input
 								type="text"
+								name="finance_plan"
 								className="form-control"
-								value={financePlan === null ? "" : finance_plan}
-								onChange={(e) => setFinancePlan(e.target.value)}
+								value={finance_plan === null ? "" : finance_plan}
+								onChange={(e) => onChange(e)}
 							/>
 							<input
 								type="text"
+								name="business_plan"
 								className="form-control"
-								value={businessPlan === null ? "" : businessPlan}
-								onChange={(e) => setBusinessPlan(e.target.value)}
+								value={business_plan === null ? "" : business_plan}
+								onChange={(e) => onChange(e)}
 							/>
 							<input
 								type="text"
+								name="implementation_plan"
 								className="form-control"
-								value={implementation === null ? "" : implementation}
-								onChange={(e) => setImplementation(e.target.value)}
+								value={implementation_plan === null ? "" : implementation_plan}
+								onChange={(e) => onChange(e)}
 							/>
 							<input
 								type="text"
+								name="key_milestones"
 								className="form-control"
-								value={keyMilestone === null ? "" : keyMilestone}
-								onChange={(e) => setKeyMilestone(e.target.value)}
+								value={key_milestones === null ? "" : key_milestones}
+								onChange={(e) => onChange(e)}
 							/>
 							<input
 								type="text"
+								name="monitoring_and_evaluation"
 								className="form-control"
-								value={monitoring === null ? "" : monitoring}
-								onChange={(e) => setMonitoring(e.target.value)}
+								value={
+									monitoring_and_evaluation === null
+										? ""
+										: monitoring_and_evaluation
+								}
+								onChange={(e) => onChange(e)}
 							/>
 							<input
 								type="text"
+								name="who_we_are"
 								className="form-control"
-								value={whoWeAre === null ? "" : whoWeAre}
-								onChange={(e) => setWhoWeAre(e.target.value)}
+								value={who_we_are === null ? "" : who_we_are}
+								onChange={(e) => onChange(e)}
 							/>
 							<input
 								type="text"
+								name="vision_and_mission"
 								className="form-control"
-								value={vision === null ? "" : vision}
-								onChange={(e) => setVision(e.target.value)}
+								value={vision_and_mission === null ? "" : vision_and_mission}
+								onChange={(e) => onChange(e)}
 							/>
 							<input
 								type="text"
+								name="track_record"
 								className="form-control"
-								value={trackRecord === null ? "" : trackRecord}
-								onChange={(e) => setsetTrackRecord(e.target.value)}
+								value={track_record === null ? "" : track_record}
+								onChange={(e) => onChange(e)}
 							/>
 						</div>
-
 
 						<div className="modal-footer">
 							<button
 								type="button"
 								className="btn btn-warning"
 								data-dismiss="modal"
-								onClick={() => EditProposalText(project_id)}
+								onClick={() => EditProposalText(entry.project_id)}
 							>
 								Edit
 							</button>
@@ -275,56 +344,4 @@ const EditProposal = ({ proposal, setDataChange }) => {
 
 export default EditProposal;
 
-// const {
-//     project_name,
-//     problem_statement,
-//     proposed_action,
-//     expected_result,
-//     social_returns,
-//     key_activities,
-//     key_resources,
-//     team,
-//     client_profile,
-//     client_relationships,
-//     client_channels,
-//     key_partners,
-//     stakeholders,
-//     networks,
-//     startup_costs,
-//     operational_costs,
-//     finance_plan,
-//     business_plan,
-//     implementation_plan,
-//     key_milestones,
-//     monitoring_and_evaluation,
-//     who_we_are,
-//     vision_and_mission,
-//     track_record,
-// } = data;
 
-// const [data, setData] = useState({
-// 	project_name: "",
-// 	problem_statement: "",
-// 	proposed_action: "",
-// 	expected_result: "",
-// 	social_returns: "",
-// 	key_activities: "",
-// 	key_resources: "",
-// 	team: "",
-// 	client_profile: "",
-// 	client_relationships: "",
-// 	client_channels: "",
-// 	key_partners: "",
-// 	stakeholders: "",
-// 	networks: "",
-// 	startup_costs: "",
-// 	operational_costs: "",
-// 	finance_plan: "",
-// 	business_plan: "",
-// 	implementation_plan: "",
-// 	key_milestones: "",
-// 	monitoring_and_evaluation: "",
-// 	who_we_are: "",
-// 	vision_and_mission: "",
-// 	track_record: "",
-// });
