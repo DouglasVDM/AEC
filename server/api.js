@@ -68,7 +68,7 @@ router.post("/student/projects", authorization, async (req, res) => {
 router.get("/student/projects/proposal", authorization, async (req, res) => {
 	try {
 		const result = await pool.query(
-			"SELECT * FROM project_proposal WHERE student_id = $1 LIMIT 5",
+			"SELECT * FROM project_proposal WHERE student_id = $1",
 			[req.user]
 		);
 		res.json(result.rows);
@@ -198,6 +198,7 @@ router.put(
 			who_we_are,
 			vision_and_mission,
 			track_record,
+			project_status = "await feedback",
 		} = req.body;
 
 		try {
@@ -328,6 +329,11 @@ router.put(
 						"UPDATE project_proposal SET track_record = $1 WHERE project_id = $2 AND student_id = $3",
 						[track_record, projectId, req.user]
 					)) : proposal.track_record;
+					proposal.project_status = project_status ?
+					(await pool.query(
+						"UPDATE project_proposal SET project_status = $1 WHERE project_id = $2 AND student_id = $3",
+						[project_status, projectId, req.user]
+					)) : proposal.project_status = "await feedback";
 			}
 			res.json({
 				status: "success",
