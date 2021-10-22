@@ -30,7 +30,7 @@ router.post("/project", async (req, res) => {
 // GET ALL PROJECT
 router.get("/project", async (req, res) => {
 	try {
-		const projects = await pool.query("SELECT * FROM project_proposal");
+		const projects = await pool.query("SELECT * FROM project_proposal INNER JOIN students ON project_proposal.student_id = students.student_id");
 		res.json(projects.rows);
 	} catch (error) {
 		res.status(500).json({ error: error.message });
@@ -198,6 +198,7 @@ router.put(
 			who_we_are,
 			vision_and_mission,
 			track_record,
+			project_status = "await feedback",
 		} = req.body;
 
 		try {
@@ -328,6 +329,11 @@ router.put(
 						"UPDATE project_proposal SET track_record = $1 WHERE project_id = $2 AND student_id = $3",
 						[track_record, projectId, req.user]
 					)) : proposal.track_record;
+				proposal.project_status = project_status ?
+					(await pool.query(
+						"UPDATE project_proposal SET project_status = $1 WHERE project_id = $2 AND student_id = $3",
+						[project_status, projectId, req.user]
+					)) : proposal.project_status;
 			}
 			res.json({
 				status: "success",
@@ -499,8 +505,8 @@ router.post("/mentor/feedback/:projectId", authorization, async (req, res) => {
 		);
 
 		if (foundProposal && foundFeedback) {
-			await pool.query("UPDATE project_proposal SET project_status = $1", [
-				project_status,
+			await pool.query("UPDATE project_proposal SET project_status = $1 WHERE project_id = $2", [
+				project_status, projectId,
 			]);
 		}
 	} catch (error) {

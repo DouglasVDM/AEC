@@ -82,11 +82,11 @@ const ShowProposalInfo = ({ setPage, proposal, projects, setDataChange }) => {
 							</div>
 							<h5>Start Up Cost</h5>
 							<div className="proposal-info">
-								<p>{info.startup_cost}</p>
+								<p>{info.startup_costs}</p>
 							</div>
 							<h5>Operational Cost</h5>
 							<div className="proposal-info">
-								<p>{info.operational_cost}</p>
+								<p>{info.operational_costs}</p>
 							</div>
 							<h5>Finance Plan</h5>
 							<div className="proposal-info">

@@ -10,7 +10,7 @@ const Feedback = ({ setPage, setDataChange }) => {
 		try {
 			const response = await fetch("/api/student/feedback", {
 				method: "GET",
-				headers: { token: localStorage.token },
+				headers: { "token": localStorage.token },
 			});
 
 			const parseResponse = await response.json();
@@ -24,7 +24,7 @@ const Feedback = ({ setPage, setDataChange }) => {
 
 	useEffect(() => {
 		getMentorFeedback();
-	}, []);
+	});
 
 	return (
 		<>

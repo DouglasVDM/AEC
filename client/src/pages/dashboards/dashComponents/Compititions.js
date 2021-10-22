@@ -12,7 +12,7 @@ const Competitions = ({ setPage, setDataChange }) => {
 		try {
 			const response = await fetch("/api/competition", {
 				method: "GET",
-				headers: { token: localStorage.token },
+				headers: { "token": localStorage.token },
 			});
 
 			const parseResponse = await response.json();
@@ -27,7 +27,7 @@ const Competitions = ({ setPage, setDataChange }) => {
 
 	useEffect(() => {
 		getCompetitions();
-	}, []);
+	});
 
 	return (
 		<>
@@ -49,7 +49,7 @@ const Competitions = ({ setPage, setDataChange }) => {
 							<div className="card-body">
 								<h5 className="card-title">{comp.comp_title}</h5>
 								<p className="card-text">{comp.comp_desc}</p>
-								<p className="card-text">Contact: {comp.contact}</p>
+								<p className="card-text">Contact: {comp.contact_pers}</p>
 							</div>
 						</div>
 					);
