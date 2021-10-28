@@ -18,7 +18,7 @@ const ShowProposalInfo = ({ setPage, proposal, projects, setDataChange }) => {
 				Go Back
 			</div>
 			<div className="edit-proposal">
-				<EditProposal proposal={proposal} projects={projects} setDataChange={setDataChange} />
+				<EditProposal proposal={proposal} projects={projects} setDataChange={setDataChange} setPage={setPage} />
 			</div>
 			<div className="show-proposal-container">
 				{proposal.map((info, idx) => {

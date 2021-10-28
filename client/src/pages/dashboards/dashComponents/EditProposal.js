@@ -5,7 +5,7 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 
-const EditProposal = ({ proposal, setDataChange }) => {
+const EditProposal = ({ proposal, setDataChange, setPage }) => {
 	let entry = proposal[0];
 
 	const [inputChange, setInputChange] = useState({
@@ -112,6 +112,7 @@ const EditProposal = ({ proposal, setDataChange }) => {
 
 			if (response.status === 200) {
 				toast.success("Project Updated Successfully!!");
+				setPage("");
 			}
 
 			setDataChange(true);
@@ -127,8 +128,9 @@ const EditProposal = ({ proposal, setDataChange }) => {
 				className="btn btn-primary"
 				data-toggle="modal"
 				data-target={`#id${entry.project_id}`}
+				style={{ backgroundColor: "#551b33", color: "#fff" }}
 			>
-				Open Project
+				Edit Project
 			</button>
 
 			<div className="modal" id={`id${entry.project_id}`}>
