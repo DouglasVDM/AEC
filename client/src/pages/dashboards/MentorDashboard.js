@@ -29,7 +29,7 @@ const MentorDashboard = ({ setAuth }) => {
 		try {
 			const response = await fetch(`/api/student/projects/proposal/${id}`, {
 				method: "GET",
-				headers: { token: localStorage.token },
+				headers: { "token": localStorage.token },
 			});
 
 			const parseResponse = await response.json();
@@ -71,20 +71,20 @@ const MentorDashboard = ({ setAuth }) => {
 							<caption>List of Projects</caption>
 							<thead>
 								<tr>
-									<th scope="col">#</th>
-									<th scope="col">Project name</th>
-									<th scope="col">Problem statement</th>
-									<th scope="col">Proposed action</th>
-									<th scope="col">Project status</th>
+									<th scope="col" style={{ width: "10%" }}>#</th>
+									<th scope="col" style={{ width: "15%" }}>Student name</th>
+									<th scope="col" style={{ width: "15%" }}>Project name</th>
+									<th scope="col" style={{ width: "35%" }}>Problem statement</th>
+									<th scope="col" style={{ width: "15%" }}>Project status</th>
 								</tr>
 							</thead>
 							{proposals.map(
 								(
 									{
 										project_id,
+										student_name,
 										project_name,
 										problem_statement,
-										proposed_action,
 										project_status,
 									},
 									index
@@ -93,9 +93,9 @@ const MentorDashboard = ({ setAuth }) => {
 										<tbody key={project_id}>
 											<tr onClick={() => getProposalById(project_id)}>
 												<th scope="row">{index + 1}</th>
+												<td>{student_name}</td>
 												<td>{project_name}</td>
 												<td>{problem_statement}</td>
-												<td>{proposed_action}</td>
 												<td>{project_status}</td>
 											</tr>
 										</tbody>

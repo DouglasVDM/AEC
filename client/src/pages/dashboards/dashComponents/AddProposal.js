@@ -47,7 +47,6 @@ const AddProposal = ({ setPage, setDataChange }) => {
 
 	// API REQUEST
 	const makeApiRequest = async (formData) => {
-		console.log("Form Submitted", formData);
 
 		const myHeaders = new Headers();
 		myHeaders.append("Content-Type", "application/json");
@@ -67,7 +66,7 @@ const AddProposal = ({ setPage, setDataChange }) => {
 				setPage("");
 				setDataChange(true);
 			}
-			console.log("parseData=>", parseData);
+
 		} catch (error) {
 			console.error(error.message);
 		}
@@ -140,7 +139,6 @@ const AddProposal = ({ setPage, setDataChange }) => {
 		/>,
 	];
 
-	console.log("data", data);
 
 	return (
 		<div className="App">

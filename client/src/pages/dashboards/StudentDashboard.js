@@ -135,6 +135,7 @@ const StudentDashboard = () => {
 					<ShowProposalInfo
 						setPage={setPage}
 						proposal={proposal}
+						projects={projects}
 						setDataChange={setDataChange}
 					/>
 				) : (

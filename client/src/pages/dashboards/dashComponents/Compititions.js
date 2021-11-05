@@ -12,6 +12,7 @@ const Competitions = ({ setPage, setDataChange }) => {
 		try {
 			const response = await fetch("/api/competition", {
 				method: "GET",
+				headers: { "token": localStorage.token },
 			});
 
 			const parseResponse = await response.json();
@@ -26,7 +27,7 @@ const Competitions = ({ setPage, setDataChange }) => {
 
 	useEffect(() => {
 		getCompetitions();
-	}, []);
+	});
 
 	return (
 		<>
