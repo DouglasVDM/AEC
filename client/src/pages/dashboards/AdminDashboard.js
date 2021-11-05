@@ -56,7 +56,7 @@ const AdminDashboard = ({ setAuth }) => {
 				<Container style={{ width: "100%" }}>
 					<div style={{ width: "100%" }}>
 						{/* HEADING START*/}
-						<Box
+						{/* <Box
 							sx={{
 								display: "flex",
 								justifyContent: "center",
@@ -66,8 +66,8 @@ const AdminDashboard = ({ setAuth }) => {
 							<Typography variant="h5" component="h2">
 								Welcome back admin@sun.ac.za
 							</Typography>
+						</Box> */}
 							{/* HEADING END */}
-						</Box>
 						<Box
 							sx={{
 								display: "flex",
@@ -86,13 +86,23 @@ const AdminDashboard = ({ setAuth }) => {
 									Log out
 								</Button>
 							</Box>
-							<Button onClick={() => setPage("all")} variant="contained">
+							{/* <Button onClick={() => setPage("all")} variant="contained">
 								Projects
 							</Button>
 							<br />
 							<br />
 							<Button onClick={() => setPage("proposal")} variant="contained">
 								Add project
+							</Button> */}
+							<br />
+							<br />
+							<Button onClick={() => setPage("admin")} variant="contained">
+								Add Admin
+							</Button>
+							<br />
+							<br />
+							<Button onClick={() => setPage("mentor")} variant="contained">
+								Add Mentor
 							</Button>
 							<br />
 							<br />
@@ -112,14 +122,6 @@ const AdminDashboard = ({ setAuth }) => {
 							</Button>
 							<br />
 							<br />
-							<Button onClick={() => setPage("mentor")} variant="contained">
-								Add Mentor
-							</Button>
-							<br />
-							<br />
-							<Button onClick={() => setPage("admin")} variant="contained">
-								Add Admin
-							</Button>
 						</Box>
 					</div>
 				</Container>
