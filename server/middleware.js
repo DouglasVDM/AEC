@@ -10,8 +10,6 @@ export const configuredHelmet = () =>
 				scriptSrc: ["'self'", "unpkg.com", "polyfill.io"],
 				styleSrc: ["'self'", "https: 'unsafe-inline'"],
 				upgradeInsecureRequests: [],
-				"font-src": "'self'",
-				"script-src-elem": "'self'" ,
 			},
 		},
 	});
